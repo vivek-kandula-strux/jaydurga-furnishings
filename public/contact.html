@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Jaydurga Furnishings Extn. · Visit our Ameerpet Showroom</title>
+  <meta name="description" content="Visit Jaydurga Furnishings Extn. in Ameerpet, Hyderabad. Directions, phone, WhatsApp and enquiry form. Family-run since 1984." />
+
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" /></noscript>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --white:#fff; --black:#000;
+      --primary:#DC4646;
+      --secondary:#70857A;
+      --third:#FFEB8A;
+      --text:#101010;
+      --text-2:#3d3d3d;
+      --text-3:#767676;
+      --bg:#F7F7F7;
+      --line:#E9E9E9;
+      --yellow:#F0A750;
+    }
+
+    *,*::before,*::after { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'DM Sans', sans-serif;
+      color:var(--text);
+      background:#fff;
+      overflow-x:hidden;
+      font-size:15px;
+      line-height:1.6;
+    }
+    a { text-decoration:none; color:inherit; }
+    img { max-width:100%; display:block; }
+    h1,h2,h3,h4,h5,h6 { font-family:'Urbanist',sans-serif; font-weight:600; margin:0; letter-spacing:-0.3px; }
+
+    /* ===== Topbar ===== */
+    .topbar { background:#101010; color:#fff; font-size:13px; padding:10px 0; }
+    .topbar .container-fluid { max-width:1720px; padding:0 30px; }
+    .topbar-inner { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:30px; }
+    .topbar-hours { display:flex; align-items:center; gap:8px; font-size:13px; color:rgba(255,255,255,.85); white-space:nowrap; }
+    .topbar-hours i { color:var(--yellow); }
+    .topbar-marquee { text-align:center; overflow:hidden; min-width:0; }
+    .topbar-marquee-track { display:inline-flex; gap:80px; animation:marquee 30s linear infinite; white-space:nowrap; }
+    @keyframes marquee { to { transform:translateX(-50%); } }
+    .topbar-right { display:flex; justify-content:flex-end; align-items:center; gap:20px; font-size:13px; white-space:nowrap; }
+    .topbar-right a { transition:opacity .2s; }
+    .topbar-right a:hover { opacity:.7; }
+    .topbar-social { display:flex; gap:14px; }
+    .topbar-social a { font-size:14px; opacity:.8; }
+
+    /* ===== Header ===== */
+    .site-header { position:sticky; top:0; z-index:900; background:#fff; border-bottom:1px solid var(--line); transition:box-shadow .3s; }
+    .site-header.scrolled { box-shadow:0 2px 20px rgba(0,0,0,.06); }
+    .header-inner { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:30px; padding:10px 30px; max-width:1720px; margin:0 auto; }
+    .brand-logo { display:inline-flex; align-items:center; line-height:0; }
+    .brand-logo img { height:clamp(72px, 9vw, 112px); width:auto; display:block; }
+    .mnav-header .brand-logo img { height:48px; }
+    .footer-brand .brand-logo img { height:80px; }
+
+    .main-nav { display:flex; align-items:center; justify-content:center; gap:0; list-style:none; margin:0; padding:0; }
+    .main-nav > li { position:relative; }
+    .main-nav > li > a { display:flex; align-items:center; gap:6px; padding:26px 18px; font-size:15px; font-weight:500; color:var(--text); white-space:nowrap; transition:color .2s; }
+    .main-nav > li > a:hover, .main-nav > li.active > a { color:var(--primary); }
+    .main-nav > li > a .caret { font-size:10px; margin-top:2px; opacity:.7; }
+
+    .mega { position:absolute; top:100%; left:50%; transform:translateX(-50%) translateY(10px); width:760px; background:#fff; border:1px solid var(--line); box-shadow:0 15px 40px rgba(0,0,0,.08); padding:28px 30px; z-index:800; opacity:0; visibility:hidden; transition:.25s; }
+    .main-nav > li:hover .mega { opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
+    .mega h6 { font-family:'Urbanist',sans-serif; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text); margin-bottom:14px; }
+    .mega a { display:block; padding:5px 0; font-size:14px; color:var(--text-2); transition:color .2s, padding-left .2s; }
+    .mega a:hover { color:var(--primary); padding-left:4px; }
+
+    .header-actions { display:flex; align-items:center; gap:12px; }
+    .btn-call { display:inline-flex; align-items:center; gap:10px; background:var(--primary); color:#fff; padding:12px 20px; border-radius:2px; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600; letter-spacing:.2px; transition:background .2s, transform .2s; white-space:nowrap; }
+    .btn-call:hover { background:#b83535; color:#fff; transform:translateY(-1px); }
+    .btn-call i { font-size:13px; }
+    .btn-visit { display:inline-flex; align-items:center; gap:10px; background:transparent; color:var(--text); padding:12px 18px; border:1px solid var(--text); font-family:'DM Sans',sans-serif; font-size:14px; font-weight:500; transition:background .2s, color .2s; white-space:nowrap; }
+    .btn-visit:hover { background:var(--text); color:#fff; }
+    .btn-visit i { font-size:11px; }
+    .header-icon { position:relative; background:none; border:none; padding:0; cursor:pointer; font-size:20px; color:var(--text); transition:color .2s; display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; }
+    .header-icon:hover { color:var(--primary); }
+    .mobile-toggle { display:none; background:none; border:none; font-size:22px; padding:0; }
+
+    /* ===== Page Title ===== */
+    .page-title-shell { padding:56px 0 32px; text-align:center; background:#fff; }
+    .breadcrumbs { display:flex; align-items:center; justify-content:center; gap:8px; font-size:13px; color:var(--text-3); margin-bottom:18px; letter-spacing:.3px; }
+    .breadcrumbs a { color:var(--text-3); transition:color .2s; }
+    .breadcrumbs a:hover { color:var(--primary); }
+    .breadcrumbs .sep { font-size:10px; opacity:.5; }
+    .page-title-shell h1 {
+      font-family:'Urbanist',sans-serif;
+      font-size:clamp(38px, 5vw, 68px);
+      font-weight:500; letter-spacing:-1px;
+      margin-bottom:16px; line-height:1.08;
+    }
+    .page-title-lead { font-size:16px; color:var(--text-2); max-width:640px; margin:0 auto; line-height:1.7; }
+
+    .flat-spacing { padding:56px 0; }
+    .flat-spacing.pt-0 { padding-top:0; }
+    .flat-spacing.pb-0 { padding-bottom:0; }
+
+    /* ===== Map ===== */
+    .map-shell { padding-top:32px; }
+    .map-wrap { position:relative; overflow:hidden; border-radius:8px; height:clamp(320px, 45vw, 520px); border:1px solid var(--line); }
+    .map-wrap iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+    /* ===== Quick action row ===== */
+    .quick-actions { display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; margin-top:24px; }
+    .quick-card {
+      display:flex; align-items:center; gap:14px;
+      padding:20px 22px; background:#fff;
+      border:1px solid var(--line);
+      transition:.3s; color:var(--text);
+    }
+    .quick-card:hover { border-color:var(--primary); transform:translateY(-2px); color:var(--text); }
+    .quick-card .qi { width:44px; height:44px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:18px; color:#fff; background:var(--primary); border-radius:50%; }
+    .quick-card.wa .qi { background:#25D366; }
+    .quick-card.map .qi { background:var(--secondary); }
+    .quick-card.mail .qi { background:#101010; }
+    .quick-card .qt { font-family:'Urbanist',sans-serif; font-size:15px; font-weight:600; margin-bottom:2px; }
+    .quick-card .qs { font-size:13px; color:var(--text-3); }
+
+    /* ===== Contact grid (info + form) ===== */
+    .contact-grid { display:grid; grid-template-columns:1fr 1.15fr; gap:60px; align-items:flex-start; }
+    .contact-left h4 { font-family:'Urbanist',sans-serif; font-size:26px; font-weight:600; margin-bottom:10px; }
+    .contact-left p.intro { font-size:15px; color:var(--text-3); margin-bottom:32px; line-height:1.7; }
+    .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+    .info-item h6 { font-family:'Urbanist',sans-serif; font-size:13px; font-weight:600; letter-spacing:1.2px; text-transform:uppercase; color:var(--text); margin-bottom:8px; }
+    .info-item p, .info-item a { font-size:15px; color:var(--text-2); line-height:1.7; }
+    .info-item a { transition:color .2s; }
+    .info-item a:hover { color:var(--primary); }
+    .info-item.full { grid-column:span 2; }
+    .hours-list { list-style:none; margin:0; padding:0; }
+    .hours-list li { display:flex; justify-content:space-between; gap:12px; font-size:14.5px; color:var(--text-2); padding:6px 0; border-bottom:1px dashed var(--line); }
+    .hours-list li:last-child { border-bottom:none; }
+    .hours-list li span:first-child { color:var(--text-3); }
+    .hours-list li.closed span:last-child { color:var(--primary); font-weight:500; }
+
+    /* ===== Form ===== */
+    .contact-right { background:var(--bg); padding:40px; }
+    .contact-right h4 { font-family:'Urbanist',sans-serif; font-size:26px; font-weight:600; margin-bottom:10px; }
+    .contact-right p.intro { font-size:15px; color:var(--text-3); margin-bottom:28px; line-height:1.7; }
+    .form-get .row-2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .tf-field { display:flex; flex-direction:column; margin-bottom:18px; }
+    .tf-field label { font-family:'Urbanist',sans-serif; font-size:13px; font-weight:600; color:var(--text); margin-bottom:8px; letter-spacing:.3px; }
+    .tf-field label .req { color:var(--primary); }
+    .tf-field input, .tf-field select, .tf-field textarea {
+      font-family:'DM Sans',sans-serif; font-size:15px; color:var(--text);
+      background:#fff; border:1px solid var(--line);
+      padding:14px 16px; outline:none;
+      transition:border-color .2s;
+      width:100%;
+    }
+    .tf-field textarea { min-height:130px; resize:vertical; }
+    .tf-field input:focus, .tf-field select:focus, .tf-field textarea:focus { border-color:var(--primary); }
+    .check-wrap { display:flex; align-items:flex-start; gap:10px; margin-bottom:24px; font-size:13.5px; color:var(--text-3); line-height:1.6; }
+    .check-wrap input { margin-top:3px; accent-color:var(--primary); }
+    .tf-btn {
+      display:inline-flex; align-items:center; gap:12px;
+      background:var(--text); color:#fff;
+      padding:16px 32px;
+      font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600;
+      letter-spacing:.5px; text-transform:uppercase;
+      border:none; cursor:pointer; transition:background .2s;
+    }
+    .tf-btn:hover { background:var(--primary); }
+    .tf-btn i { font-size:11px; }
+
+    /* ===== Store hour box ===== */
+    .hour-box { padding:24px; background:#fff; border:1px solid var(--line); }
+
+    /* ===== Footer ===== */
+    .tf-footer { background:#101010; color:rgba(255,255,255,.7); padding:56px 0 0; }
+    .footer-inner { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr 1.5fr; gap:50px; }
+    .footer-brand .brand-logo { color:#fff; margin-bottom:20px; display:inline-block; }
+    .footer-desc { font-size:14px; line-height:1.8; margin-bottom:24px; color:rgba(255,255,255,.65); }
+    .footer-contact { margin-bottom:24px; }
+    .footer-contact .item { display:flex; gap:10px; font-size:14px; margin-bottom:10px; color:rgba(255,255,255,.75); }
+    .footer-contact .item i { color:var(--primary); flex-shrink:0; margin-top:4px; }
+    .footer-contact .item a { color:inherit; transition:color .2s; }
+    .footer-contact .item a:hover { color:#fff; }
+    .footer-title { font-family:'Urbanist',sans-serif; font-size:16px; font-weight:600; color:#fff; margin-bottom:20px; }
+    .footer-links { list-style:none; padding:0; margin:0; }
+    .footer-links li { margin-bottom:10px; }
+    .footer-links a { font-size:14px; color:rgba(255,255,255,.65); transition:color .2s; }
+    .footer-links a:hover { color:#fff; }
+    .footer-links a i { margin-right:8px; opacity:.6; font-size:12px; }
+    .footer-visit-map .map-thumb { position:relative; display:block; overflow:hidden; aspect-ratio:16/10; border-radius:4px; transition:transform .3s; }
+    .footer-visit-map .map-thumb:hover { transform:translateY(-2px); }
+    .footer-visit-map .map-thumb img { width:100%; height:100%; object-fit:cover; filter:brightness(.55); }
+    .footer-visit-map .map-pin { position:absolute; top:50%; left:50%; transform:translate(-50%,-140%); width:36px; height:36px; border-radius:50%; background:var(--primary); color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; box-shadow:0 6px 18px rgba(0,0,0,.4); }
+    .footer-visit-map .map-cta { position:absolute; left:50%; bottom:14px; transform:translateX(-50%); display:inline-flex; align-items:center; gap:8px; background:#fff; color:var(--text); padding:8px 14px; font-size:12px; font-weight:600; white-space:nowrap; }
+    .footer-visit-map .map-cta i { font-size:10px; }
+    .footer-social { display:flex; gap:12px; }
+    .footer-social a { width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; font-size:14px; color:rgba(255,255,255,.7); transition:.2s; }
+    .footer-social a:hover { background:var(--primary); color:#fff; }
+    .footer-bottom { margin-top:36px; padding:18px 0; border-top:1px solid rgba(255,255,255,.08); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+    .footer-bottom p { font-size:13px; margin:0; color:rgba(255,255,255,.5); }
+
+    /* ===== Floating buttons ===== */
+    .whatsapp-float { position:fixed; bottom:30px; left:30px; z-index:800; display:inline-flex; align-items:center; gap:10px; background:#25D366; color:#fff; padding:14px 20px; border-radius:60px; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600; box-shadow:0 8px 24px rgba(37,211,102,.4); transition:transform .2s, box-shadow .2s; }
+    .whatsapp-float:hover { color:#fff; transform:translateY(-2px); box-shadow:0 10px 28px rgba(37,211,102,.55); }
+    .whatsapp-float i { font-size:20px; }
+    .scroll-top { position:fixed; bottom:30px; right:30px; z-index:800; width:46px; height:46px; border-radius:50%; background:var(--text); color:#fff; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; opacity:0; transform:translateY(10px); transition:.3s; }
+    .scroll-top.visible { opacity:1; transform:translateY(0); }
+    .scroll-top:hover { background:var(--primary); }
+
+    /* ===== Mobile Nav ===== */
+    .mnav-overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); z-index:1500; display:none; }
+    .mnav-overlay.open { display:block; }
+    .mnav { position:fixed; left:-320px; top:0; width:320px; height:100vh; background:#fff; z-index:1600; overflow-y:auto; transition:left .3s; }
+    .mnav.open { left:0; }
+    .mnav-header { display:flex; align-items:center; justify-content:space-between; padding:20px; border-bottom:1px solid var(--line); }
+    .mnav > a { display:block; padding:14px 20px; font-size:15px; color:var(--text); border-bottom:1px solid var(--bg); }
+    .mnav > a:hover { color:var(--primary); background:var(--bg); }
+    .mnav-cta { display:flex; flex-direction:column; gap:10px; padding:20px; }
+    .mnav-cta a { display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:14px 16px; font-size:14px; font-weight:600; border-radius:2px; }
+    .mnav-call { background:var(--primary); color:#fff; }
+    .mnav-wa { background:#25D366; color:#fff; }
+    .mnav-visit { background:transparent; color:var(--text); border:1px solid var(--text); }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 1199px) {
+      .footer-inner { grid-template-columns:1fr 1fr 1fr; }
+      .footer-brand, .footer-visit-map { grid-column:span 3; }
+      .btn-call span { display:none; }
+      .btn-call { padding:12px 14px; }
+      .quick-actions { grid-template-columns:repeat(2, 1fr); }
+    }
+    @media (max-width: 991px) {
+      .main-nav { display:none; }
+      .mobile-toggle { display:block; }
+      .topbar-inner { grid-template-columns:1fr; }
+      .topbar-hours, .topbar-right { display:none; }
+      .btn-call, .btn-visit { display:none; }
+      .contact-grid { grid-template-columns:1fr; gap:40px; }
+      .contact-right { padding:30px 24px; }
+    }
+    @media (max-width: 640px) {
+      .flat-spacing { padding:44px 0; }
+      .page-title-shell { padding:36px 0 20px; }
+      .quick-actions { grid-template-columns:1fr; }
+      .info-grid { grid-template-columns:1fr; gap:22px; }
+      .info-item.full { grid-column:span 1; }
+      .form-get .row-2 { grid-template-columns:1fr; }
+      .whatsapp-float { bottom:20px; left:20px; padding:14px; }
+      .whatsapp-float .wa-label { display:none; }
+      .scroll-top { bottom:20px; right:20px; }
+      .footer-inner { grid-template-columns:1fr 1fr; }
+      .footer-brand, .footer-visit-map { grid-column:span 2; }
+      .footer-bottom { flex-direction:column; text-align:center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═════ TOP BAR ═════ -->
+<div class="topbar">
+  <div class="container-fluid">
+    <div class="topbar-inner">
+      <div class="topbar-hours d-none d-lg-flex">
+        <span><i class="fa-regular fa-clock"></i> Mon–Sat · 10:30 AM – 8:30 PM</span>
+      </div>
+      <div class="topbar-marquee">
+        <div class="topbar-marquee-track">
+          <span>42 Years of Handpicked Furnishings · Ameerpet, Hyderabad · Since 1984</span>
+          <span>Curtains · Carpets · Mattresses · Blinds · Wallpapers · Upholstery · Bedding · Table Linen</span>
+          <span>42 Years of Handpicked Furnishings · Ameerpet, Hyderabad · Since 1984</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <a href="tel:+919000000000"><i class="fa fa-phone"></i> +91 90000 00000</a>
+        <a href="https://wa.me/919000000000" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <div class="topbar-social">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════ HEADER ═════ -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <div class="d-flex align-items-center gap-3">
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><i class="fa fa-bars"></i></button>
+      <a href="index.html" class="brand-logo" aria-label="Jaydurga Furnishings Extn."><img src="assets/logo.svg" alt="Jaydurga Furnishings Extn."></a>
+    </div>
+
+    <nav>
+      <ul class="main-nav">
+        <li><a href="index.html">Home</a></li>
+        <li>
+          <a href="products.html">Products <i class="fa fa-chevron-down caret"></i></a>
+          <div class="mega">
+            <div class="row g-4">
+              <div class="col-3">
+                <h6>Windows</h6>
+                <a href="curtains.html">Curtains</a>
+                <a href="blinds.html">Blinds</a>
+              </div>
+              <div class="col-3">
+                <h6>Floor &amp; Wall</h6>
+                <a href="carpets.html">Carpets</a>
+                <a href="wallpapers.html">Wallpapers</a>
+              </div>
+              <div class="col-3">
+                <h6>Bedroom</h6>
+                <a href="mattresses.html">Mattresses</a>
+                <a href="bedding.html">Bedding</a>
+              </div>
+              <div class="col-3">
+                <h6>Living</h6>
+                <a href="upholstery.html">Upholstery</a>
+                <a href="table-linen.html">Table Linen</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li class="active"><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href="tel:+919000000000" class="btn-call d-none d-md-inline-flex"><i class="fa fa-phone"></i><span>Call +91 90000 00000</span></a>
+      <a href="contact.html" class="btn-visit d-none d-lg-inline-flex">Visit Showroom <i class="fa fa-arrow-right"></i></a>
+      <a href="tel:+919000000000" class="header-icon d-md-none" aria-label="Call"><i class="fa fa-phone"></i></a>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<div class="mnav-overlay" id="mnavOverlay"></div>
+<nav class="mnav" id="mnav">
+  <div class="mnav-header">
+    <span class="brand-logo"><img src="assets/logo.svg" alt="Jaydurga Furnishings Extn."></span>
+    <button style="background:none;border:none;font-size:20px" id="mnavClose"><i class="fa fa-times"></i></button>
+  </div>
+  <a href="index.html">Home</a>
+  <a href="products.html">Products</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <div class="mnav-cta">
+    <a href="tel:+919000000000" class="mnav-call"><i class="fa fa-phone"></i> Call Us</a>
+    <a href="https://wa.me/919000000000" target="_blank" rel="noopener" class="mnav-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    <a href="contact.html" class="mnav-visit"><i class="fa fa-location-dot"></i> Visit Showroom</a>
+  </div>
+</nav>
+
+<!-- ═════ PAGE TITLE ═════ -->
+<section class="page-title-shell">
+  <div class="container">
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a>
+      <i class="fa fa-chevron-right sep"></i>
+      <span>Contact</span>
+    </div>
+    <h1>Visit us on Ameerpet's<br />main street.</h1>
+    <p class="page-title-lead">Same doorway since 1984. Walk in with a swatch, a photo, or just an idea &mdash; the family will help you pick fabric that fits your home.</p>
+  </div>
+</section>
+
+<!-- ═════ MAP ═════ -->
+<section class="map-shell" id="directions">
+  <div class="container">
+    <div class="map-wrap">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.4632854073987!2d78.44228617502994!3d17.437362483466247!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb970003e02b4b%3A0x0!2sAmeerpet%2C%20Hyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1700000000000"
+        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        title="Jaydurga Furnishings Extn. — Ameerpet, Hyderabad"></iframe>
+    </div>
+
+    <!-- Quick actions -->
+    <div class="quick-actions">
+      <a class="quick-card" href="tel:+919000000000">
+        <span class="qi"><i class="fa fa-phone"></i></span>
+        <div>
+          <div class="qt">Call the shop</div>
+          <div class="qs">+91 90000 00000</div>
+        </div>
+      </a>
+      <a class="quick-card wa" href="https://wa.me/919000000000?text=Hi%20Jaydurga%2C%20I%27d%20like%20to%20visit%20the%20showroom." target="_blank" rel="noopener">
+        <span class="qi"><i class="fab fa-whatsapp"></i></span>
+        <div>
+          <div class="qt">WhatsApp us</div>
+          <div class="qs">Fastest reply, most days</div>
+        </div>
+      </a>
+      <a class="quick-card map" href="https://www.google.com/maps?q=Ameerpet+Hyderabad" target="_blank" rel="noopener">
+        <span class="qi"><i class="fa fa-location-dot"></i></span>
+        <div>
+          <div class="qt">Get directions</div>
+          <div class="qs">Open in Google Maps</div>
+        </div>
+      </a>
+      <a class="quick-card mail" href="mailto:hello@jaydurga.in">
+        <span class="qi"><i class="fa fa-envelope"></i></span>
+        <div>
+          <div class="qt">Email the family</div>
+          <div class="qs">hello@jaydurga.in</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ INFO + FORM ═════ -->
+<section class="flat-spacing">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- LEFT: Information -->
+      <div class="contact-left">
+        <h4>Where to find us</h4>
+        <p class="intro">Same shop, same family, same street since 1984. Drop in any day except Sunday &mdash; no appointment needed.</p>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <h6>Phone</h6>
+            <p><a href="tel:+919000000000">+91 90000 00000</a></p>
+          </div>
+          <div class="info-item">
+            <h6>WhatsApp</h6>
+            <p><a href="https://wa.me/919000000000" target="_blank" rel="noopener">+91 90000 00000</a></p>
+          </div>
+          <div class="info-item">
+            <h6>Email</h6>
+            <p><a href="mailto:hello@jaydurga.in">hello@jaydurga.in</a></p>
+          </div>
+          <div class="info-item">
+            <h6>Established</h6>
+            <p>1984 &middot; Family-run, two generations</p>
+          </div>
+          <div class="info-item full">
+            <h6>Address</h6>
+            <p>
+              <a href="https://www.google.com/maps?q=Ameerpet+Hyderabad" target="_blank" rel="noopener">
+                Jaydurga Furnishings Extn., Main Street, Ameerpet, Hyderabad, Telangana &mdash; 500016, India
+              </a>
+            </p>
+          </div>
+          <div class="info-item full" id="hours">
+            <h6>Store hours</h6>
+            <div class="hour-box">
+              <ul class="hours-list">
+                <li><span>Monday &ndash; Friday</span><span>10:30 AM &ndash; 8:30 PM</span></li>
+                <li><span>Saturday</span><span>10:30 AM &ndash; 9:00 PM</span></li>
+                <li class="closed"><span>Sunday</span><span>Closed</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Enquiry form -->
+      <div class="contact-right" id="enquiry">
+        <h4>Send an enquiry</h4>
+        <p class="intro">Tell us what you're looking for &mdash; a curtain, a carpet, a whole room. We'll get back to you the same day, most days.</p>
+
+        <form class="form-get" onsubmit="return handleEnquiry(event)">
+          <div class="row-2">
+            <div class="tf-field">
+              <label for="your-name">Your name <span class="req">*</span></label>
+              <input type="text" id="your-name" name="name" placeholder="e.g. Rekha Sharma" required>
+            </div>
+            <div class="tf-field">
+              <label for="your-phone">Phone / WhatsApp <span class="req">*</span></label>
+              <input type="tel" id="your-phone" name="phone" placeholder="+91 90000 00000" required>
+            </div>
+          </div>
+          <div class="row-2">
+            <div class="tf-field">
+              <label for="your-email">Email</label>
+              <input type="email" id="your-email" name="email" placeholder="you@example.com">
+            </div>
+            <div class="tf-field">
+              <label for="your-cat">I'm looking for <span class="req">*</span></label>
+              <select id="your-cat" name="category" required>
+                <option value="">Choose a category</option>
+                <option>Curtains</option>
+                <option>Carpets</option>
+                <option>Mattresses</option>
+                <option>Blinds</option>
+                <option>Wallpapers</option>
+                <option>Upholstery</option>
+                <option>Bedding</option>
+                <option>Table Linen</option>
+                <option>Whole room / mixed</option>
+              </select>
+            </div>
+          </div>
+          <div class="tf-field">
+            <label for="your-msg">Tell us a little more <span class="req">*</span></label>
+            <textarea id="your-msg" name="message" placeholder="Room size, colours you like, when you'd like to visit..." required></textarea>
+          </div>
+          <label class="check-wrap">
+            <input type="checkbox" id="agree" checked>
+            <span>It's alright to reply on WhatsApp or by phone.</span>
+          </label>
+          <button type="submit" class="tf-btn">Send Enquiry <i class="fa fa-arrow-right"></i></button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═════ FOOTER ═════ -->
+<footer class="tf-footer">
+  <div class="container">
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+        <a href="index.html" class="brand-logo"><img src="assets/logo.svg" alt="Jaydurga Furnishings Extn."></a>
+        <p class="footer-desc">
+          Family-run furnishings house in Ameerpet, Hyderabad since 1984. Curtains, carpets, mattresses, blinds, wallpapers, upholstery, bedding and table linen &mdash; all under one roof.
+        </p>
+        <div class="footer-contact">
+          <div class="item"><i class="fa fa-location-dot"></i><span>Ameerpet, Hyderabad, Telangana, India</span></div>
+          <div class="item"><i class="fa fa-phone"></i><a href="tel:+919000000000">+91 90000 00000</a></div>
+          <div class="item"><i class="fa-regular fa-clock"></i><span>Mon–Sat &middot; 10:30 AM – 8:30 PM &middot; Sun closed</span></div>
+          <div class="item"><i class="fa fa-envelope"></i><a href="mailto:hello@jaydurga.in">hello@jaydurga.in</a></div>
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/919000000000" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <h6 class="footer-title">Explore</h6>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h6 class="footer-title">Categories</h6>
+        <ul class="footer-links">
+          <li><a href="curtains.html">Curtains</a></li>
+          <li><a href="carpets.html">Carpets</a></li>
+          <li><a href="mattresses.html">Mattresses</a></li>
+          <li><a href="blinds.html">Blinds</a></li>
+          <li><a href="wallpapers.html">Wallpapers</a></li>
+          <li><a href="upholstery.html">Upholstery</a></li>
+          <li><a href="bedding.html">Bedding</a></li>
+          <li><a href="table-linen.html">Table Linen</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h6 class="footer-title">Visit The Showroom</h6>
+        <ul class="footer-links">
+          <li><a href="#directions"><i class="fa fa-location-dot"></i> Get Directions</a></li>
+          <li><a href="#hours"><i class="fa-regular fa-clock"></i> Store Hours</a></li>
+          <li><a href="tel:+919000000000"><i class="fa fa-phone"></i> Call Now</a></li>
+          <li><a href="https://wa.me/919000000000" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+          <li><a href="#enquiry"><i class="fa-regular fa-envelope"></i> Send Enquiry</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-visit-map">
+        <h6 class="footer-title">We Are Here</h6>
+        <a href="#directions" class="map-thumb" aria-label="Open directions">
+          <img src="https://images.unsplash.com/photo-1657981630164-769503f3a9a8?w=600&q=80&auto=format&fit=crop" alt="Charminar, Hyderabad" decoding="async"  fetchpriority="high" />
+          <span class="map-pin"><i class="fa fa-location-dot"></i></span>
+          <span class="map-cta">Get Directions <i class="fa fa-arrow-right"></i></span>
+        </a>
+        <p class="footer-desc" style="margin-top:16px">
+          Walk in with a swatch, a photo, or just an idea. Our family will help you pick the right fabric for your home.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>©2026 Jaydurga Furnishings Extn. &middot; Ameerpet, Hyderabad &middot; Since 1984</p>
+      <p>Family-run since 1984 &middot; A retail showroom, not an online store.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp -->
+<a class="whatsapp-float" href="https://wa.me/919000000000?text=Hi%20Jaydurga%2C%20I%27d%20like%20to%20visit%20the%20showroom." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+  <span class="wa-label">Chat With Us</span>
+</a>
+
+<!-- Scroll to top -->
+<button class="scroll-top" id="scrollTop" aria-label="Top"><i class="fa fa-chevron-up"></i></button>
+<script>
+  /* Sticky header shadow + scroll top */
+  const header = document.getElementById('siteHeader');
+  const scrollTop = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 60);
+    scrollTop.classList.toggle('visible', window.scrollY > 400);
+  });
+  scrollTop.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+
+  /* Mobile nav */
+  const mnav = document.getElementById('mnav');
+  const mnavOv = document.getElementById('mnavOverlay');
+  const openMn  = () => { mnav.classList.add('open');    mnavOv.classList.add('open');    document.body.style.overflow='hidden'; };
+  const closeMn = () => { mnav.classList.remove('open'); mnavOv.classList.remove('open'); document.body.style.overflow=''; };
+  document.getElementById('mobileToggle').addEventListener('click', openMn);
+  document.getElementById('mnavClose').addEventListener('click', closeMn);
+  mnavOv.addEventListener('click', closeMn);
+
+  /* Duplicate topbar marquee */
+  (function(){
+    document.querySelectorAll('.topbar-marquee-track').forEach(t => t.innerHTML = t.innerHTML + t.innerHTML);
+  })();
+
+  /* Enquiry form → WhatsApp hand-off (no backend) */
+  function handleEnquiry(e){
+    e.preventDefault();
+    const f = e.target;
+    const name = f.name.value.trim();
+    const phone = f.phone.value.trim();
+    const email = f.email.value.trim();
+    const cat = f.category.value;
+    const msg = f.message.value.trim();
+    const text =
+`Hi Jaydurga, I'd like to enquire.
+
+Name: ${name}
+Phone: ${phone}${email ? '\nEmail: ' + email : ''}
+Looking for: ${cat}
+
+${msg}`;
+    window.open('https://wa.me/919000000000?text=' + encodeURIComponent(text), '_blank', 'noopener');
+    return false;
+  }
+</script>
+</body>
+</html>

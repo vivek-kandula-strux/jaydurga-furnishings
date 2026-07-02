@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jaydurga Furnishings Extn. — Curtains, Carpets, Blinds &amp; More · Ameerpet, Hyderabad</title>
+
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1745429523617-0d837856ca35?w=1600&q=80&auto=format&fit=crop" fetchpriority="high" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" /></noscript>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===== Design tokens (matches source) ===== */
+    :root {
+      --white:#fff; --black:#000;
+      --primary:#DC4646;
+      --secondary:#70857A;
+      --third:#FFEB8A;
+      --text:#101010;
+      --text-2:#3d3d3d;
+      --text-3:#767676;
+      --bg:#F7F7F7;
+      --line:#E9E9E9;
+      --yellow:#F0A750;
+    }
+
+    /* ===== Reset & Base ===== */
+    *,*::before,*::after { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'DM Sans', sans-serif;
+      color:var(--text);
+      background:#fff;
+      overflow-x:hidden;
+      font-size:15px;
+      line-height:1.6;
+    }
+    a { text-decoration:none; color:inherit; }
+    img { max-width:100%; display:block; }
+    h1,h2,h3,h4,h5,h6 { font-family:'Urbanist',sans-serif; font-weight:600; margin:0; }
+    .display { font-family:'Urbanist',sans-serif; font-weight:500; letter-spacing:-0.5px; }
+
+    /* ===== Topbar ===== */
+    .topbar {
+      background:#101010;
+      color:#fff;
+      font-size:13px;
+      padding:10px 0;
+    }
+    .topbar .container-fluid { max-width:1720px; padding:0 30px; }
+    .topbar-inner {
+      display:grid; grid-template-columns:auto 1fr auto;
+      align-items:center; gap:30px;
+    }
+    .topbar-hours {
+      display:flex; align-items:center; gap:8px;
+      font-size:13px; color:rgba(255,255,255,.85);
+      white-space:nowrap;
+    }
+    .topbar-hours i { color:var(--yellow); }
+    .topbar-marquee { text-align:center; overflow:hidden; min-width:0; }
+    .topbar-marquee-track {
+      display:inline-flex; gap:80px; animation:marquee 30s linear infinite;
+      white-space:nowrap;
+    }
+    @keyframes marquee { to { transform:translateX(-50%); } }
+    .topbar-right {
+      display:flex; justify-content:flex-end; align-items:center; gap:20px;
+      font-size:13px; white-space:nowrap;
+    }
+    .topbar-right a { transition:opacity .2s; }
+    .topbar-right a:hover { opacity:.7; }
+    .topbar-social { display:flex; gap:14px; }
+    .topbar-social a { font-size:14px; opacity:.8; }
+
+    /* ===== Header ===== */
+    .site-header {
+      position:sticky; top:0; z-index:900;
+      background:#fff;
+      border-bottom:1px solid var(--line);
+      transition:box-shadow .3s;
+    }
+    .site-header.scrolled { box-shadow:0 2px 20px rgba(0,0,0,.06); }
+    .header-inner {
+      display:grid; grid-template-columns:auto 1fr auto;
+      align-items:center; gap:30px;
+      padding:10px 30px;
+      max-width:1720px; margin:0 auto;
+    }
+    .brand-logo {
+      display:inline-flex; align-items:center;
+      line-height:0;
+    }
+    .brand-logo img {
+      height:clamp(72px, 9vw, 112px);
+      width:auto; display:block;
+    }
+    .mnav-header .brand-logo img { height:48px; }
+    .footer-brand .brand-logo img { height:80px; }
+
+    .main-nav { display:flex; align-items:center; justify-content:center; gap:0; list-style:none; margin:0; padding:0; }
+    .main-nav > li { position:relative; }
+    .main-nav > li > a {
+      display:flex; align-items:center; gap:6px;
+      padding:26px 18px;
+      font-size:15px; font-weight:500; color:var(--text);
+      white-space:nowrap; transition:color .2s;
+    }
+    .main-nav > li > a:hover { color:var(--primary); }
+    .main-nav > li > a .caret { font-size:10px; margin-top:2px; opacity:.7; }
+
+    /* Dropdown */
+    .nav-drop {
+      position:absolute; top:100%; left:0;
+      background:#fff; border:1px solid var(--line);
+      box-shadow:0 15px 40px rgba(0,0,0,.08);
+      min-width:220px; padding:10px 0;
+      opacity:0; visibility:hidden; transform:translateY(10px);
+      transition:.25s;
+    }
+    .main-nav > li:hover .nav-drop { opacity:1; visibility:visible; transform:translateY(0); }
+    .nav-drop a {
+      display:block; padding:9px 22px;
+      font-size:14px; color:var(--text-2);
+      transition:.2s;
+    }
+    .nav-drop a:hover { color:var(--primary); padding-left:28px; background:var(--bg); }
+
+    /* Mega Menu */
+    .mega {
+      position:absolute; top:100%; left:50%;
+      transform:translateX(-50%) translateY(10px);
+      width:760px; background:#fff;
+      border:1px solid var(--line);
+      box-shadow:0 15px 40px rgba(0,0,0,.08);
+      padding:28px 30px; z-index:800;
+      opacity:0; visibility:hidden; transition:.25s;
+    }
+    .main-nav > li:hover .mega { opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
+    .mega h6 {
+      font-family:'Urbanist',sans-serif;
+      font-size:12px; font-weight:700; letter-spacing:1.5px;
+      text-transform:uppercase; color:var(--text);
+      margin-bottom:14px;
+    }
+    .mega a {
+      display:block; padding:5px 0;
+      font-size:14px; color:var(--text-2);
+      transition:color .2s, padding-left .2s;
+    }
+    .mega a:hover { color:var(--primary); padding-left:4px; }
+
+    /* Header actions */
+    .header-actions { display:flex; align-items:center; gap:12px; }
+    .btn-call {
+      display:inline-flex; align-items:center; gap:10px;
+      background:var(--primary); color:#fff;
+      padding:12px 20px; border-radius:2px;
+      font-family:'DM Sans',sans-serif;
+      font-size:14px; font-weight:600;
+      letter-spacing:.2px;
+      transition:background .2s, transform .2s;
+      white-space:nowrap;
+    }
+    .btn-call:hover { background:#b83535; color:#fff; transform:translateY(-1px); }
+    .btn-call i { font-size:13px; }
+    .btn-visit {
+      display:inline-flex; align-items:center; gap:10px;
+      background:transparent; color:var(--text);
+      padding:12px 18px; border:1px solid var(--text);
+      font-family:'DM Sans',sans-serif;
+      font-size:14px; font-weight:500;
+      transition:background .2s, color .2s;
+      white-space:nowrap;
+    }
+    .btn-visit:hover { background:var(--text); color:#fff; }
+    .btn-visit i { font-size:11px; }
+    .header-icon {
+      position:relative; background:none; border:none; padding:0; cursor:pointer;
+      font-size:20px; color:var(--text); transition:color .2s;
+      display:inline-flex; align-items:center; justify-content:center;
+      width:44px; height:44px;
+    }
+    .header-icon:hover { color:var(--primary); }
+    .mobile-toggle { display:none; background:none; border:none; font-size:22px; padding:0; }
+
+    /* ===== Hero Slideshow (SPLIT three-panel) ===== */
+    .hero-shell { padding:0; }
+    .hero-shell .container-fluid { max-width:1720px; padding:0 12px; }
+    .hero-swiper { border-radius:8px; overflow:hidden; }
+    .hero-slide {
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      min-height:620px;
+      background:#111;
+    }
+    .hero-side { overflow:hidden; position:relative; }
+    .hero-side img {
+      width:100%; height:100%; object-fit:cover;
+      transform:scale(1.05);
+      transition:transform 6s ease;
+    }
+    .swiper-slide-active .hero-side img { transform:scale(1); }
+    .hero-center {
+      position:relative;
+      display:flex; align-items:center; justify-content:center;
+      background:#000;
+      overflow:hidden;
+    }
+    .hero-center::before {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.65));
+      z-index:1;
+    }
+    .hero-center img.bg-blur {
+      position:absolute; inset:0; width:100%; height:100%;
+      object-fit:cover; filter:blur(8px); opacity:.45;
+      transform:scale(1.05);
+    }
+    .hero-content {
+      position:relative; z-index:2;
+      text-align:center; padding:50px 40px;
+      max-width:520px;
+      color:#fff;
+    }
+    .hero-sub {
+      font-size:14px; color:rgba(255,255,255,.85);
+      margin-bottom:14px; letter-spacing:.3px;
+    }
+    .hero-title {
+      font-family:'Urbanist',sans-serif;
+      font-size:clamp(34px, 4vw, 56px);
+      font-weight:500; line-height:1.15;
+      color:#fff; margin-bottom:30px;
+      letter-spacing:-0.5px;
+    }
+    .btn-white-arrow {
+      display:inline-flex; align-items:center; gap:12px;
+      background:#fff; color:#101010;
+      padding:14px 30px;
+      font-family:'DM Sans',sans-serif;
+      font-size:14px; font-weight:500;
+      border:none; cursor:pointer;
+      transition:.3s;
+    }
+    .btn-white-arrow i {
+      font-size:11px; transition:transform .3s;
+    }
+    .btn-white-arrow:hover { background:var(--primary); color:#fff; }
+    .btn-white-arrow:hover i { transform:translateX(4px); }
+    .hero-pag {
+      position:absolute; bottom:24px; left:50%; transform:translateX(-50%);
+      z-index:10; display:flex; gap:10px;
+    }
+    .hero-pag .swiper-pagination-bullet {
+      width:32px; height:2px; border-radius:0; opacity:1;
+      background:rgba(255,255,255,.3); transition:.3s;
+    }
+    .hero-pag .swiper-pagination-bullet-active { background:#fff; width:60px; }
+
+    /* Fade-in for hero content */
+    .fade-item { opacity:0; transform:translateY(15px); transition:.7s; }
+    .swiper-slide-active .fade-item { opacity:1; transform:translateY(0); }
+    .swiper-slide-active .fade-item-1 { transition-delay:.15s; }
+    .swiper-slide-active .fade-item-2 { transition-delay:.35s; }
+    .swiper-slide-active .fade-item-3 { transition-delay:.55s; }
+
+    /* ===== Marquee Comfort Strip ===== */
+    .marquee-strip {
+      padding:20px 0;
+      background:#fff;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      overflow:hidden;
+    }
+    .marquee-track {
+      display:flex; align-items:center; gap:60px;
+      animation:marquee 40s linear infinite;
+      white-space:nowrap;
+    }
+    .marquee-text {
+      font-family:'Urbanist',sans-serif;
+      font-size:clamp(28px, 3.5vw, 48px);
+      font-weight:500;
+      color:var(--text);
+      letter-spacing:-0.5px;
+    }
+    .marquee-img {
+      width:120px; height:60px; overflow:hidden;
+      border-radius:60px;
+      flex-shrink:0;
+    }
+    .marquee-img img { width:100%; height:100%; object-fit:cover; }
+
+    /* ===== Section Base ===== */
+    .flat-spacing { padding:56px 0; }
+    .flat-spacing.pt-0 { padding-top:0; }
+    .flat-spacing.pb-0 { padding-bottom:0; }
+    .sect-heading { max-width:640px; margin:0 auto 32px; text-align:center; }
+    .sect-heading .s-title {
+      font-family:'Urbanist',sans-serif;
+      font-size:clamp(30px, 3vw, 42px);
+      font-weight:600; margin-bottom:10px;
+      letter-spacing:-0.5px;
+    }
+    .sect-heading .s-desc {
+      font-size:15px; color:var(--text-3);
+      margin:0;
+    }
+
+    /* ===== Curated Categories (circular) ===== */
+    .cate-swiper .swiper-slide { display:flex; justify-content:center; }
+    .cate-item {
+      display:block; text-align:center; width:100%;
+    }
+    .cate-image {
+      overflow:hidden; border-radius:50%;
+      aspect-ratio:1/1; margin-bottom:16px;
+      background:var(--bg);
+    }
+    .cate-image img {
+      width:100%; height:100%; object-fit:cover;
+      transition:transform .6s ease;
+    }
+    .cate-item:hover .cate-image img { transform:scale(1.08); }
+    .cate-name {
+      font-family:'Urbanist',sans-serif;
+      font-size:16px; font-weight:600;
+      color:var(--text);
+      display:inline-block; position:relative;
+      transition:color .2s;
+    }
+    .cate-name::after {
+      content:''; position:absolute; left:0; bottom:-4px;
+      width:0; height:1px; background:currentColor;
+      transition:width .3s;
+    }
+    .cate-item:hover .cate-name::after { width:100%; }
+
+    /* ===== Product Card (retail listing, no cart) ===== */
+    .product-card { position:relative; display:block; color:inherit; }
+    .product-image {
+      position:relative; overflow:hidden;
+      background:var(--bg);
+      aspect-ratio:1/1;
+      margin-bottom:16px;
+    }
+    .product-image img {
+      width:100%; height:100%; object-fit:cover;
+      transition:transform .6s ease, opacity .5s;
+    }
+    .product-card:hover .product-image img { transform:scale(1.05); }
+    .product-badges {
+      position:absolute; top:14px; left:14px;
+      display:flex; flex-direction:column; gap:6px;
+      z-index:2;
+    }
+    .badge-tag {
+      font-family:'Urbanist',sans-serif;
+      font-size:11px; font-weight:600; letter-spacing:.5px;
+      padding:4px 10px; border-radius:2px;
+      color:#fff;
+    }
+    .badge-hot { background:var(--primary); }
+    .badge-new { background:var(--secondary); }
+    .badge-sale { background:#101010; }
+
+    .card-cta {
+      position:absolute; bottom:14px; left:14px;
+      display:inline-flex; align-items:center; gap:8px;
+      background:#fff; color:var(--text);
+      padding:10px 14px;
+      font-family:'DM Sans',sans-serif;
+      font-size:13px; font-weight:500;
+      opacity:0; transform:translateY(10px);
+      transition:.3s;
+    }
+    .product-card:hover .card-cta { opacity:1; transform:translateY(0); }
+    .card-cta i { font-size:11px; }
+
+    .product-info { padding:0; display:flex; flex-direction:column; gap:4px; }
+    .product-name {
+      font-size:15px; font-weight:500; color:var(--text);
+      transition:color .2s;
+    }
+    .product-card:hover .product-name { color:var(--primary); }
+    .product-meta { font-size:13px; color:var(--text-3); }
+
+    /* ===== Lookbook (banner with pins) ===== */
+    .lookbook-wrap { position:relative; }
+    .lookbook-wrap .container-fluid { max-width:1720px; padding:0 12px; }
+    .lookbook-slide {
+      position:relative; border-radius:20px 20px 0 0; overflow:hidden;
+    }
+    .lookbook-slide img.banner-img {
+      width:100%; height:auto; max-height:640px; object-fit:cover; display:block;
+    }
+    .pin {
+      position:absolute;
+      width:28px; height:28px; border-radius:50%;
+      background:rgba(255,255,255,.6); backdrop-filter:blur(2px);
+      cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .pin::before {
+      content:''; width:12px; height:12px; border-radius:50%;
+      background:#fff;
+    }
+    .pin::after {
+      content:''; position:absolute; inset:-4px;
+      border-radius:50%; border:2px solid rgba(255,255,255,.5);
+      animation:pin-pulse 2s infinite;
+    }
+    @keyframes pin-pulse {
+      0% { transform:scale(1); opacity:.8; }
+      100% { transform:scale(1.5); opacity:0; }
+    }
+    .pin-card {
+      position:absolute; left:44px; top:50%; transform:translateY(-50%);
+      background:#fff; padding:12px;
+      display:flex; align-items:center; gap:12px;
+      box-shadow:0 10px 30px rgba(0,0,0,.15);
+      width:230px; opacity:0; visibility:hidden;
+      transition:opacity .25s, visibility .25s;
+      z-index:5;
+    }
+    .pin:hover .pin-card { opacity:1; visibility:visible; }
+    .pin-card img { width:56px; height:56px; object-fit:cover; }
+    .pin-card .name { font-size:14px; font-weight:500; color:var(--text); margin-bottom:4px; }
+    .pin-card .hint { color:var(--text-3); font-size:12px; }
+    .pin { text-decoration:none; color:inherit; }
+
+    .lookbook-nav {
+      display:flex; align-items:center; justify-content:space-between;
+      background:#101010; color:#fff; padding:16px 30px;
+      border-radius:0 0 20px 20px;
+    }
+    .lookbook-nav .title {
+      font-family:'Urbanist',sans-serif;
+      font-size:16px; font-weight:500;
+    }
+    .lookbook-nav-btns { display:flex; align-items:center; gap:20px; font-size:14px; }
+    .lookbook-nav-btns .arrow {
+      background:none; border:none; color:#fff; cursor:pointer;
+      font-size:14px; transition:opacity .2s;
+    }
+    .lookbook-nav-btns .arrow:hover { opacity:.7; }
+
+
+    /* ===== New Arrivals split ===== */
+    .arrivals-shell { padding:70px 0; background:#fff; }
+    .arrivals-inner { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+    .arrivals-inner > * { min-width:0; }
+    .arrivals-left .tag {
+      font-size:13px; color:var(--text-3);
+      margin-bottom:8px; letter-spacing:.5px;
+    }
+    .arrivals-left .title {
+      font-family:'Urbanist',sans-serif;
+      font-size:clamp(30px, 3vw, 44px);
+      font-weight:500; margin-bottom:16px;
+      letter-spacing:-0.5px;
+    }
+    .arrivals-left .desc {
+      font-size:15px; color:var(--text-2);
+      margin-bottom:32px; max-width:440px; line-height:1.7;
+    }
+    .thumb-row {
+      display:flex; align-items:center; gap:16px;
+      padding:14px; border:1px solid var(--line);
+      margin-bottom:12px; transition:border-color .2s, background .2s;
+      color:inherit;
+    }
+    .thumb-row:hover { border-color:var(--primary); background:#fff; }
+    .thumb-row img { width:72px; height:72px; object-fit:cover; }
+    .thumb-info { flex:1; }
+    .thumb-info .n { font-size:14px; font-weight:500; margin-bottom:4px; }
+    .thumb-info .p { font-size:13px; color:var(--text-3); }
+    .thumb-go {
+      width:40px; height:40px; border:1px solid var(--line);
+      background:#fff; color:var(--text);
+      display:flex; align-items:center; justify-content:center;
+      transition:.2s;
+      font-size:13px;
+    }
+    .thumb-row:hover .thumb-go { background:var(--primary); color:#fff; border-color:var(--primary); }
+
+    .arrivals-right { position:relative; min-width:0; }
+    .arrivals-swiper {
+      width:100%;
+      overflow:hidden;
+      aspect-ratio:1/1;
+    }
+    .arrivals-swiper img { width:100%; height:100%; object-fit:cover; }
+    .arrivals-nav {
+      position:absolute; bottom:24px; right:24px; z-index:5;
+      display:flex; gap:10px;
+    }
+    .arrivals-nav .btn {
+      width:44px; height:44px; border-radius:50%;
+      background:#fff; border:none; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      font-size:14px; color:var(--text);
+      box-shadow:0 4px 12px rgba(0,0,0,.1);
+      transition:.2s;
+    }
+    .arrivals-nav .btn:hover { background:var(--primary); color:#fff; }
+
+    /* ===== Testimonials ===== */
+    .tes-card {
+      display:grid; grid-template-columns:234px 1fr;
+      background:var(--bg);
+      overflow:hidden;
+      height:100%;
+    }
+    .tes-image {
+      position:relative; overflow:hidden;
+    }
+    .tes-image img { width:100%; height:100%; object-fit:cover; }
+    .tes-image::after {
+      content:''; position:absolute; inset:0;
+      background:rgba(0,0,0,0); transition:background .3s;
+    }
+    .tes-card:hover .tes-image::after { background:rgba(0,0,0,.2); }
+    .tes-content {
+      padding:28px 28px;
+      display:flex; flex-direction:column;
+    }
+    .tes-stars {
+      color:#F0A750; margin-bottom:12px; font-size:14px;
+      display:flex; gap:2px;
+    }
+    .tes-text {
+      font-size:15px; line-height:1.7; color:var(--text-2);
+      margin-bottom:20px; flex:1;
+    }
+    .tes-author {
+      display:flex; align-items:center; gap:8px;
+      margin-bottom:20px;
+    }
+    .tes-author .name { font-weight:500; font-size:15px; }
+    .tes-author .verified { color:#3DAB25; font-size:16px; }
+    .tes-meta {
+      display:flex; align-items:center; gap:8px;
+      padding-top:20px; border-top:1px solid var(--line);
+      font-size:13px; color:var(--text-3);
+    }
+    .tes-meta i { color:var(--primary); }
+
+    /* ===== Sale Banner (parallax) ===== */
+    .banner-image-text {
+      position:relative;
+      background-size:cover; background-position:center;
+      background-attachment:fixed;
+      padding:56px 30px;
+      border-radius:8px; overflow:hidden;
+      min-height:180px;
+      display:flex; align-items:center; justify-content:center;
+      text-align:center;
+    }
+    .banner-image-text::before {
+      content:''; position:absolute; inset:0;
+      background:rgba(0,0,0,.25);
+    }
+    .banner-image-text > * { position:relative; z-index:2; }
+    .banner-image-text .mini-title {
+      font-size:14px; letter-spacing:.5px; color:#fff;
+      margin-bottom:14px;
+    }
+    .banner-image-text .title {
+      font-family:'Urbanist',sans-serif;
+      font-size:clamp(34px, 4vw, 56px);
+      font-weight:500; color:#fff;
+      margin-bottom:14px; letter-spacing:-0.5px;
+    }
+    .banner-image-text .desc {
+      font-size:15px; color:rgba(255,255,255,.9);
+      margin-bottom:28px;
+    }
+
+    /* ===== Box Icons (Trust) ===== */
+    .box-icon {
+      display:flex; align-items:center; gap:16px;
+      padding:24px 20px;
+      background:#fff;
+      border:1px solid var(--line);
+      transition:.3s;
+      height:100%;
+    }
+    .box-icon:hover { border-color:var(--primary); transform:translateY(-2px); }
+    .box-icon .icon {
+      width:56px; height:56px; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      font-size:24px; color:var(--secondary);
+      background:var(--bg); border-radius:50%;
+    }
+    .box-icon .title {
+      font-family:'Urbanist',sans-serif;
+      font-size:16px; font-weight:600; margin-bottom:4px;
+    }
+    .box-icon .text {
+      font-size:13px; color:var(--text-3); margin:0;
+    }
+
+    /* ===== Instagram Gallery ===== */
+    .gallery-wrap { padding:0 12px 16px; }
+    .gallery-grid {
+      display:grid; grid-template-columns:repeat(5, 1fr); gap:12px;
+    }
+    .gallery-item {
+      position:relative; overflow:hidden;
+      aspect-ratio:1/1;
+    }
+    .gallery-item img {
+      width:100%; height:100%; object-fit:cover;
+      transition:transform .6s ease;
+    }
+    .gallery-item:hover img { transform:scale(1.08); }
+    .gallery-item::after {
+      content:''; position:absolute; inset:0;
+      background:rgba(0,0,0,0); transition:background .3s;
+    }
+    .gallery-item:hover::after { background:rgba(0,0,0,.3); }
+    .gallery-eye {
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%) scale(0);
+      width:44px; height:44px; border-radius:50%;
+      background:#fff; color:var(--text);
+      display:flex; align-items:center; justify-content:center;
+      z-index:2; transition:transform .3s ease;
+    }
+    .gallery-item:hover .gallery-eye { transform:translate(-50%,-50%) scale(1); }
+
+    /* ===== Footer ===== */
+    .tf-footer {
+      background:#101010; color:rgba(255,255,255,.7);
+      padding:56px 0 0;
+    }
+    .footer-inner { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr 1.5fr; gap:50px; }
+    .footer-brand .brand-logo { color:#fff; margin-bottom:20px; display:inline-block; }
+    .footer-desc { font-size:14px; line-height:1.8; margin-bottom:24px; color:rgba(255,255,255,.65); }
+    .footer-contact { margin-bottom:24px; }
+    .footer-contact .item { display:flex; gap:10px; font-size:14px; margin-bottom:10px; color:rgba(255,255,255,.75); }
+    .footer-contact .item i { color:var(--primary); flex-shrink:0; margin-top:4px; }
+    .footer-title {
+      font-family:'Urbanist',sans-serif;
+      font-size:16px; font-weight:600; color:#fff;
+      margin-bottom:20px;
+    }
+    .footer-links { list-style:none; padding:0; margin:0; }
+    .footer-links li { margin-bottom:10px; }
+    .footer-links a {
+      font-size:14px; color:rgba(255,255,255,.65);
+      transition:color .2s;
+    }
+    .footer-links a:hover { color:#fff; }
+
+    .footer-contact .item a { color:inherit; transition:color .2s; }
+    .footer-contact .item a:hover { color:#fff; }
+    .footer-links a i { margin-right:8px; opacity:.6; font-size:12px; }
+    .footer-visit-map .map-thumb {
+      position:relative; display:block; overflow:hidden;
+      aspect-ratio:16/10; border-radius:4px;
+      transition:transform .3s;
+    }
+    .footer-visit-map .map-thumb:hover { transform:translateY(-2px); }
+    .footer-visit-map .map-thumb img {
+      width:100%; height:100%; object-fit:cover;
+      filter:brightness(.55);
+    }
+    .footer-visit-map .map-pin {
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-140%);
+      width:36px; height:36px; border-radius:50%;
+      background:var(--primary); color:#fff;
+      display:flex; align-items:center; justify-content:center;
+      font-size:14px;
+      box-shadow:0 6px 18px rgba(0,0,0,.4);
+    }
+    .footer-visit-map .map-cta {
+      position:absolute; left:50%; bottom:14px;
+      transform:translateX(-50%);
+      display:inline-flex; align-items:center; gap:8px;
+      background:#fff; color:var(--text);
+      padding:8px 14px;
+      font-size:12px; font-weight:600;
+      white-space:nowrap;
+    }
+    .footer-visit-map .map-cta i { font-size:10px; }
+    .footer-social { display:flex; gap:12px; }
+    .footer-social a {
+      width:36px; height:36px; border-radius:50%;
+      background:rgba(255,255,255,.08);
+      display:flex; align-items:center; justify-content:center;
+      font-size:14px; color:rgba(255,255,255,.7);
+      transition:.2s;
+    }
+    .footer-social a:hover { background:var(--primary); color:#fff; }
+
+    .footer-bottom {
+      margin-top:36px; padding:18px 0;
+      border-top:1px solid rgba(255,255,255,.08);
+      display:flex; align-items:center; justify-content:space-between;
+      flex-wrap:wrap; gap:16px;
+    }
+    .footer-bottom p { font-size:13px; margin:0; color:rgba(255,255,255,.5); }
+
+    /* ===== Scroll Top ===== */
+    .scroll-top {
+      position:fixed; bottom:30px; right:30px; z-index:800;
+      width:46px; height:46px; border-radius:50%;
+      background:var(--text); color:#fff;
+      border:none; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      font-size:14px;
+      opacity:0; transform:translateY(10px);
+      transition:.3s;
+    }
+    .scroll-top.visible { opacity:1; transform:translateY(0); }
+    .scroll-top:hover { background:var(--primary); }
+
+    /* ===== Floating WhatsApp ===== */
+    .whatsapp-float {
+      position:fixed; bottom:30px; left:30px; z-index:800;
+      display:inline-flex; align-items:center; gap:10px;
+      background:#25D366; color:#fff;
+      padding:14px 20px; border-radius:60px;
+      font-family:'DM Sans',sans-serif;
+      font-size:14px; font-weight:600;
+      box-shadow:0 8px 24px rgba(37,211,102,.4);
+      transition:transform .2s, box-shadow .2s;
+    }
+    .whatsapp-float:hover {
+      color:#fff; transform:translateY(-2px);
+      box-shadow:0 10px 28px rgba(37,211,102,.55);
+    }
+    .whatsapp-float i { font-size:20px; }
+    .whatsapp-float .wa-label { line-height:1; }
+    @media (max-width: 640px) {
+      .whatsapp-float { padding:14px; }
+      .whatsapp-float .wa-label { display:none; }
+    }
+
+    /* ===== Mobile Nav ===== */
+    .mnav-overlay {
+      position:fixed; inset:0; background:rgba(0,0,0,.4);
+      z-index:1500; display:none;
+    }
+    .mnav-overlay.open { display:block; }
+    .mnav {
+      position:fixed; left:-320px; top:0; width:320px; height:100vh;
+      background:#fff; z-index:1600; overflow-y:auto;
+      transition:left .3s;
+    }
+    .mnav.open { left:0; }
+    .mnav-header {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:20px; border-bottom:1px solid var(--line);
+    }
+    .mnav > a {
+      display:block; padding:14px 20px;
+      font-size:15px; color:var(--text);
+      border-bottom:1px solid var(--bg);
+    }
+    .mnav > a:hover { color:var(--primary); background:var(--bg); }
+    .mnav-cta {
+      display:flex; flex-direction:column; gap:10px;
+      padding:20px;
+    }
+    .mnav-cta a {
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:14px 16px;
+      font-size:14px; font-weight:600;
+      border-radius:2px;
+    }
+    .mnav-call { background:var(--primary); color:#fff; }
+    .mnav-wa { background:#25D366; color:#fff; }
+    .mnav-visit { background:transparent; color:var(--text); border:1px solid var(--text); }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 1199px) {
+      .footer-inner { grid-template-columns:1fr 1fr 1fr; }
+      .footer-brand, .footer-visit-map { grid-column:span 3; }
+      .btn-call span { display:none; }
+      .btn-call { padding:12px 14px; }
+    }
+    @media (max-width: 991px) {
+      .main-nav { display:none; }
+      .mobile-toggle { display:block; }
+      .header-inner { grid-template-columns:auto 1fr auto; }
+      .hero-slide { grid-template-columns:1fr; min-height:520px; }
+      .hero-side { display:none; }
+      .arrivals-inner { grid-template-columns:1fr; gap:36px; }
+      .gallery-grid { grid-template-columns:repeat(3,1fr); }
+      .tes-card { grid-template-columns:1fr; }
+      .tes-image { max-height:280px; }
+      .topbar-inner { grid-template-columns:1fr; }
+      .topbar > .container-fluid > .topbar-inner > .topbar-hours,
+      .topbar-right { display:none; }
+      .btn-call, .btn-visit { display:none; }
+    }
+    @media (max-width: 640px) {
+      .flat-spacing { padding:50px 0; }
+      .hero-content { padding:30px 20px; }
+      .hero-title { font-size:32px; }
+      .marquee-text { font-size:28px; }
+      .gallery-grid { grid-template-columns:repeat(2,1fr); }
+      .footer-inner { grid-template-columns:1fr 1fr; }
+      .footer-brand, .footer-visit-map { grid-column:span 2; }
+      .footer-bottom { flex-direction:column; text-align:center; }
+      .whatsapp-float { bottom:20px; left:20px; }
+      .scroll-top { bottom:20px; right:20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═════ TOP BAR ═════ -->
+<div class="topbar">
+  <div class="container-fluid">
+    <div class="topbar-inner">
+      <div class="topbar-hours d-none d-lg-flex">
+        <span><i class="fa-regular fa-clock"></i> Mon–Sat · 10:30 AM – 8:30 PM</span>
+      </div>
+      <div class="topbar-marquee">
+        <div class="topbar-marquee-track">
+          <span>42 Years of Handpicked Furnishings · Ameerpet, Hyderabad · Since 1984</span>
+          <span>Curtains · Carpets · Mattresses · Blinds · Wallpapers · Upholstery · Bedding · Table Linen</span>
+          <span>42 Years of Handpicked Furnishings · Ameerpet, Hyderabad · Since 1984</span>
+          <span>Curtains · Carpets · Mattresses · Blinds · Wallpapers · Upholstery · Bedding · Table Linen</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <a href="tel:+919000000000"><i class="fa fa-phone"></i> +91 90000 00000</a>
+        <a href="https://wa.me/919000000000" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <div class="topbar-social">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════ HEADER ═════ -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <div class="d-flex align-items-center gap-3">
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><i class="fa fa-bars"></i></button>
+      <a href="index.html" class="brand-logo" aria-label="Jaydurga Furnishings Extn."><img src="assets/logo.svg" alt="Jaydurga Furnishings Extn."></a>
+    </div>
+
+    <nav>
+      <ul class="main-nav">
+        <li><a href="index.html">Home</a></li>
+        <li>
+          <a href="products.html">Products <i class="fa fa-chevron-down caret"></i></a>
+          <div class="mega">
+            <div class="row g-4">
+              <div class="col-3">
+                <h6>Windows</h6>
+                <a href="curtains.html">Curtains</a>
+                <a href="blinds.html">Blinds</a>
+              </div>
+              <div class="col-3">
+                <h6>Floor &amp; Wall</h6>
+                <a href="carpets.html">Carpets</a>
+                <a href="wallpapers.html">Wallpapers</a>
+              </div>
+              <div class="col-3">
+                <h6>Bedroom</h6>
+                <a href="mattresses.html">Mattresses</a>
+                <a href="bedding.html">Bedding</a>
+              </div>
+              <div class="col-3">
+                <h6>Living</h6>
+                <a href="upholstery.html">Upholstery</a>
+                <a href="table-linen.html">Table Linen</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href="tel:+919000000000" class="btn-call d-none d-md-inline-flex"><i class="fa fa-phone"></i><span>Call +91 90000 00000</span></a>
+      <a href="contact.html" class="btn-visit d-none d-lg-inline-flex">Visit Showroom <i class="fa fa-arrow-right"></i></a>
+      <a href="tel:+919000000000" class="header-icon d-md-none" aria-label="Call"><i class="fa fa-phone"></i></a>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<div class="mnav-overlay" id="mnavOverlay"></div>
+<nav class="mnav" id="mnav">
+  <div class="mnav-header">
+    <span class="brand-logo" aria-label="Jaydurga Furnishings Extn."><img src="assets/logo.svg" alt="Jaydurga Furnishings Extn."></span>
+    <button style="background:none;border:none;font-size:20px" id="mnavClose"><i class="fa fa-times"></i></button>
+  </div>
+  <a href="index.html">Home</a>
+  <a href="products.html">Products</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <div class="mnav-cta">
+    <a href="tel:+919000000000" class="mnav-call"><i class="fa fa-phone"></i> Call Us</a>
+    <a href="https://wa.me/919000000000" target="_blank" rel="noopener" class="mnav-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    <a href="contact.html" class="mnav-visit"><i class="fa fa-location-dot"></i> Visit Showroom</a>
+  </div>
+</nav>
+
+<!-- ═════ HERO SLIDESHOW (split three-panel) ═════ -->
+<section class="hero-shell">
+  <div class="container-fluid">
+    <div class="swiper hero-swiper" id="heroSwiper">
+      <div class="swiper-wrapper">
+
+        <!-- Slide 1 -->
+        <div class="swiper-slide">
+          <div class="hero-slide">
+            <div class="hero-side">
+              <img src="https://images.unsplash.com/photo-1745429523617-0d837856ca35?w=1600&q=80&auto=format&fit=crop" alt="Handpicked curtains" decoding="async"  fetchpriority="high" />
+            </div>
+            <div class="hero-center">
+              <img class="bg-blur" src="https://images.unsplash.com/photo-1745429523617-0d837856ca35?w=1600&q=80&auto=format&fit=crop" alt="" decoding="async"  />
+              <div class="hero-content">
+                <p class="hero-sub fade-item fade-item-1">Handpicked Since 1984</p>
+                <h1 class="hero-title fade-item fade-item-2">Curtains that<br />frame every home.</h1>
+                <div class="fade-item fade-item-3">
+                  <a href="products.html" class="btn-white-arrow">Browse Collection <i class="fa fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="hero-side">
+              <img src="https://images.unsplash.com/photo-1745429523617-0d837856ca35?w=1600&q=80&auto=format&fit=crop" alt="Handpicked curtains" decoding="async"  />
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="swiper-slide">
+          <div class="hero-slide">
+            <div class="hero-side">
+              <img src="https://images.unsplash.com/photo-1652634213812-f0deeb1de78e?w=1600&q=80&auto=format&fit=crop" alt="Carpets and upholstery" decoding="async"  />
+            </div>
+            <div class="hero-center">
+              <img class="bg-blur" src="https://images.unsplash.com/photo-1652634213812-f0deeb1de78e?w=1600&q=80&auto=format&fit=crop" alt="" decoding="async"  />
+              <div class="hero-content">
+                <p class="hero-sub fade-item fade-item-1">42 Years in Ameerpet</p>
+                <h1 class="hero-title fade-item fade-item-2">Carpets, bedding &amp;<br />upholstery, under one roof.</h1>
+                <div class="fade-item fade-item-3">
+                  <a href="products.html" class="btn-white-arrow">See What's In Store <i class="fa fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="hero-side">
+              <img src="https://images.unsplash.com/photo-1652634213812-f0deeb1de78e?w=1600&q=80&auto=format&fit=crop" alt="Carpets and upholstery" decoding="async"  />
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="swiper-slide">
+          <div class="hero-slide">
+            <div class="hero-side">
+              <img src="https://images.unsplash.com/photo-1742319096901-b8dc2e2734cc?w=1600&q=80&auto=format&fit=crop" alt="Ameerpet showroom" loading="lazy" decoding="async" />
+            </div>
+            <div class="hero-center">
+              <img class="bg-blur" src="https://images.unsplash.com/photo-1742319096901-b8dc2e2734cc?w=1600&q=80&auto=format&fit=crop" alt="" loading="lazy" decoding="async" />
+              <div class="hero-content">
+                <p class="hero-sub fade-item fade-item-1">Visit Our Ameerpet Showroom</p>
+                <h1 class="hero-title fade-item fade-item-2">Bring a swatch.<br />Leave with your room.</h1>
+                <div class="fade-item fade-item-3">
+                  <a href="contact.html" class="btn-white-arrow">Get Directions <i class="fa fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="hero-side">
+              <img src="https://images.unsplash.com/photo-1742319096901-b8dc2e2734cc?w=1600&q=80&auto=format&fit=crop" alt="Ameerpet showroom" loading="lazy" decoding="async" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="swiper-pagination hero-pag" id="heroPag"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ COMFORT MARQUEE ═════ -->
+<section class="marquee-strip">
+  <div class="marquee-track" id="comfortMarquee">
+    <span class="marquee-text">Elegant Comfort</span>
+    <span class="marquee-img"><img src="https://images.unsplash.com/photo-1623010656211-562099198c89?w=400&q=80&auto=format&fit=crop" alt="" loading="lazy" decoding="async" /></span>
+    <span class="marquee-text">Timeless Comfort</span>
+    <span class="marquee-img"><img src="https://images.unsplash.com/photo-1776164857984-a53aeb2438cd?w=400&q=80&auto=format&fit=crop" alt="" loading="lazy" decoding="async" /></span>
+    <span class="marquee-text">Pure Comfort</span>
+    <span class="marquee-img"><img src="https://images.unsplash.com/photo-1640767760729-7bfb6ce43ad4?w=400&q=80&auto=format&fit=crop" alt="" loading="lazy" decoding="async" /></span>
+    <span class="marquee-text">Elegant Comfort</span>
+    <span class="marquee-img"><img src="https://images.unsplash.com/photo-1623010656211-562099198c89?w=400&q=80&auto=format&fit=crop" alt="" loading="lazy" decoding="async" /></span>
+    <span class="marquee-text">Timeless Comfort</span>
+    <span class="marquee-img"><img src="https://images.unsplash.com/photo-1776164857984-a53aeb2438cd?w=400&q=80&auto=format&fit=crop" alt="" loading="lazy" decoding="async" /></span>
+    <span class="marquee-text">Pure Comfort</span>
+    <span class="marquee-img"><img src="https://images.unsplash.com/photo-1640767760729-7bfb6ce43ad4?w=400&q=80&auto=format&fit=crop" alt="" loading="lazy" decoding="async" /></span>
+  </div>
+</section>
+
+<!-- ═════ CURATED CATEGORIES (circular) ═════ -->
+<section class="flat-spacing">
+  <div class="container">
+    <div class="sect-heading">
+      <h3 class="s-title">Our Eight Categories</h3>
+      <p class="s-desc">Every furnishing your home needs, handpicked under one roof.</p>
+    </div>
+    <div class="swiper cate-swiper" id="cateSwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <a href="curtains.html" class="cate-item">
+            <div class="cate-image"><img src="https://images.unsplash.com/photo-1745301558339-44eb3217d5da?w=500&q=80&auto=format&fit=crop" alt="Curtains" loading="lazy" decoding="async" /></div>
+            <h5 class="cate-name">Curtains</h5>
+          </a>
+        </div>
+        <div class="swiper-slide">
+          <a href="carpets.html" class="cate-item">
+            <div class="cate-image"><img src="https://images.unsplash.com/photo-1621700052663-f1170e9b26ec?w=500&q=80&auto=format&fit=crop" alt="Carpets" loading="lazy" decoding="async" /></div>
+            <h5 class="cate-name">Carpets</h5>
+          </a>
+        </div>
+        <div class="swiper-slide">
+          <a href="mattresses.html" class="cate-item">
+            <div class="cate-image"><img src="https://images.unsplash.com/photo-1601276174812-63280a55656e?w=500&q=80&auto=format&fit=crop" alt="Mattresses" loading="lazy" decoding="async" /></div>
+            <h5 class="cate-name">Mattresses</h5>
+          </a>
+        </div>
+        <div class="swiper-slide">
+          <a href="blinds.html" class="cate-item">
+            <div class="cate-image"><img src="https://images.unsplash.com/photo-1628070852047-dc2ea1da3ffd?w=500&q=80&auto=format&fit=crop" alt="Blinds" loading="lazy" decoding="async" /></div>
+            <h5 class="cate-name">Blinds</h5>
+          </a>
+        </div>
+        <div class="swiper-slide">
+          <a href="wallpapers.html" class="cate-item">
+            <div class="cate-image"><img src="https://images.unsplash.com/photo-1778088442849-e3715fa12e02?w=500&q=80&auto=format&fit=crop" alt="Wallpapers" loading="lazy" decoding="async" /></div>
+            <h5 class="cate-name">Wallpapers</h5>
+          </a>
+        </div>
+        <div class="swiper-slide">
+          <a href="upholstery.html" class="cate-item">
+            <div class="cate-image"><img src="https://images.unsplash.com/photo-1745301558339-44eb3217d5da?w=500&q=80&auto=format&fit=crop" alt="Upholstery" loading="lazy" decoding="async" /></div>
+            <h5 class="cate-name">Upholstery</h5>
+          </a>
+        </div>
+        <div class="swiper-slide">
+          <a href="bedding.html" class="cate-item">
+            <div class="cate-image"><img src="https://images.unsplash.com/photo-1621700052663-f1170e9b26ec?w=500&q=80&auto=format&fit=crop" alt="Bedding" loading="lazy" decoding="async" /></div>
+            <h5 class="cate-name">Bedding</h5>
+          </a>
+        </div>
+        <div class="swiper-slide">
+          <a href="table-linen.html" class="cate-item">
+            <div class="cate-image"><img src="https://images.unsplash.com/photo-1601276174812-63280a55656e?w=500&q=80&auto=format&fit=crop" alt="Table Linen" loading="lazy" decoding="async" /></div>
+            <h5 class="cate-name">Table Linen</h5>
+          </a>
+        </div>
+      </div>
+      <div class="swiper-pagination" style="margin-top:30px;position:relative"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ DISCOVER NEW PRODUCTS ═════ -->
+<section class="flat-spacing pt-0">
+  <div class="container">
+    <div class="sect-heading">
+      <h3 class="s-title">This Season on the Floor</h3>
+      <p class="s-desc">A handpicked selection stocked at our Ameerpet showroom. Come in to see, feel and choose.</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Product 1 -->
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="curtains.html" class="product-card">
+          <div class="product-image">
+            <div class="product-badges"><span class="badge-tag badge-hot">Handpicked</span></div>
+            <img src="https://images.unsplash.com/photo-1754611380518-61a923cc47ca?w=800&q=80&auto=format&fit=crop" alt="Curtain Collection" loading="lazy" decoding="async" />
+            <span class="card-cta"><i class="fa fa-arrow-right"></i> View Collection</span>
+          </div>
+          <div class="product-info">
+            <span class="product-name">Curtain Collection</span>
+            <span class="product-meta">Made to measure · See on the floor</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="carpets.html" class="product-card">
+          <div class="product-image">
+            <div class="product-badges"><span class="badge-tag badge-sale">New Season</span></div>
+            <img src="https://images.unsplash.com/photo-1652634213812-f0deeb1de78e?w=800&q=80&auto=format&fit=crop" alt="Carpet Range" loading="lazy" decoding="async" />
+            <span class="card-cta"><i class="fa fa-arrow-right"></i> View Collection</span>
+          </div>
+          <div class="product-info">
+            <span class="product-name">Carpet Range</span>
+            <span class="product-meta">Room-fit sizes · See on the floor</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="mattresses.html" class="product-card">
+          <div class="product-image">
+            <div class="product-badges"><span class="badge-tag badge-new">New</span></div>
+            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80&auto=format&fit=crop" alt="Mattress Studio" loading="lazy" decoding="async" />
+            <span class="card-cta"><i class="fa fa-arrow-right"></i> View Collection</span>
+          </div>
+          <div class="product-info">
+            <span class="product-name">Mattress Studio</span>
+            <span class="product-meta">Try before you decide · Visit us</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="col-6 col-md-4 col-lg-3">
+        <a href="blinds.html" class="product-card">
+          <div class="product-image">
+            <div class="product-badges"><span class="badge-tag badge-sale">Custom Fit</span></div>
+            <img src="https://images.unsplash.com/photo-1628070852047-dc2ea1da3ffd?w=800&q=80&auto=format&fit=crop" alt="Blinds Studio" loading="lazy" decoding="async" />
+            <span class="card-cta"><i class="fa fa-arrow-right"></i> View Collection</span>
+          </div>
+          <div class="product-info">
+            <span class="product-name">Blinds Studio</span>
+            <span class="product-meta">Cut to your window · Home visits</span>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═════ SHOP THE LOOK / LOOKBOOK ═════ -->
+<section class="lookbook-wrap">
+  <div class="container-fluid">
+    <div class="swiper" id="lookSwiper">
+      <div class="swiper-wrapper">
+
+        <!-- Slide 1 -->
+        <div class="swiper-slide">
+          <div class="lookbook-slide">
+            <img class="banner-img" src="https://images.unsplash.com/photo-1779505576192-803dd8c9b55a?w=1600&q=80&auto=format&fit=crop" alt="Living room with handpicked curtains and wallpaper" loading="lazy" decoding="async" />
+            <a href="curtains.html" class="pin" style="left:32%; top:44%">
+              <div class="pin-card">
+                <img src="https://images.unsplash.com/photo-1578653282816-a508bd2d0435?w=800&q=80&auto=format&fit=crop" alt="" loading="lazy" decoding="async" />
+                <div>
+                  <div class="name">Curtains</div>
+                  <div class="hint">See in the showroom</div>
+                </div>
+              </div>
+            </a>
+            <a href="wallpapers.html" class="pin" style="left:62%; top:60%">
+              <div class="pin-card" style="left:auto; right:44px">
+                <img src="https://images.unsplash.com/photo-1726207873181-03af2636095d?w=800&q=80&auto=format&fit=crop" alt="" loading="lazy" decoding="async" />
+                <div>
+                  <div class="name">Wallpapers</div>
+                  <div class="hint">See in the showroom</div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="swiper-slide">
+          <div class="lookbook-slide">
+            <img class="banner-img" src="https://images.unsplash.com/photo-1621700052663-f1170e9b26ec?w=1600&q=80&auto=format&fit=crop" alt="Room styled with carpets and upholstery" loading="lazy" decoding="async" />
+            <a href="carpets.html" class="pin" style="left:36%; top:42%">
+              <div class="pin-card">
+                <img src="https://images.unsplash.com/photo-1578653282816-a508bd2d0435?w=800&q=80&auto=format&fit=crop" alt="" loading="lazy" decoding="async" />
+                <div>
+                  <div class="name">Carpets</div>
+                  <div class="hint">See in the showroom</div>
+                </div>
+              </div>
+            </a>
+            <a href="upholstery.html" class="pin" style="left:65%; top:56%">
+              <div class="pin-card" style="left:auto; right:44px">
+                <img src="https://images.unsplash.com/photo-1726207873181-03af2636095d?w=800&q=80&auto=format&fit=crop" alt="" loading="lazy" decoding="async" />
+                <div>
+                  <div class="name">Upholstery</div>
+                  <div class="hint">See in the showroom</div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="lookbook-nav">
+        <p class="title">See It In A Room</p>
+        <div class="lookbook-nav-btns">
+          <button class="arrow" id="lookPrev"><i class="fa fa-arrow-left"></i></button>
+          <span id="lookFraction">01 / 02</span>
+          <button class="arrow" id="lookNext"><i class="fa fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═════ NEW ARRIVALS (split layout) ═════ -->
+<section class="arrivals-shell">
+  <div class="container">
+    <div class="arrivals-inner">
+      <div class="arrivals-left">
+        <p class="tag">This Season</p>
+        <h2 class="title">Handpicked Selection</h2>
+        <p class="desc">
+          A rotating edit from the Ameerpet showroom &mdash; new fabrics, weaves and finishes that have earned a place on our floor this season.
+        </p>
+
+        <div class="arrivals-thumbs" id="thumbList">
+          <a href="bedding.html" class="thumb-row">
+            <img src="https://images.unsplash.com/photo-1726207873181-03af2636095d?w=800&q=80&auto=format&fit=crop" alt="Bedding set" loading="lazy" decoding="async" />
+            <div class="thumb-info">
+              <div class="n">Bedding Set</div>
+              <div class="p">Cotton &amp; sateen · Multiple sizes</div>
+            </div>
+            <span class="thumb-go"><i class="fa fa-arrow-right"></i></span>
+          </a>
+          <a href="carpets.html" class="thumb-row">
+            <img src="https://images.unsplash.com/photo-1578653282816-a508bd2d0435?w=800&q=80&auto=format&fit=crop" alt="Carpet" loading="lazy" decoding="async" />
+            <div class="thumb-info">
+              <div class="n">Carpet</div>
+              <div class="p">Room-fit sizes · Fitted at home</div>
+            </div>
+            <span class="thumb-go"><i class="fa fa-arrow-right"></i></span>
+          </a>
+          <a href="table-linen.html" class="thumb-row">
+            <img src="https://images.unsplash.com/photo-1628070852047-dc2ea1da3ffd?w=800&q=80&auto=format&fit=crop" alt="Table linen" loading="lazy" decoding="async" />
+            <div class="thumb-info">
+              <div class="n">Table Linen</div>
+              <div class="p">Sets of six &amp; twelve</div>
+            </div>
+            <span class="thumb-go"><i class="fa fa-arrow-right"></i></span>
+          </a>
+        </div>
+
+        <a href="contact.html" class="btn-white-arrow" style="background:#101010;color:#fff;margin-top:24px">Visit The Showroom <i class="fa fa-arrow-right"></i></a>
+      </div>
+
+      <div class="arrivals-right">
+        <div class="swiper arrivals-swiper" id="arrivalsSwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1640767760729-7bfb6ce43ad4?w=300&q=80&auto=format&fit=crop" alt="" loading="lazy" decoding="async" /></div>
+            <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1623010656211-562099198c89?w=300&q=80&auto=format&fit=crop" alt="" loading="lazy" decoding="async" /></div>
+            <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1776164857984-a53aeb2438cd?w=300&q=80&auto=format&fit=crop" alt="" loading="lazy" decoding="async" /></div>
+          </div>
+        </div>
+        <div class="arrivals-nav">
+          <button class="btn" id="arrPrev"><i class="fa fa-arrow-left"></i></button>
+          <button class="btn" id="arrNext"><i class="fa fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ TESTIMONIALS ═════ -->
+<section class="flat-spacing" style="background:#fff">
+  <div class="container">
+    <div class="sect-heading">
+      <h3 class="s-title">What Our Customers Say</h3>
+      <p class="s-desc">Real stories from people who love our products.</p>
+    </div>
+
+    <div class="swiper" id="tesSwiper">
+      <div class="swiper-wrapper">
+
+        <div class="swiper-slide">
+          <div class="tes-card">
+            <div class="tes-image">
+              <img src="https://images.unsplash.com/photo-1640583818579-740430212d27?w=500&q=80&auto=format&fit=crop" alt="" loading="lazy" decoding="async" />
+            </div>
+            <div class="tes-content">
+              <div class="tes-stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <p class="tes-text">
+                "The curtains we picked have completely changed how our living room feels. The drape is beautiful and the colour has held up for over three years."
+              </p>
+              <div class="tes-author">
+                <span class="name">Ravi Iyer</span>
+                <i class="fa-solid fa-circle-check verified"></i>
+              </div>
+              <div class="tes-meta">
+                <i class="fa fa-location-dot"></i>
+                <span>Curtains &middot; Jubilee Hills, Hyderabad</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="tes-card">
+            <div class="tes-image">
+              <img src="https://images.unsplash.com/photo-1580471259844-e664957da155?w=500&q=80&auto=format&fit=crop" alt="" loading="lazy" decoding="async" />
+            </div>
+            <div class="tes-content">
+              <div class="tes-stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+              <p class="tes-text">
+                "Excellent quality and service. The mattress is genuinely premium, and Jaydurga's team helped us pick the right one for our back."
+              </p>
+              <div class="tes-author">
+                <span class="name">Anitha Reddy</span>
+                <i class="fa-solid fa-circle-check verified"></i>
+              </div>
+              <div class="tes-meta">
+                <i class="fa fa-location-dot"></i>
+                <span>Mattress &middot; Banjara Hills, Hyderabad</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="swiper-pagination" style="margin-top:32px;position:relative"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ SUMMER SALE BANNER (parallax) ═════ -->
+<section class="flat-spacing pt-0">
+  <div class="container">
+    <div class="banner-image-text" style="background-image:url('https://images.unsplash.com/photo-1657981630164-769503f3a9a8?w=1200&q=80&auto=format&fit=crop')">
+      <div>
+        <p class="mini-title">Family run since 1984</p>
+        <a href="about.html" class="title" style="display:block;text-decoration:none">42 Years in Ameerpet</a>
+        <p class="desc">Handpicked furnishings for every room, all under one roof.</p>
+        <a href="contact.html" class="btn-white-arrow">Visit The Showroom <i class="fa fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ TRUST BADGES ═════ -->
+<section class="flat-spacing pt-0">
+  <div class="container">
+    <div class="row g-3">
+      <div class="col-6 col-md-3">
+        <div class="box-icon">
+          <div class="icon"><i class="fa fa-couch"></i></div>
+          <div>
+            <h6 class="title">Handpicked Fabrics</h6>
+            <p class="text">Selected by the family every season.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="box-icon">
+          <div class="icon"><i class="fa fa-ruler-combined"></i></div>
+          <div>
+            <h6 class="title">Made To Measure</h6>
+            <p class="text">Cut and fitted to your room.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="box-icon">
+          <div class="icon"><i class="fa fa-users"></i></div>
+          <div>
+            <h6 class="title">42 Years Of Trust</h6>
+            <p class="text">Serving Hyderabad since 1984.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="box-icon">
+          <div class="icon"><i class="fa fa-leaf"></i></div>
+          <div>
+            <h6 class="title">Ameerpet Showroom</h6>
+            <p class="text">Every furnishing under one roof.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ FOOTER ═════ -->
+<footer class="tf-footer">
+  <div class="container">
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+        <a href="index.html" class="brand-logo" aria-label="Jaydurga Furnishings Extn."><img src="assets/logo.svg" alt="Jaydurga Furnishings Extn."></a>
+        <p class="footer-desc">
+          Family-run furnishings house in Ameerpet, Hyderabad since 1984. Curtains, carpets, mattresses, blinds, wallpapers, upholstery, bedding and table linen &mdash; all under one roof.
+        </p>
+        <div class="footer-contact">
+          <div class="item">
+            <i class="fa fa-location-dot"></i>
+            <span>Ameerpet, Hyderabad, Telangana, India</span>
+          </div>
+          <div class="item">
+            <i class="fa fa-phone"></i>
+            <a href="tel:+919000000000">+91 90000 00000</a>
+          </div>
+          <div class="item">
+            <i class="fa-regular fa-clock"></i>
+            <span>Mon–Sat &middot; 10:30 AM – 8:30 PM &middot; Sun closed</span>
+          </div>
+          <div class="item">
+            <i class="fa fa-envelope"></i>
+            <a href="mailto:hello@jaydurga.in">hello@jaydurga.in</a>
+          </div>
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/919000000000" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <h6 class="footer-title">Explore</h6>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h6 class="footer-title">Categories</h6>
+        <ul class="footer-links">
+          <li><a href="curtains.html">Curtains</a></li>
+          <li><a href="carpets.html">Carpets</a></li>
+          <li><a href="mattresses.html">Mattresses</a></li>
+          <li><a href="blinds.html">Blinds</a></li>
+          <li><a href="wallpapers.html">Wallpapers</a></li>
+          <li><a href="upholstery.html">Upholstery</a></li>
+          <li><a href="bedding.html">Bedding</a></li>
+          <li><a href="table-linen.html">Table Linen</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h6 class="footer-title">Visit The Showroom</h6>
+        <ul class="footer-links">
+          <li><a href="contact.html#directions"><i class="fa fa-location-dot"></i> Get Directions</a></li>
+          <li><a href="contact.html#hours"><i class="fa-regular fa-clock"></i> Store Hours</a></li>
+          <li><a href="tel:+919000000000"><i class="fa fa-phone"></i> Call Now</a></li>
+          <li><a href="https://wa.me/919000000000" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+          <li><a href="contact.html#enquiry"><i class="fa-regular fa-envelope"></i> Send Enquiry</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-visit-map">
+        <h6 class="footer-title">We Are Here</h6>
+        <a href="contact.html#directions" class="map-thumb" aria-label="Open directions">
+          <img src="https://images.unsplash.com/photo-1657981630164-769503f3a9a8?w=1200&q=80&auto=format&fit=crop" alt="Ameerpet, Hyderabad" loading="lazy" decoding="async" />
+          <span class="map-pin"><i class="fa fa-location-dot"></i></span>
+          <span class="map-cta">Get Directions <i class="fa fa-arrow-right"></i></span>
+        </a>
+        <p class="footer-desc" style="margin-top:16px">
+          Walk in with a swatch, a photo, or just an idea. Our family will help you pick the right fabric for your home.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>©2026 Jaydurga Furnishings Extn. &middot; Ameerpet, Hyderabad &middot; Since 1984</p>
+      <p>Family-run since 1984 &middot; A retail showroom, not an online store.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp -->
+<a class="whatsapp-float" href="https://wa.me/919000000000?text=Hi%20Jaydurga%2C%20I%27d%20like%20to%20know%20more%20about%20your%20furnishings." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+  <span class="wa-label">Chat With Us</span>
+</a>
+
+<!-- Scroll to top -->
+<button class="scroll-top" id="scrollTop" aria-label="Top"><i class="fa fa-chevron-up"></i></button>
+
+<!-- ═════ SCRIPTS ═════ -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  /* Hero Swiper */
+  new Swiper('#heroSwiper', {
+    loop:true, effect:'fade', fadeEffect:{ crossFade:true },
+    speed:900, autoplay:{ delay:4000, disableOnInteraction:false },
+    pagination:{ el:'#heroPag', clickable:true },
+  });
+
+  /* Categories */
+  new Swiper('#cateSwiper', {
+    slidesPerView:2, spaceBetween:10, loop:true,
+    pagination:{ el:'#cateSwiper .swiper-pagination', clickable:true },
+    breakpoints:{
+      576:{ slidesPerView:3, spaceBetween:20 },
+      768:{ slidesPerView:4, spaceBetween:30 },
+      992:{ slidesPerView:5, spaceBetween:40 },
+    },
+  });
+
+  /* Lookbook */
+  const lookSw = new Swiper('#lookSwiper', {
+    loop:true, speed:700, spaceBetween:0,
+    navigation:{ nextEl:'#lookNext', prevEl:'#lookPrev' },
+    on:{
+      slideChange(){
+        const i = String(this.realIndex + 1).padStart(2,'0');
+        const t = String(this.slides.length - 2).padStart(2,'0');
+        document.getElementById('lookFraction').textContent = `${i} / ${t}`;
+      }
+    }
+  });
+
+  /* Arrivals thumbs image swiper */
+  const arrSw = new Swiper('#arrivalsSwiper', {
+    loop:true, speed:600,
+    navigation:{ nextEl:'#arrNext', prevEl:'#arrPrev' },
+  });
+
+  /* Testimonials */
+  new Swiper('#tesSwiper', {
+    slidesPerView:1, spaceBetween:20, loop:true, speed:600,
+    pagination:{ el:'#tesSwiper .swiper-pagination', clickable:true },
+    breakpoints:{
+      768:{ slidesPerView:2, spaceBetween:30 },
+    },
+  });
+
+  /* Sticky header shadow */
+  const header = document.getElementById('siteHeader');
+  const scrollTop = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 60);
+    scrollTop.classList.toggle('visible', window.scrollY > 400);
+  });
+  scrollTop.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+
+  /* Mobile nav */
+  const mnav = document.getElementById('mnav');
+  const mnavOv = document.getElementById('mnavOverlay');
+  const openMn = () => { mnav.classList.add('open'); mnavOv.classList.add('open'); document.body.style.overflow='hidden'; };
+  const closeMn = () => { mnav.classList.remove('open'); mnavOv.classList.remove('open'); document.body.style.overflow=''; };
+  document.getElementById('mobileToggle').addEventListener('click', openMn);
+  document.getElementById('mnavClose').addEventListener('click', closeMn);
+  mnavOv.addEventListener('click', closeMn);
+
+  /* Duplicate marquee track for seamless loop */
+  (function(){
+    const track = document.getElementById('comfortMarquee');
+    track.innerHTML = track.innerHTML + track.innerHTML;
+  })();
+
+  /* Duplicate topbar marquee */
+  (function(){
+    const tracks = document.querySelectorAll('.topbar-marquee-track');
+    tracks.forEach(t => t.innerHTML = t.innerHTML + t.innerHTML);
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products — Jaydurga Furnishings Extn. · Eight Categories, One Showroom</title>
+  <meta name="description" content="Curtains, carpets, mattresses, blinds, wallpapers, upholstery, bedding and table linen &mdash; handpicked and stocked in one Ameerpet showroom since 1984." />
+
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" /></noscript>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --white:#fff; --black:#000;
+      --primary:#DC4646;
+      --secondary:#70857A;
+      --third:#FFEB8A;
+      --text:#101010;
+      --text-2:#3d3d3d;
+      --text-3:#767676;
+      --bg:#F7F7F7;
+      --line:#E9E9E9;
+      --yellow:#F0A750;
+    }
+
+    *,*::before,*::after { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'DM Sans', sans-serif;
+      color:var(--text);
+      background:#fff;
+      overflow-x:hidden;
+      font-size:15px;
+      line-height:1.6;
+    }
+    a { text-decoration:none; color:inherit; }
+    img { max-width:100%; display:block; }
+    h1,h2,h3,h4,h5,h6 { font-family:'Urbanist',sans-serif; font-weight:600; margin:0; letter-spacing:-0.3px; }
+
+    /* ===== Topbar ===== */
+    .topbar { background:#101010; color:#fff; font-size:13px; padding:10px 0; }
+    .topbar .container-fluid { max-width:1720px; padding:0 30px; }
+    .topbar-inner { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:30px; }
+    .topbar-hours { display:flex; align-items:center; gap:8px; font-size:13px; color:rgba(255,255,255,.85); white-space:nowrap; }
+    .topbar-hours i { color:var(--yellow); }
+    .topbar-marquee { text-align:center; overflow:hidden; min-width:0; }
+    .topbar-marquee-track { display:inline-flex; gap:80px; animation:marquee 30s linear infinite; white-space:nowrap; }
+    @keyframes marquee { to { transform:translateX(-50%); } }
+    .topbar-right { display:flex; justify-content:flex-end; align-items:center; gap:20px; font-size:13px; white-space:nowrap; }
+    .topbar-right a { transition:opacity .2s; }
+    .topbar-right a:hover { opacity:.7; }
+    .topbar-social { display:flex; gap:14px; }
+    .topbar-social a { font-size:14px; opacity:.8; }
+
+    /* ===== Header ===== */
+    .site-header { position:sticky; top:0; z-index:900; background:#fff; border-bottom:1px solid var(--line); transition:box-shadow .3s; }
+    .site-header.scrolled { box-shadow:0 2px 20px rgba(0,0,0,.06); }
+    .header-inner { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:30px; padding:10px 30px; max-width:1720px; margin:0 auto; }
+    .brand-logo { display:inline-flex; align-items:center; line-height:0; }
+    .brand-logo img { height:clamp(72px, 9vw, 112px); width:auto; display:block; }
+    .mnav-header .brand-logo img { height:48px; }
+    .footer-brand .brand-logo img { height:80px; }
+
+    .main-nav { display:flex; align-items:center; justify-content:center; gap:0; list-style:none; margin:0; padding:0; }
+    .main-nav > li { position:relative; }
+    .main-nav > li > a { display:flex; align-items:center; gap:6px; padding:26px 18px; font-size:15px; font-weight:500; color:var(--text); white-space:nowrap; transition:color .2s; }
+    .main-nav > li > a:hover, .main-nav > li.active > a { color:var(--primary); }
+    .main-nav > li > a .caret { font-size:10px; margin-top:2px; opacity:.7; }
+
+    .mega { position:absolute; top:100%; left:50%; transform:translateX(-50%) translateY(10px); width:760px; background:#fff; border:1px solid var(--line); box-shadow:0 15px 40px rgba(0,0,0,.08); padding:28px 30px; z-index:800; opacity:0; visibility:hidden; transition:.25s; }
+    .main-nav > li:hover .mega { opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
+    .mega h6 { font-family:'Urbanist',sans-serif; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text); margin-bottom:14px; }
+    .mega a { display:block; padding:5px 0; font-size:14px; color:var(--text-2); transition:color .2s, padding-left .2s; }
+    .mega a:hover { color:var(--primary); padding-left:4px; }
+
+    .header-actions { display:flex; align-items:center; gap:12px; }
+    .btn-call { display:inline-flex; align-items:center; gap:10px; background:var(--primary); color:#fff; padding:12px 20px; border-radius:2px; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600; letter-spacing:.2px; transition:background .2s, transform .2s; white-space:nowrap; }
+    .btn-call:hover { background:#b83535; color:#fff; transform:translateY(-1px); }
+    .btn-call i { font-size:13px; }
+    .btn-visit { display:inline-flex; align-items:center; gap:10px; background:transparent; color:var(--text); padding:12px 18px; border:1px solid var(--text); font-family:'DM Sans',sans-serif; font-size:14px; font-weight:500; transition:background .2s, color .2s; white-space:nowrap; }
+    .btn-visit:hover { background:var(--text); color:#fff; }
+    .btn-visit i { font-size:11px; }
+    .header-icon { position:relative; background:none; border:none; padding:0; cursor:pointer; font-size:20px; color:var(--text); transition:color .2s; display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; }
+    .header-icon:hover { color:var(--primary); }
+    .mobile-toggle { display:none; background:none; border:none; font-size:22px; padding:0; }
+
+    /* ===== Page Title ===== */
+    .page-title-shell { padding:56px 0 32px; text-align:center; background:#fff; }
+    .breadcrumbs { display:flex; align-items:center; justify-content:center; gap:8px; font-size:13px; color:var(--text-3); margin-bottom:18px; letter-spacing:.3px; }
+    .breadcrumbs a { color:var(--text-3); transition:color .2s; }
+    .breadcrumbs a:hover { color:var(--primary); }
+    .breadcrumbs .sep { font-size:10px; opacity:.5; }
+    .page-title-shell h1 { font-family:'Urbanist',sans-serif; font-size:clamp(38px, 5vw, 68px); font-weight:500; letter-spacing:-1px; margin-bottom:16px; line-height:1.08; }
+    .page-title-lead { font-size:16px; color:var(--text-2); max-width:640px; margin:0 auto; line-height:1.7; }
+
+    /* ===== Section base ===== */
+    .flat-spacing { padding:56px 0; }
+    .flat-spacing.pt-0 { padding-top:0; }
+    .flat-spacing.pb-0 { padding-bottom:0; }
+    .sect-heading { max-width:640px; margin:0 auto 40px; text-align:center; }
+    .sect-heading .s-title { font-family:'Urbanist',sans-serif; font-size:clamp(30px, 3vw, 42px); font-weight:600; margin-bottom:12px; letter-spacing:-0.5px; }
+    .sect-heading .s-desc { font-size:15px; color:var(--text-3); margin:0; }
+
+    /* ===== Category grid (8 tiles) ===== */
+    .cat-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:24px; }
+    .cat-card {
+      display:block; position:relative;
+      background:#fff; border:1px solid var(--line);
+      transition:border-color .3s, transform .3s;
+      color:inherit; overflow:hidden;
+    }
+    .cat-card:hover { border-color:var(--primary); transform:translateY(-4px); color:inherit; }
+    .cat-image { position:relative; overflow:hidden; aspect-ratio:4/5; background:var(--bg); }
+    .cat-image img { width:100%; height:100%; object-fit:cover; transition:transform .8s ease; }
+    .cat-card:hover .cat-image img { transform:scale(1.06); }
+    .cat-badge {
+      position:absolute; top:16px; left:16px; z-index:2;
+      background:#fff; color:var(--text);
+      padding:5px 12px;
+      font-family:'Urbanist',sans-serif; font-size:11px; font-weight:600;
+      letter-spacing:1.2px; text-transform:uppercase;
+    }
+    .cat-badge.new { background:var(--secondary); color:#fff; }
+    .cat-badge.hot { background:var(--primary); color:#fff; }
+    .cat-body { padding:24px 24px 26px; }
+    .cat-name { font-family:'Urbanist',sans-serif; font-size:22px; font-weight:600; margin-bottom:6px; }
+    .cat-tag { font-size:13.5px; color:var(--text-3); margin-bottom:16px; line-height:1.6; min-height:44px; }
+    .cat-cta {
+      display:inline-flex; align-items:center; gap:8px;
+      font-family:'DM Sans',sans-serif; font-size:13.5px; font-weight:600;
+      color:var(--text); letter-spacing:.3px;
+      border-bottom:1px solid var(--text); padding-bottom:2px;
+      transition:color .2s, border-color .2s;
+    }
+    .cat-card:hover .cat-cta { color:var(--primary); border-color:var(--primary); }
+    .cat-cta i { font-size:10px; transition:transform .3s; }
+    .cat-card:hover .cat-cta i { transform:translateX(3px); }
+
+    /* ===== Value strip ===== */
+    .value-strip { background:var(--bg); padding:64px 0; }
+    .value-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:0; }
+    .value-item { padding:0 24px; text-align:center; position:relative; }
+    .value-item + .value-item { border-left:1px solid var(--line); }
+    .value-item .vi-icon {
+      width:56px; height:56px; border-radius:50%;
+      background:#fff; color:var(--secondary);
+      display:inline-flex; align-items:center; justify-content:center;
+      font-size:22px; margin-bottom:16px;
+    }
+    .value-item h5 { font-family:'Urbanist',sans-serif; font-size:17px; font-weight:600; margin-bottom:6px; }
+    .value-item p { font-size:14px; color:var(--text-3); margin:0; line-height:1.6; }
+
+    /* ===== Not sure where to start ===== */
+    .helper-shell { padding:80px 0; }
+    .helper-grid { display:grid; grid-template-columns:1fr 1.1fr; gap:60px; align-items:center; }
+    .helper-left h3 { font-family:'Urbanist',sans-serif; font-size:clamp(28px, 3vw, 40px); font-weight:600; letter-spacing:-0.5px; margin-bottom:20px; line-height:1.2; }
+    .helper-left p { font-size:15px; color:var(--text-2); line-height:1.8; margin-bottom:16px; }
+    .helper-left p:last-of-type { margin-bottom:32px; }
+    .helper-ctas { display:flex; gap:12px; flex-wrap:wrap; }
+    .btn-solid { display:inline-flex; align-items:center; gap:12px; background:var(--primary); color:#fff; padding:14px 26px; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600; letter-spacing:.3px; transition:.25s; }
+    .btn-solid:hover { color:#fff; background:#b83535; transform:translateY(-1px); }
+    .btn-solid i { font-size:11px; }
+    .btn-outline { display:inline-flex; align-items:center; gap:12px; background:transparent; color:var(--text); border:1px solid var(--text); padding:14px 26px; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600; letter-spacing:.3px; transition:.25s; }
+    .btn-outline:hover { background:var(--text); color:#fff; }
+    .btn-outline i { font-size:11px; }
+    .helper-right { position:relative; }
+    .helper-image { overflow:hidden; aspect-ratio:5/6; }
+    .helper-image img { width:100%; height:100%; object-fit:cover; }
+
+    /* ===== Visit CTA banner ===== */
+    .visit-banner { position:relative; background-size:cover; background-position:center; padding:80px 30px; border-radius:8px; overflow:hidden; min-height:280px; display:flex; align-items:center; justify-content:center; text-align:center; }
+    .visit-banner::before { content:''; position:absolute; inset:0; background:rgba(0,0,0,.45); }
+    .visit-banner > * { position:relative; z-index:2; }
+    .visit-banner .mini-title { font-size:13px; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,.85); margin-bottom:16px; }
+    .visit-banner .title { font-family:'Urbanist',sans-serif; font-size:clamp(30px, 3.5vw, 48px); font-weight:500; color:#fff; margin-bottom:18px; letter-spacing:-0.5px; }
+    .visit-banner .desc { font-size:15px; color:rgba(255,255,255,.9); margin-bottom:30px; max-width:520px; margin-left:auto; margin-right:auto; }
+    .btn-white-arrow { display:inline-flex; align-items:center; gap:12px; background:#fff; color:#101010; padding:14px 30px; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:500; border:none; cursor:pointer; transition:.3s; }
+    .btn-white-arrow i { font-size:11px; transition:transform .3s; }
+    .btn-white-arrow:hover { background:var(--primary); color:#fff; }
+    .btn-white-arrow:hover i { transform:translateX(4px); }
+
+    /* ===== Footer ===== */
+    .tf-footer { background:#101010; color:rgba(255,255,255,.7); padding:56px 0 0; }
+    .footer-inner { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr 1.5fr; gap:50px; }
+    .footer-brand .brand-logo { color:#fff; margin-bottom:20px; display:inline-block; }
+    .footer-desc { font-size:14px; line-height:1.8; margin-bottom:24px; color:rgba(255,255,255,.65); }
+    .footer-contact { margin-bottom:24px; }
+    .footer-contact .item { display:flex; gap:10px; font-size:14px; margin-bottom:10px; color:rgba(255,255,255,.75); }
+    .footer-contact .item i { color:var(--primary); flex-shrink:0; margin-top:4px; }
+    .footer-contact .item a { color:inherit; transition:color .2s; }
+    .footer-contact .item a:hover { color:#fff; }
+    .footer-title { font-family:'Urbanist',sans-serif; font-size:16px; font-weight:600; color:#fff; margin-bottom:20px; }
+    .footer-links { list-style:none; padding:0; margin:0; }
+    .footer-links li { margin-bottom:10px; }
+    .footer-links a { font-size:14px; color:rgba(255,255,255,.65); transition:color .2s; }
+    .footer-links a:hover { color:#fff; }
+    .footer-links a i { margin-right:8px; opacity:.6; font-size:12px; }
+    .footer-visit-map .map-thumb { position:relative; display:block; overflow:hidden; aspect-ratio:16/10; border-radius:4px; transition:transform .3s; }
+    .footer-visit-map .map-thumb:hover { transform:translateY(-2px); }
+    .footer-visit-map .map-thumb img { width:100%; height:100%; object-fit:cover; filter:brightness(.55); }
+    .footer-visit-map .map-pin { position:absolute; top:50%; left:50%; transform:translate(-50%,-140%); width:36px; height:36px; border-radius:50%; background:var(--primary); color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; box-shadow:0 6px 18px rgba(0,0,0,.4); }
+    .footer-visit-map .map-cta { position:absolute; left:50%; bottom:14px; transform:translateX(-50%); display:inline-flex; align-items:center; gap:8px; background:#fff; color:var(--text); padding:8px 14px; font-size:12px; font-weight:600; white-space:nowrap; }
+    .footer-visit-map .map-cta i { font-size:10px; }
+    .footer-social { display:flex; gap:12px; }
+    .footer-social a { width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; font-size:14px; color:rgba(255,255,255,.7); transition:.2s; }
+    .footer-social a:hover { background:var(--primary); color:#fff; }
+    .footer-bottom { margin-top:36px; padding:18px 0; border-top:1px solid rgba(255,255,255,.08); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+    .footer-bottom p { font-size:13px; margin:0; color:rgba(255,255,255,.5); }
+
+    /* ===== Floating WhatsApp + Scroll top ===== */
+    .whatsapp-float { position:fixed; bottom:30px; left:30px; z-index:800; display:inline-flex; align-items:center; gap:10px; background:#25D366; color:#fff; padding:14px 20px; border-radius:60px; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600; box-shadow:0 8px 24px rgba(37,211,102,.4); transition:transform .2s, box-shadow .2s; }
+    .whatsapp-float:hover { color:#fff; transform:translateY(-2px); box-shadow:0 10px 28px rgba(37,211,102,.55); }
+    .whatsapp-float i { font-size:20px; }
+    .scroll-top { position:fixed; bottom:30px; right:30px; z-index:800; width:46px; height:46px; border-radius:50%; background:var(--text); color:#fff; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; opacity:0; transform:translateY(10px); transition:.3s; }
+    .scroll-top.visible { opacity:1; transform:translateY(0); }
+    .scroll-top:hover { background:var(--primary); }
+
+    /* ===== Mobile Nav ===== */
+    .mnav-overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); z-index:1500; display:none; }
+    .mnav-overlay.open { display:block; }
+    .mnav { position:fixed; left:-320px; top:0; width:320px; height:100vh; background:#fff; z-index:1600; overflow-y:auto; transition:left .3s; }
+    .mnav.open { left:0; }
+    .mnav-header { display:flex; align-items:center; justify-content:space-between; padding:20px; border-bottom:1px solid var(--line); }
+    .mnav > a { display:block; padding:14px 20px; font-size:15px; color:var(--text); border-bottom:1px solid var(--bg); }
+    .mnav > a:hover { color:var(--primary); background:var(--bg); }
+    .mnav-cta { display:flex; flex-direction:column; gap:10px; padding:20px; }
+    .mnav-cta a { display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:14px 16px; font-size:14px; font-weight:600; border-radius:2px; }
+    .mnav-call { background:var(--primary); color:#fff; }
+    .mnav-wa { background:#25D366; color:#fff; }
+    .mnav-visit { background:transparent; color:var(--text); border:1px solid var(--text); }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 1199px) {
+      .footer-inner { grid-template-columns:1fr 1fr 1fr; }
+      .footer-brand, .footer-visit-map { grid-column:span 3; }
+      .btn-call span { display:none; }
+      .btn-call { padding:12px 14px; }
+      .cat-grid { grid-template-columns:repeat(3, 1fr); }
+    }
+    @media (max-width: 991px) {
+      .main-nav { display:none; }
+      .mobile-toggle { display:block; }
+      .topbar-inner { grid-template-columns:1fr; }
+      .topbar-hours, .topbar-right { display:none; }
+      .btn-call, .btn-visit { display:none; }
+      .cat-grid { grid-template-columns:repeat(2, 1fr); }
+      .value-grid { grid-template-columns:repeat(2, 1fr); gap:32px 0; }
+      .value-item:nth-child(3) { border-left:none; }
+      .helper-grid { grid-template-columns:1fr; gap:36px; }
+    }
+    @media (max-width: 640px) {
+      .flat-spacing { padding:44px 0; }
+      .page-title-shell { padding:36px 0 20px; }
+      .cat-grid { grid-template-columns:1fr; gap:18px; }
+      .value-item + .value-item { border-left:none; }
+      .whatsapp-float { bottom:20px; left:20px; padding:14px; }
+      .whatsapp-float .wa-label { display:none; }
+      .scroll-top { bottom:20px; right:20px; }
+      .footer-inner { grid-template-columns:1fr 1fr; }
+      .footer-brand, .footer-visit-map { grid-column:span 2; }
+      .footer-bottom { flex-direction:column; text-align:center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═════ TOP BAR ═════ -->
+<div class="topbar">
+  <div class="container-fluid">
+    <div class="topbar-inner">
+      <div class="topbar-hours d-none d-lg-flex">
+        <span><i class="fa-regular fa-clock"></i> Mon–Sat · 10:30 AM – 8:30 PM</span>
+      </div>
+      <div class="topbar-marquee">
+        <div class="topbar-marquee-track">
+          <span>42 Years of Handpicked Furnishings · Ameerpet, Hyderabad · Since 1984</span>
+          <span>Curtains · Carpets · Mattresses · Blinds · Wallpapers · Upholstery · Bedding · Table Linen</span>
+          <span>42 Years of Handpicked Furnishings · Ameerpet, Hyderabad · Since 1984</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <a href="tel:+919000000000"><i class="fa fa-phone"></i> +91 90000 00000</a>
+        <a href="https://wa.me/919000000000" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <div class="topbar-social">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════ HEADER ═════ -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <div class="d-flex align-items-center gap-3">
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><i class="fa fa-bars"></i></button>
+      <a href="index.html" class="brand-logo" aria-label="Jaydurga Furnishings Extn."><img src="assets/logo.svg" alt="Jaydurga Furnishings Extn."></a>
+    </div>
+
+    <nav>
+      <ul class="main-nav">
+        <li><a href="index.html">Home</a></li>
+        <li class="active">
+          <a href="products.html">Products <i class="fa fa-chevron-down caret"></i></a>
+          <div class="mega">
+            <div class="row g-4">
+              <div class="col-3">
+                <h6>Windows</h6>
+                <a href="curtains.html">Curtains</a>
+                <a href="blinds.html">Blinds</a>
+              </div>
+              <div class="col-3">
+                <h6>Floor &amp; Wall</h6>
+                <a href="carpets.html">Carpets</a>
+                <a href="wallpapers.html">Wallpapers</a>
+              </div>
+              <div class="col-3">
+                <h6>Bedroom</h6>
+                <a href="mattresses.html">Mattresses</a>
+                <a href="bedding.html">Bedding</a>
+              </div>
+              <div class="col-3">
+                <h6>Living</h6>
+                <a href="upholstery.html">Upholstery</a>
+                <a href="table-linen.html">Table Linen</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href="tel:+919000000000" class="btn-call d-none d-md-inline-flex"><i class="fa fa-phone"></i><span>Call +91 90000 00000</span></a>
+      <a href="contact.html" class="btn-visit d-none d-lg-inline-flex">Visit Showroom <i class="fa fa-arrow-right"></i></a>
+      <a href="tel:+919000000000" class="header-icon d-md-none" aria-label="Call"><i class="fa fa-phone"></i></a>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<div class="mnav-overlay" id="mnavOverlay"></div>
+<nav class="mnav" id="mnav">
+  <div class="mnav-header">
+    <span class="brand-logo"><img src="assets/logo.svg" alt="Jaydurga Furnishings Extn."></span>
+    <button style="background:none;border:none;font-size:20px" id="mnavClose"><i class="fa fa-times"></i></button>
+  </div>
+  <a href="index.html">Home</a>
+  <a href="products.html">Products</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <div class="mnav-cta">
+    <a href="tel:+919000000000" class="mnav-call"><i class="fa fa-phone"></i> Call Us</a>
+    <a href="https://wa.me/919000000000" target="_blank" rel="noopener" class="mnav-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    <a href="contact.html" class="mnav-visit"><i class="fa fa-location-dot"></i> Visit Showroom</a>
+  </div>
+</nav>
+
+<!-- ═════ PAGE TITLE ═════ -->
+<section class="page-title-shell">
+  <div class="container">
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a>
+      <i class="fa fa-chevron-right sep"></i>
+      <span>Products</span>
+    </div>
+    <h1>Eight categories,<br />one Ameerpet showroom.</h1>
+    <p class="page-title-lead">Everything a Hyderabad home needs from the floor up &mdash; handpicked from the mills, laid out under one roof, and stocked the same way since 1984.</p>
+  </div>
+</section>
+
+<!-- ═════ CATEGORY GRID ═════ -->
+<section class="flat-spacing pt-0">
+  <div class="container">
+
+    <div class="cat-grid">
+
+      <a href="curtains.html" class="cat-card">
+        <div class="cat-image">
+          <span class="cat-badge hot">Handpicked</span>
+          <img src="https://images.unsplash.com/photo-1754611380518-61a923cc47ca?w=800&q=80&auto=format&fit=crop" alt="Curtains &mdash; sheer, blackout, cotton, silk and motorised" decoding="async"  fetchpriority="high" />
+        </div>
+        <div class="cat-body">
+          <h3 class="cat-name">Curtains</h3>
+          <p class="cat-tag">Sheer, blackout, cotton, silk and motorised &mdash; measured and stitched to fit your window.</p>
+          <span class="cat-cta">Explore Curtains <i class="fa fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a href="carpets.html" class="cat-card">
+        <div class="cat-image">
+          <img src="https://images.unsplash.com/photo-1652634213812-f0deeb1de78e?w=800&q=80&auto=format&fit=crop" alt="Carpets &mdash; hand-tufted, machine-woven, hand-knotted and room-fit" loading="lazy" decoding="async" />
+        </div>
+        <div class="cat-body">
+          <h3 class="cat-name">Carpets</h3>
+          <p class="cat-tag">Hand-tufted, machine-woven, hand-knotted and wall-to-wall &mdash; sized to your room.</p>
+          <span class="cat-cta">Explore Carpets <i class="fa fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a href="mattresses.html" class="cat-card">
+        <div class="cat-image">
+          <span class="cat-badge new">Try in-store</span>
+          <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80&auto=format&fit=crop" alt="Mattresses &mdash; memory foam, pocket spring, latex and orthopaedic" loading="lazy" decoding="async" />
+        </div>
+        <div class="cat-body">
+          <h3 class="cat-name">Mattresses</h3>
+          <p class="cat-tag">Memory foam, pocket spring, natural latex, coir and orthopaedic &mdash; lie down and decide.</p>
+          <span class="cat-cta">Explore Mattresses <i class="fa fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a href="blinds.html" class="cat-card">
+        <div class="cat-image">
+          <span class="cat-badge">Cut to fit</span>
+          <img src="https://images.unsplash.com/photo-1628070852047-dc2ea1da3ffd?w=800&q=80&auto=format&fit=crop" alt="Blinds &mdash; roller, roman, venetian, vertical, zebra and wood" loading="lazy" decoding="async" />
+        </div>
+        <div class="cat-body">
+          <h3 class="cat-name">Blinds</h3>
+          <p class="cat-tag">Roller, roman, venetian, vertical, zebra day-night and wood &mdash; cut to your window.</p>
+          <span class="cat-cta">Explore Blinds <i class="fa fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a href="wallpapers.html" class="cat-card">
+        <div class="cat-image">
+          <img src="https://images.unsplash.com/photo-1778088442849-e3715fa12e02?w=800&q=80&auto=format&fit=crop" alt="Wallpapers &mdash; vinyl, non-woven, textured, hand-blocked and mural" loading="lazy" decoding="async" />
+        </div>
+        <div class="cat-body">
+          <h3 class="cat-name">Wallpapers</h3>
+          <p class="cat-tag">Vinyl, non-woven, textured, hand-blocked and full-wall murals &mdash; swatch books in-store.</p>
+          <span class="cat-cta">Explore Wallpapers <i class="fa fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a href="upholstery.html" class="cat-card">
+        <div class="cat-image">
+          <img src="https://images.unsplash.com/photo-1578653282816-a508bd2d0435?w=800&q=80&auto=format&fit=crop" alt="Upholstery &mdash; velvet, linen, jacquard, faux-leather and outdoor" loading="lazy" decoding="async" />
+        </div>
+        <div class="cat-body">
+          <h3 class="cat-name">Upholstery</h3>
+          <p class="cat-tag">Velvet, linen, jacquard, faux-leather and outdoor &mdash; and a family tailor for the reupholstering.</p>
+          <span class="cat-cta">Explore Upholstery <i class="fa fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a href="bedding.html" class="cat-card">
+        <div class="cat-image">
+          <img src="https://images.unsplash.com/photo-1601276174812-63280a55656e?w=800&q=80&auto=format&fit=crop" alt="Bedding &mdash; cotton, sateen, linen, percale and coverlets" loading="lazy" decoding="async" />
+        </div>
+        <div class="cat-body">
+          <h3 class="cat-name">Bedding</h3>
+          <p class="cat-tag">Cotton sateen, Belgian linen, percale, duvet covers, pillow cases and coverlets.</p>
+          <span class="cat-cta">Explore Bedding <i class="fa fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a href="table-linen.html" class="cat-card">
+        <div class="cat-image">
+          <img src="https://images.unsplash.com/photo-1726207873181-03af2636095d?w=800&q=80&auto=format&fit=crop" alt="Table Linen &mdash; runners, tablecloths, placemats and napkins" loading="lazy" decoding="async" />
+        </div>
+        <div class="cat-body">
+          <h3 class="cat-name">Table Linen</h3>
+          <p class="cat-tag">Runners, tablecloths, placemats, napkins and coordinated sets for six or twelve.</p>
+          <span class="cat-cta">Explore Table Linen <i class="fa fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═════ VALUE STRIP ═════ -->
+<section class="value-strip">
+  <div class="container">
+    <div class="value-grid">
+      <div class="value-item">
+        <div class="vi-icon"><i class="fa fa-hand-holding-heart"></i></div>
+        <h5>Handpicked Fabrics</h5>
+        <p>Every roll on our floor was chosen by hand by someone in the family.</p>
+      </div>
+      <div class="value-item">
+        <div class="vi-icon"><i class="fa fa-ruler-combined"></i></div>
+        <h5>Made To Measure</h5>
+        <p>Cut, stitched and fitted to your window, room or bed &mdash; not a standard size.</p>
+      </div>
+      <div class="value-item">
+        <div class="vi-icon"><i class="fa fa-users"></i></div>
+        <h5>Family Advice</h5>
+        <p>Two generations on the floor. Ask what wears well &mdash; we&rsquo;ve watched it.</p>
+      </div>
+      <div class="value-item">
+        <div class="vi-icon"><i class="fa fa-house"></i></div>
+        <h5>One Showroom</h5>
+        <p>Every furnishing your home needs, in one visit, on Ameerpet&rsquo;s main street.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ NOT SURE WHERE TO START ═════ -->
+<section class="helper-shell">
+  <div class="container">
+    <div class="helper-grid">
+      <div class="helper-left">
+        <h3>Not sure where to start? Bring a photo.</h3>
+        <p>Most customers walk in with a photo of a room, a fabric swatch or nothing at all. That&rsquo;s our favourite kind of visit.</p>
+        <p>We&rsquo;ll ask you about your light, your family, your budget and the season &mdash; and then walk the floor with you. No pressure, no cart, no online store.</p>
+        <div class="helper-ctas">
+          <a href="contact.html" class="btn-solid">Book a showroom visit <i class="fa fa-arrow-right"></i></a>
+          <a href="https://wa.me/919000000000?text=Hi%20Jaydurga%2C%20I%27d%20like%20to%20visit%20the%20showroom." target="_blank" rel="noopener" class="btn-outline"><i class="fab fa-whatsapp"></i> WhatsApp us</a>
+        </div>
+      </div>
+      <div class="helper-right">
+        <div class="helper-image">
+          <img src="https://images.unsplash.com/photo-1779505576192-803dd8c9b55a?w=1000&q=80&auto=format&fit=crop" alt="A heritage sitting room dressed with Jaydurga curtains and carpet" loading="lazy" decoding="async" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ VISIT CTA ═════ -->
+<section class="flat-spacing pt-0">
+  <div class="container">
+    <div class="visit-banner" style="background-image:url('https://images.unsplash.com/photo-1657981630164-769503f3a9a8?w=1600&q=80&auto=format&fit=crop')">
+      <div>
+        <p class="mini-title">Ameerpet, Hyderabad · Since 1984</p>
+        <p class="title">Come see it, feel it, take it home.</p>
+        <p class="desc">Same street, same family &mdash; every furnishing your home needs, under one roof.</p>
+        <a href="contact.html" class="btn-white-arrow">Get Directions <i class="fa fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════ FOOTER ═════ -->
+<footer class="tf-footer">
+  <div class="container">
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+        <a href="index.html" class="brand-logo"><img src="assets/logo.svg" alt="Jaydurga Furnishings Extn."></a>
+        <p class="footer-desc">
+          Family-run furnishings house in Ameerpet, Hyderabad since 1984. Curtains, carpets, mattresses, blinds, wallpapers, upholstery, bedding and table linen &mdash; all under one roof.
+        </p>
+        <div class="footer-contact">
+          <div class="item"><i class="fa fa-location-dot"></i><span>Ameerpet, Hyderabad, Telangana, India</span></div>
+          <div class="item"><i class="fa fa-phone"></i><a href="tel:+919000000000">+91 90000 00000</a></div>
+          <div class="item"><i class="fa-regular fa-clock"></i><span>Mon–Sat &middot; 10:30 AM – 8:30 PM &middot; Sun closed</span></div>
+          <div class="item"><i class="fa fa-envelope"></i><a href="mailto:hello@jaydurga.in">hello@jaydurga.in</a></div>
+        </div>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/919000000000" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <div>
+        <h6 class="footer-title">Explore</h6>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h6 class="footer-title">Categories</h6>
+        <ul class="footer-links">
+          <li><a href="curtains.html">Curtains</a></li>
+          <li><a href="carpets.html">Carpets</a></li>
+          <li><a href="mattresses.html">Mattresses</a></li>
+          <li><a href="blinds.html">Blinds</a></li>
+          <li><a href="wallpapers.html">Wallpapers</a></li>
+          <li><a href="upholstery.html">Upholstery</a></li>
+          <li><a href="bedding.html">Bedding</a></li>
+          <li><a href="table-linen.html">Table Linen</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h6 class="footer-title">Visit The Showroom</h6>
+        <ul class="footer-links">
+          <li><a href="contact.html#directions"><i class="fa fa-location-dot"></i> Get Directions</a></li>
+          <li><a href="contact.html#hours"><i class="fa-regular fa-clock"></i> Store Hours</a></li>
+          <li><a href="tel:+919000000000"><i class="fa fa-phone"></i> Call Now</a></li>
+          <li><a href="https://wa.me/919000000000" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+          <li><a href="contact.html#enquiry"><i class="fa-regular fa-envelope"></i> Send Enquiry</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-visit-map">
+        <h6 class="footer-title">We Are Here</h6>
+        <a href="contact.html#directions" class="map-thumb" aria-label="Open directions">
+          <img src="https://images.unsplash.com/photo-1657981630164-769503f3a9a8?w=1200&q=80&auto=format&fit=crop" alt="Charminar, Hyderabad" loading="lazy" decoding="async" />
+          <span class="map-pin"><i class="fa fa-location-dot"></i></span>
+          <span class="map-cta">Get Directions <i class="fa fa-arrow-right"></i></span>
+        </a>
+        <p class="footer-desc" style="margin-top:16px">
+          Walk in with a swatch, a photo, or just an idea. Our family will help you pick the right fabric for your home.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>©2026 Jaydurga Furnishings Extn. &middot; Ameerpet, Hyderabad &middot; Since 1984</p>
+      <p>Family-run since 1984 &middot; A retail showroom, not an online store.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp -->
+<a class="whatsapp-float" href="https://wa.me/919000000000?text=Hi%20Jaydurga%2C%20I%27d%20like%20to%20know%20more%20about%20your%20furnishings." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+  <span class="wa-label">Chat With Us</span>
+</a>
+
+<!-- Scroll to top -->
+<button class="scroll-top" id="scrollTop" aria-label="Top"><i class="fa fa-chevron-up"></i></button>
+<script>
+  const header = document.getElementById('siteHeader');
+  const scrollTop = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 60);
+    scrollTop.classList.toggle('visible', window.scrollY > 400);
+  });
+  scrollTop.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+
+  const mnav = document.getElementById('mnav');
+  const mnavOv = document.getElementById('mnavOverlay');
+  const openMn  = () => { mnav.classList.add('open');    mnavOv.classList.add('open');    document.body.style.overflow='hidden'; };
+  const closeMn = () => { mnav.classList.remove('open'); mnavOv.classList.remove('open'); document.body.style.overflow=''; };
+  document.getElementById('mobileToggle').addEventListener('click', openMn);
+  document.getElementById('mnavClose').addEventListener('click', closeMn);
+  mnavOv.addEventListener('click', closeMn);
+
+  (function(){
+    document.querySelectorAll('.topbar-marquee-track').forEach(t => t.innerHTML = t.innerHTML + t.innerHTML);
+  })();
+</script>
+</body>
+</html>
