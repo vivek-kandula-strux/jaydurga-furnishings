@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#EEE9DC" />
+
+  <title>Products — Curtains, carpets, mattresses &amp; soft furnishings · Jaydurga Furnishings</title>
+  <meta name="description" content="Eight collections, kept under one roof: curtains, carpets, mattresses, blinds, wallpapers, upholstery, bedding and table linen. Ameerpet, Hyderabad." />
+
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+
+  <link rel="stylesheet" href="css/wireframe.css" />
+
+  <style>
+    /* Chapter jump nav — pill chips */
+    .chapter-index {
+      margin-top: 32px;
+      background: var(--panel);
+      border-radius: var(--pill);
+      padding: 8px;
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .chapter-index::-webkit-scrollbar { display: none; }
+    .chapter-index a {
+      padding: 10px 18px;
+      border-radius: var(--pill);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      white-space: nowrap;
+      transition: background .18s ease, color .18s ease;
+      flex-shrink: 0;
+    }
+    .chapter-index a:hover { background: var(--chip); color: var(--ink); }
+
+    /* Collection blocks */
+    .collection {
+      margin-top: 40px;
+      background: var(--shell);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      min-height: 460px;
+    }
+    .collection--reverse { grid-template-columns: 1.15fr 1fr; }
+    .collection--reverse .collection__media { order: 2; }
+    .collection--reverse .collection__copy { order: 1; }
+
+    .collection__media {
+      position: relative;
+      overflow: hidden;
+      margin: 0;
+    }
+    .collection__media img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .collection__media figcaption {
+      position: absolute;
+      bottom: 20px; left: 20px;
+      background: rgba(15,11,8,.72);
+      color: #FBF6EA;
+      padding: 8px 14px;
+      border-radius: var(--pill);
+      font-size: 12px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      backdrop-filter: blur(8px);
+    }
+    .collection__media figcaption strong { font-weight: 700; }
+
+    .collection__copy {
+      padding: clamp(28px, 3.6vw, 56px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+    }
+    .collection__num {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      color: var(--mute);
+      text-transform: uppercase;
+    }
+    .collection__title {
+      font-size: clamp(28px, 3.4vw, 44px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.02;
+      margin: 0;
+      color: var(--ink);
+    }
+    .collection__lede {
+      font-size: 15.5px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+      max-width: 42ch;
+      margin: 0;
+    }
+    .collection__list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 20px;
+      padding: 20px 0;
+      border-top: 1px solid var(--divider);
+      border-bottom: 1px solid var(--divider);
+    }
+    .collection__list li {
+      font-size: 13.5px;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .collection__list li::before {
+      content: "";
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--rust);
+      flex-shrink: 0;
+    }
+    .collection__actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .collection,
+      .collection--reverse { grid-template-columns: 1fr; }
+      .collection__media { aspect-ratio: 4/3; }
+      .collection--reverse .collection__media { order: 1; }
+      .collection--reverse .collection__copy { order: 2; }
+      .collection__list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="shell">
+
+    <!-- HEADER -->
+    <header class="nav">
+      <a href="index.html" class="brand" aria-label="Jaydurga Furnishings · Home">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M5 20v-3a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v3" stroke-linecap="round"/>
+            <path d="M7 20v4M25 20v4" stroke-linecap="round"/>
+            <path d="M9 14v-3a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand__wordmark">
+          <span class="brand__name">JAYDURGA</span>
+          <span class="brand__tag">Since 1984 · Ameerpet</span>
+        </span>
+      </a>
+
+      <nav class="nav__menu" id="primary-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="collections.html" class="is-active">Collections</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="nav__tools">
+        <button class="icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <button class="icon-btn icon-btn__badge" aria-label="Enquiry list">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M6 7h13l-1.4 8.2a2 2 0 0 1-2 1.7H9.4a2 2 0 0 1-2-1.7L6 7Z" stroke-linejoin="round"/>
+            <path d="M6 7 5.3 4H3" stroke-linecap="round"/>
+            <circle cx="10" cy="21" r="1.1"/><circle cx="17" cy="21" r="1.1"/>
+          </svg>
+        </button>
+        <a href="tel:+914023730142" class="btn btn--dark">Call Us</a>
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="page-hero__inner">
+        <div>
+          <p class="eyebrow">Eight chapters, one house</p>
+          <h1 class="page-hero__title">Everything soft<br/>a room can wear.</h1>
+        </div>
+        <div>
+          <p class="page-hero__lede">
+            Forty-two years of shortlisting — fabric by fabric, bed by bed, wall
+            by wall — has given us a small, considered range. Nothing here is on
+            the floor for the sake of stock. If we keep it, we've already backed
+            it. If we don't, we tell you where to find it — even if that's
+            someone else's floor.
+          </p>
+          <dl class="page-hero__meta">
+            <div><dt>On the floor</dt><strong>4,200 sq ft</strong></div>
+            <div><dt>Swatch books</dt><strong>140+</strong></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER JUMP NAV -->
+    <nav class="chapter-index" aria-label="Jump to a collection">
+      <a href="#curtains">01 · Curtains</a>
+      <a href="#carpets">02 · Carpets</a>
+      <a href="#mattresses">03 · Mattresses</a>
+      <a href="#blinds">04 · Blinds</a>
+      <a href="#wallpapers">05 · Wallpapers</a>
+      <a href="#upholstery">06 · Upholstery</a>
+      <a href="#bedding">07 · Bedding</a>
+      <a href="#table-linen">08 · Table linen</a>
+    </nav>
+
+    <!-- 01 · Curtains -->
+    <section class="collection" id="curtains">
+      <figure class="collection__media">
+        <img src="https://images.unsplash.com/photo-1616137422495-1e9e46e2aa77?auto=format&fit=crop&w=1100&q=70" alt="Long sheer linen curtains catching afternoon light" loading="lazy"/>
+        <figcaption><strong>Plate 01</strong> Sheer linen · south window</figcaption>
+      </figure>
+      <div class="collection__copy">
+        <span class="collection__num">01 · Curtains</span>
+        <h2 class="collection__title">For light, sleep, and everything you'd rather not hear.</h2>
+        <p class="collection__lede">
+          The right curtain solves three problems at once: the light that keeps
+          you up, the balcony that watches your Sunday afternoon, and the room
+          that felt unfinished until you hung something at its window. Twenty-two
+          sheer weights, three-pass blackouts for the ones who like their weekends
+          dark, jacquards woven for us in Erode. Tailored by us, hung by us,
+          altered by us if the drop's a finger off.
+        </p>
+        <ul class="collection__list">
+          <li>Sheers — voile, organza, leno</li>
+          <li>Blackouts — three-pass, motorised</li>
+          <li>Jacquards — Erode, Salem looms</li>
+          <li>Printed cotton — Bhuj &amp; Bagh</li>
+          <li>Tracks &amp; rods — brass, walnut</li>
+          <li>Hand-stitched headings</li>
+        </ul>
+        <div class="collection__actions">
+          <a href="contact.html?subject=Curtains" class="btn btn--dark">
+            Enquire About Curtains
+            <span class="btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </a>
+          <a href="gallery.html#curtains" class="link-arrow">See in customer homes <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 · Carpets -->
+    <section class="collection collection--reverse" id="carpets">
+      <figure class="collection__media">
+        <img src="https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=1100&q=70" alt="A hand-knotted carpet on a dark wood floor" loading="lazy"/>
+        <figcaption><strong>Plate 02</strong> Hand-knotted wool · 8 × 10</figcaption>
+      </figure>
+      <div class="collection__copy">
+        <span class="collection__num">02 · Carpets</span>
+        <h2 class="collection__title">The floor becomes the room.</h2>
+        <p class="collection__lede">
+          A carpet is the layer that finally makes a room feel like one — softer
+          underfoot in winter, quieter to walk through at midnight, kinder to a
+          toddler about to fall. Hand-knotted wool from Bhadohi for the rooms
+          that ought to last twenty years, flat-woven dhurries from Mirzapur for
+          the corridors that see daily traffic, and honest machine-mades when
+          the budget calls for one. Knot-count on every label — no inflated
+          numbers, no imported fiction.
+        </p>
+        <ul class="collection__list">
+          <li>Hand-knotted wool</li>
+          <li>Tibetan-knot silk</li>
+          <li>Flat-weave dhurries</li>
+          <li>Machine-mades — Belgium, Turkey</li>
+          <li>Runners &amp; staircases</li>
+          <li>Cleaning &amp; underlay service</li>
+        </ul>
+        <div class="collection__actions">
+          <a href="contact.html?subject=Carpets" class="btn btn--dark">
+            Enquire About Carpets
+            <span class="btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </a>
+          <a href="gallery.html#carpets" class="link-arrow">See in customer homes <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 · Mattresses -->
+    <section class="collection" id="mattresses">
+      <figure class="collection__media">
+        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1100&q=70" alt="A made-up bed with crisp white linens in a sunlit room" loading="lazy"/>
+        <figcaption><strong>Plate 03</strong> Pocket-spring · queen</figcaption>
+      </figure>
+      <div class="collection__copy">
+        <span class="collection__num">03 · Mattresses</span>
+        <h2 class="collection__title">The eight hours your back is asking for.</h2>
+        <p class="collection__lede">
+          You will spend a third of the next decade on this mattress. It is
+          worth twenty minutes of choosing. Eleven beds on the floor, laid out
+          to try — please lie down on three, don't apologise for taking your
+          time, and don't leave without knowing which one your shoulders prefer.
+          Authorised for Sleepwell, Kurlon, Duroflex — meaning your warranty
+          runs through us, not to a call centre.
+        </p>
+        <ul class="collection__list">
+          <li>Pocket-spring</li>
+          <li>Memory foam</li>
+          <li>Natural latex</li>
+          <li>Bonded coir</li>
+          <li>Orthopaedic firmness</li>
+          <li>Custom sizes &amp; protectors</li>
+        </ul>
+        <div class="collection__actions">
+          <a href="contact.html?subject=Mattresses" class="btn btn--dark">
+            Enquire About Mattresses
+            <span class="btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </a>
+          <a href="gallery.html#mattresses" class="link-arrow">See in customer homes <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 · Blinds -->
+    <section class="collection collection--reverse" id="blinds">
+      <figure class="collection__media">
+        <img src="https://images.unsplash.com/photo-1604014237800-1c9102c219da?auto=format&fit=crop&w=1100&q=70" alt="Roman blinds in soft cotton, drawn part-way up" loading="lazy"/>
+        <figcaption><strong>Plate 04</strong> Roman blind · cotton-linen</figcaption>
+      </figure>
+      <div class="collection__copy">
+        <span class="collection__num">04 · Blinds</span>
+        <h2 class="collection__title">Windows that need their light on a dial.</h2>
+        <p class="collection__lede">
+          Some rooms need light on a dial — half of it at three o'clock, none of
+          it at bedtime, all of it on Sunday morning. That is what blinds do
+          that curtains cannot. Roman in cotton for the reading corner, roller
+          blackouts for the bedroom, wooden venetians where the study wants
+          something firm. Motorised — and, more importantly, quiet — installed
+          by our own electrician, warranty through us.
+        </p>
+        <ul class="collection__list">
+          <li>Roman blinds</li>
+          <li>Roller — blackout, solar</li>
+          <li>Vertical PVC</li>
+          <li>Wooden venetian</li>
+          <li>Honeycomb / cellular</li>
+          <li>Motorised &amp; remote</li>
+        </ul>
+        <div class="collection__actions">
+          <a href="contact.html?subject=Blinds" class="btn btn--dark">
+            Enquire About Blinds
+            <span class="btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </a>
+          <a href="gallery.html#blinds" class="link-arrow">See in customer homes <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 · Wallpapers -->
+    <section class="collection" id="wallpapers">
+      <figure class="collection__media">
+        <img src="https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=1100&q=70" alt="A wall papered in a textured pattern beside a wooden console" loading="lazy"/>
+        <figcaption><strong>Plate 05</strong> Textured paper · entryway</figcaption>
+      </figure>
+      <div class="collection__copy">
+        <span class="collection__num">05 · Wallpapers</span>
+        <h2 class="collection__title">One wall. A different room.</h2>
+        <p class="collection__lede">
+          Change one wall, and the whole room reads new. It is the smallest civil
+          work you can do to a house, and the one that returns the most. Asian
+          Paints Nilaya and Marshalls on the floor, imported prints from Italy
+          and Germany by special order — hung by Naresh, who has been hanging
+          paper for us since 2003. Bubble-free. If not, we hang it again, no
+          argument.
+        </p>
+        <ul class="collection__list">
+          <li>Asian Paints Nilaya</li>
+          <li>Marshalls — India &amp; UK</li>
+          <li>Imported — Italy, Germany</li>
+          <li>Textured &amp; embossed</li>
+          <li>Kids' room ranges</li>
+          <li>Free site survey &amp; install</li>
+        </ul>
+        <div class="collection__actions">
+          <a href="contact.html?subject=Wallpapers" class="btn btn--dark">
+            Enquire About Wallpapers
+            <span class="btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </a>
+          <a href="gallery.html#wallpapers" class="link-arrow">See in customer homes <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 · Upholstery -->
+    <section class="collection collection--reverse" id="upholstery">
+      <figure class="collection__media">
+        <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=1100&q=70" alt="A chair being re-upholstered, a roll of jacquard beside it" loading="lazy"/>
+        <figcaption><strong>Plate 06</strong> Jacquard re-upholstery</figcaption>
+      </figure>
+      <div class="collection__copy">
+        <span class="collection__num">06 · Upholstery</span>
+        <h2 class="collection__title">The sofa you own can outlast the one you were about to buy.</h2>
+        <p class="collection__lede">
+          We collect it in a truck, strip it down, replace the springs if they've
+          gone, restuff the cushions, re-cover it in a fabric you actually chose,
+          and deliver it home in ten days — better than you remember it. New
+          pieces too — chenille, jacquard, linen, leatherette, indoor-outdoor
+          performance. Sold by the metre, upholstered by the room.
+        </p>
+        <ul class="collection__list">
+          <li>Chenille &amp; jacquard</li>
+          <li>Pure &amp; blended linen</li>
+          <li>Performance / pet-friendly</li>
+          <li>Leatherette &amp; vinyls</li>
+          <li>Sofa re-upholstery</li>
+          <li>Foam &amp; spring refits</li>
+        </ul>
+        <div class="collection__actions">
+          <a href="contact.html?subject=Upholstery" class="btn btn--dark">
+            Enquire About Upholstery
+            <span class="btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </a>
+          <a href="gallery.html#upholstery" class="link-arrow">See in customer homes <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 · Bedding -->
+    <section class="collection" id="bedding">
+      <figure class="collection__media">
+        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1100&q=70" alt="Folded white cotton bed-linens stacked on a wooden shelf" loading="lazy"/>
+        <figcaption><strong>Plate 07</strong> Sateen cotton · 300-thread</figcaption>
+      </figure>
+      <div class="collection__copy">
+        <span class="collection__num">07 · Bedding</span>
+        <h2 class="collection__title">Cotton you can sleep ten years in.</h2>
+        <p class="collection__lede">
+          Ten degrees of comfort separate a good night from a bad one, and most
+          of them live in the weave. Pure-cotton sateen and percale in 250 to
+          600 thread counts, quilts and dohars in winter weights, pillow forms
+          we re-fill on request. We do not sell polyester sheets. We never
+          have.
+        </p>
+        <ul class="collection__list">
+          <li>Sateen — 300 to 600</li>
+          <li>Percale &amp; oxford</li>
+          <li>Quilts &amp; dohars</li>
+          <li>Pillow forms — duck, microfibre</li>
+          <li>Custom sizes for old beds</li>
+          <li>Embroidered bridal sets</li>
+        </ul>
+        <div class="collection__actions">
+          <a href="contact.html?subject=Bedding" class="btn btn--dark">
+            Enquire About Bedding
+            <span class="btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </a>
+          <a href="gallery.html#bedding" class="link-arrow">See in customer homes <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 · Table linen -->
+    <section class="collection collection--reverse" id="table-linen">
+      <figure class="collection__media">
+        <img src="https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=1100&q=70" alt="A jacquard table runner laid on a dark wooden dining table" loading="lazy"/>
+        <figcaption><strong>Plate 08</strong> Jacquard runner · dining</figcaption>
+      </figure>
+      <div class="collection__copy">
+        <span class="collection__num">08 · Table linen</span>
+        <h2 class="collection__title">Every meal, a small ceremony.</h2>
+        <p class="collection__lede">
+          A runner turns supper into an occasion, and a set of napkins turns
+          your dining table into someone else's memory. Jacquard, plain weave,
+          runners, place-mats, napkins, tea-towels — woven for us, gift-wrapped
+          at the counter without being asked, and as good a wedding present as
+          any we know of.
+        </p>
+        <ul class="collection__list">
+          <li>Jacquard runners</li>
+          <li>Place-mats — cotton, jute</li>
+          <li>Napkins — 12-piece sets</li>
+          <li>Tea-towels &amp; aprons</li>
+          <li>Festive collections</li>
+          <li>Complimentary gift wrap</li>
+        </ul>
+        <div class="collection__actions">
+          <a href="contact.html?subject=Table+linen" class="btn btn--dark">
+            Enquire About Table Linen
+            <span class="btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </a>
+          <a href="gallery.html#table-linen" class="link-arrow">See in customer homes <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISIT CTA -->
+    <section class="visit-cta">
+      <div>
+        <p class="eyebrow eyebrow--light">Or, the easiest way</p>
+        <h2 class="display display--md">Come see it on the floor.</h2>
+        <p>Two minutes from Ameerpet Metro. Tea is on. Bring your room measurements, or don't — we'll come measure them for you.</p>
+      </div>
+      <div class="visit-cta__actions">
+        <a href="contact.html" class="btn btn--light">Plan Your Visit</a>
+        <a href="tel:+914023730142" class="link-arrow--light">Or call · +91 40 2373 0142 <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="site-footer__grid">
+        <div class="site-footer__brand">
+          <p><strong>Jaydurga Furnishings.</strong> Since 1984.</p>
+          <p>4th Floor, Mandhana Towers<br/>Ameerpet Main Road<br/>Hyderabad 500 016, Telangana</p>
+          <p><a href="tel:+914023730142">+91 40 2373 0142</a><br/><a href="mailto:hello@jaydurga.in">hello@jaydurga.in</a></p>
+          <em>Open 10:30 — 20:30 · Seven days</em>
+        </div>
+        <div>
+          <h4>Collections</h4>
+          <ul>
+            <li><a href="#curtains">Curtains</a></li>
+            <li><a href="#carpets">Carpets</a></li>
+            <li><a href="#mattresses">Mattresses</a></li>
+            <li><a href="#blinds">Blinds</a></li>
+            <li><a href="#wallpapers">Wallpapers</a></li>
+            <li><a href="#upholstery">Upholstery</a></li>
+            <li><a href="#bedding">Bedding</a></li>
+            <li><a href="#table-linen">Table linen</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>House</h4>
+          <ul>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Visit · Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Service</h4>
+          <ul>
+            <li><a href="contact.html#measure">Free measurement</a></li>
+            <li><a href="contact.html#tailoring">In-house tailoring</a></li>
+            <li><a href="contact.html#reupholstery">Re-upholstery</a></li>
+            <li><a href="contact.html#interior">Interior consultation</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__rail">
+        <small>© <span data-year>2026</span> Jaydurga Furnishings Extn. · Ameerpet, Hyderabad</small>
+        <ul>
+          <li><a href="https://www.instagram.com/jaydurgaextn/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://wa.me/914023730142">WhatsApp</a></li>
+        </ul>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
+
+    // Mobile nav toggle
+    (function () {
+      var toggle = document.querySelector('.nav-toggle');
+      var menu = document.getElementById('primary-nav');
+      if (!toggle || !menu) return;
+      toggle.addEventListener('click', function () {
+        var open = menu.classList.toggle('is-open');
+        toggle.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      });
+      document.addEventListener('click', function (e) {
+        if (!toggle.contains(e.target) && !menu.contains(e.target) && menu.classList.contains('is-open')) {
+          menu.classList.remove('is-open');
+          toggle.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.setAttribute('aria-label', 'Open menu');
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

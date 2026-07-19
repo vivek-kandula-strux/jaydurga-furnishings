@@ -1,0 +1,2106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#EEE9DC" />
+
+  <title>Jaydurga Furnishings — Curtains, carpets, mattresses · Ameerpet, Hyderabad · Since 1984</title>
+  <meta name="description" content="A family-run furnishings house on Ameerpet Main Road, Hyderabad. Curtains, carpets, mattresses, blinds, wallpapers, upholstery, bedding and table linen — measured, cut and stitched on the 4th floor. Call +91 40 2373 0142." />
+
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+  <link rel="canonical" href="https://jaydurga.in/" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+
+  <link rel="stylesheet" href="css/wireframe.css" />
+
+  <style>
+    /* ═════════════════════════════════════════
+       HOME-SPECIFIC
+       ═════════════════════════════════════════ */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 44fr) minmax(0, 56fr);
+      gap: clamp(24px, 3vw, 46px);
+      margin-top: 40px;
+      align-items: stretch;
+    }
+    .hero__copy { padding: 8px 4px 4px 8px; display: flex; flex-direction: column; min-width: 0; }
+    .hero__title {
+      font-size: clamp(46px, 5.6vw, 90px);
+      line-height: 0.98;
+      letter-spacing: -0.035em;
+      font-weight: 700;
+      margin: 0 0 32px;
+      color: var(--ink);
+    }
+    .hero__lede { font-size: 15.5px; color: var(--ink-soft); max-width: 38ch; margin: 0 0 40px; line-height: 1.55; }
+    .hero__ctas { display: flex; gap: 12px; margin-bottom: 44px; flex-wrap: wrap; }
+    .hero__features { display: flex; align-items: center; gap: clamp(14px, 1.8vw, 22px); margin-top: auto; }
+    .feature { display: flex; align-items: center; gap: 12px; }
+    .feature__icon {
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      background: var(--chip);
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      flex-shrink: 0;
+    }
+    .feature__icon svg { width: 20px; height: 20px; }
+    .feature__label { font-size: 13px; font-weight: 600; line-height: 1.2; color: var(--ink); white-space: nowrap; }
+    .feature__divider { width: 1px; height: 30px; background: var(--divider); flex-shrink: 0; }
+
+    /* ─── Hero slider (right column) ─── */
+    .hero__slider {
+      --autoplay-ms: 5500ms;
+      --ease-out-quart: cubic-bezier(.25, 1, .3, 1);
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: #1A130E;
+      aspect-ratio: 1.35 / 1;
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      align-self: stretch;
+      box-shadow:
+        0 40px 80px -48px rgba(23, 19, 16, .35),
+        0 12px 28px -20px rgba(23, 19, 16, .28);
+      isolation: isolate;
+    }
+    /* Autoplay progress hairline at top of slider */
+    .hero__slider::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(253,251,246,.2), #FDFBF6);
+      z-index: 5;
+      pointer-events: none;
+      border-radius: 0 2px 2px 0;
+    }
+    .hero__slider.is-playing::before {
+      animation: heroProgress var(--autoplay-ms) linear forwards;
+    }
+    @keyframes heroProgress {
+      from { width: 0; }
+      to   { width: 100%; }
+    }
+
+    .hero__slider-track {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transform: translate3d(0, 0, 0);
+      transition: transform 800ms var(--ease-out-quart);
+      will-change: transform;
+    }
+    .hero__slide {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      margin: 0;
+    }
+    .hero__slide img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.06);
+      transition: transform 9000ms ease-out;
+      will-change: transform;
+    }
+    /* Ken Burns: slow zoom on the visible slide */
+    .hero__slide.is-active img {
+      transform: scale(1.18);
+    }
+    .hero__slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(170deg, rgba(23,19,16,.55) 0%, rgba(23,19,16,.18) 32%, rgba(23,19,16,0) 55%),
+        linear-gradient(0deg, rgba(23,19,16,.35) 0%, rgba(23,19,16,0) 40%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero__slide-caption {
+      position: absolute;
+      top: clamp(28px, 3vw, 44px);
+      left: clamp(28px, 3vw, 44px);
+      right: clamp(28px, 3vw, 44px);
+      max-width: 68%;
+      color: #FBF6EA;
+      z-index: 2;
+      margin: 0;
+      opacity: 0;
+      transform: translateY(14px);
+      transition:
+        opacity 700ms 200ms var(--ease-out-quart),
+        transform 700ms 200ms var(--ease-out-quart);
+    }
+    .hero__slide.is-active .hero__slide-caption {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .hero__slide-title {
+      font-size: clamp(22px, 2vw, 32px);
+      font-weight: 600;
+      letter-spacing: -0.022em;
+      line-height: 1.16;
+      margin: 0 0 24px;
+      color: #FBF6EA;
+      text-shadow: 0 2px 24px rgba(0, 0, 0, .25);
+    }
+    .hero__slide-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 22px;
+      background: #FDFBF6;
+      color: var(--ink);
+      border-radius: var(--pill);
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform .25s var(--ease-out-quart), box-shadow .25s ease;
+      box-shadow: 0 12px 28px -14px rgba(0, 0, 0, .45);
+    }
+    .hero__slide-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 34px -14px rgba(0, 0, 0, .5);
+    }
+    .hero__slide-cta__arrow {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(23, 19, 16, .08);
+      display: grid;
+      place-items: center;
+      transition: transform .3s var(--ease-out-quart);
+    }
+    .hero__slide-cta:hover .hero__slide-cta__arrow {
+      transform: translateX(3px);
+    }
+    .hero__slide-cta__arrow svg { width: 12px; height: 12px; }
+
+    .hero__slider-controls {
+      position: absolute;
+      left: clamp(24px, 3vw, 40px);
+      right: clamp(24px, 3vw, 40px);
+      bottom: clamp(20px, 2.5vw, 32px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      z-index: 3;
+      pointer-events: none;
+    }
+    .hero__slider-dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: var(--pill);
+      background: rgba(23, 19, 16, .28);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      pointer-events: auto;
+    }
+    .hero__slider-dot {
+      width: 22px; height: 3px;
+      border-radius: 2px;
+      background: rgba(253, 251, 246, .35);
+      transition: background .3s ease, width .3s var(--ease-out-quart);
+      padding: 0;
+      cursor: pointer;
+    }
+    .hero__slider-dot:hover { background: rgba(253, 251, 246, .6); }
+    .hero__slider-dot[aria-current="true"] {
+      background: #FDFBF6;
+      width: 36px;
+    }
+    .hero__slider-dot:focus-visible {
+      outline: 2px solid #FDFBF6;
+      outline-offset: 4px;
+    }
+    .hero__slider-nav {
+      display: flex;
+      gap: 10px;
+      pointer-events: auto;
+    }
+    .hero__slider-btn {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      transition: transform .28s var(--ease-out-quart), background .2s ease, box-shadow .2s ease;
+      cursor: pointer;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border: 1px solid transparent;
+    }
+    .hero__slider-btn--prev {
+      background: rgba(253, 251, 246, .92);
+      color: var(--ink);
+      border-color: rgba(253, 251, 246, .35);
+    }
+    .hero__slider-btn--prev:hover {
+      background: #FDFBF6;
+      transform: translateX(-2px) scale(1.04);
+    }
+    .hero__slider-btn--next {
+      background: rgba(15, 11, 8, .88);
+      color: #FBF6EA;
+      border-color: rgba(255, 255, 255, .12);
+      box-shadow: 0 12px 28px -14px rgba(0, 0, 0, .55);
+    }
+    .hero__slider-btn--next:hover {
+      background: var(--dark);
+      transform: translateX(2px) scale(1.04);
+    }
+    .hero__slider-btn:active { transform: scale(.96); }
+    .hero__slider-btn:focus-visible {
+      outline: 2px solid #FDFBF6;
+      outline-offset: 3px;
+    }
+    .hero__slider-btn svg { width: 16px; height: 16px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero__slider-track { transition: none; }
+      .hero__slide img,
+      .hero__slide.is-active img { transition: none; transform: scale(1); }
+      .hero__slide-caption { transition: none; opacity: 1; transform: none; }
+      .hero__slider.is-playing::before { animation: none; }
+    }
+
+    /* Collections row */
+    .collections {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .coll-card {
+      background: var(--shell);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      aspect-ratio: 1.85 / 1;
+      transition: transform .3s ease, box-shadow .3s ease;
+      border: 1px solid var(--line);
+    }
+    .coll-card:hover { transform: translateY(-4px); box-shadow: 0 22px 44px -26px rgba(23,19,16,.22); }
+    .coll-card__text {
+      padding: clamp(20px, 2.2vw, 30px);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .coll-card__title {
+      font-size: clamp(20px, 1.6vw, 25px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0 0 6px;
+      color: var(--ink);
+    }
+    .coll-card__sub { font-size: 13px; color: var(--ink-soft); margin: 0; line-height: 1.4; }
+    .coll-card__img { position: relative; overflow: hidden; }
+    .coll-card__img img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Trust bar */
+    .trust {
+      margin-top: 20px;
+      background: var(--panel);
+      border-radius: var(--radius-lg);
+      padding: 26px clamp(22px, 3vw, 40px);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+      gap: clamp(14px, 2vw, 28px);
+      align-items: center;
+    }
+    .trust__item { display: flex; align-items: flex-start; gap: 14px; }
+    .trust__icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      flex-shrink: 0;
+      border: 1.2px solid var(--ink);
+    }
+    .trust__icon svg { width: 22px; height: 22px; }
+    .trust__title { font-size: 14px; font-weight: 700; margin: 0 0 4px; color: var(--ink); letter-spacing: -0.005em; }
+    .trust__desc { font-size: 12.5px; color: var(--mute); margin: 0; line-height: 1.45; max-width: 28ch; }
+    .trust__divider { width: 1px; height: 42px; background: var(--divider); }
+
+    /* Testimonial */
+    .voice {
+      margin-top: 32px;
+      background: var(--panel);
+      border-radius: var(--radius-lg);
+      padding: clamp(36px, 5vw, 72px) clamp(28px, 4vw, 60px);
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: clamp(28px, 4vw, 64px);
+      align-items: center;
+    }
+    .voice__portrait {
+      aspect-ratio: 4/5;
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin: 0;
+    }
+    .voice__portrait img { width: 100%; height: 100%; object-fit: cover; }
+    .voice__quote {
+      font-size: clamp(22px, 2.4vw, 34px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      color: var(--ink);
+      margin: 0 0 24px;
+    }
+    .voice__cite {
+      font-style: normal;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .voice__cite strong { font-size: 14px; font-weight: 700; color: var(--ink); }
+    .voice__cite span { font-size: 13px; color: var(--mute); }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .collections { grid-template-columns: repeat(2, 1fr); }
+      .coll-card { aspect-ratio: 1.7 / 1; }
+      .trust { grid-template-columns: 1fr 1fr; gap: 20px; }
+      .trust__divider { display: none; }
+      .voice { grid-template-columns: 1fr; }
+      .voice__portrait { max-width: 260px; }
+    }
+    @media (max-width: 1180px) { .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); } }
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero__slider { aspect-ratio: 1.25 / 1; }
+      .hero__features { flex-wrap: wrap; gap: 14px; }
+      .feature__divider { display: none; }
+      .hero__title { font-size: clamp(44px, 10vw, 64px); }
+      .hero__slide-caption { max-width: 78%; }
+    }
+    @media (max-width: 560px) {
+      .collections { grid-template-columns: 1fr; }
+      .coll-card { aspect-ratio: 2 / 1; grid-template-columns: 1fr 0.9fr; }
+      .trust { grid-template-columns: 1fr; }
+    }
+
+    /* ═════════════════════════════════════════
+       SECTION SPACING · shared rhythm
+       ═════════════════════════════════════════ */
+    .stack { margin-top: clamp(56px, 6vw, 96px); }
+    .stack--sm { margin-top: clamp(28px, 3vw, 40px); }
+    .section-head--split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: clamp(24px, 4vw, 72px);
+      align-items: end;
+      margin-bottom: clamp(28px, 3vw, 44px);
+    }
+    .section-head--split .display { max-width: 18ch; }
+    .section-head--split .lede { max-width: 46ch; }
+
+    /* ═════════════════════════════════════════
+       ALSO FROM OUR HOUSE · 5 secondary categories
+       ═════════════════════════════════════════ */
+    .cats-mini {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-top: 22px;
+    }
+    .cats-mini__card {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      transition: transform .3s ease, box-shadow .3s ease;
+      display: block;
+    }
+    .cats-mini__card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px -24px rgba(23,19,16,.22);
+    }
+    .cats-mini__card img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 700ms cubic-bezier(.25,1,.3,1);
+    }
+    .cats-mini__card:hover img { transform: scale(1.04); }
+    .cats-mini__card::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(23,19,16,0) 40%, rgba(23,19,16,.78) 100%);
+      z-index: 1;
+    }
+    .cats-mini__text {
+      position: absolute;
+      left: 18px; right: 18px; bottom: 18px;
+      z-index: 2;
+      color: #FBF6EA;
+    }
+    .cats-mini__num {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      color: rgba(251,246,234,.65);
+      margin: 0 0 6px;
+    }
+    .cats-mini__title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin: 0 0 4px;
+      color: #FBF6EA;
+    }
+    .cats-mini__sub {
+      font-size: 12px;
+      color: rgba(251,246,234,.72);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    /* ═════════════════════════════════════════
+       PROCESS · 4-step how we work
+       ═════════════════════════════════════════ */
+    .process {
+      background: var(--panel);
+      border-radius: var(--radius-lg);
+      padding: clamp(36px, 4vw, 64px) clamp(28px, 3.5vw, 56px);
+    }
+    .process__head {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      gap: clamp(24px, 4vw, 64px);
+      align-items: end;
+      padding-bottom: clamp(28px, 3vw, 40px);
+      margin-bottom: clamp(28px, 3vw, 40px);
+      border-bottom: 1px solid var(--divider);
+    }
+    .process__title {
+      font-size: clamp(30px, 3.2vw, 48px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.02;
+      margin: 0;
+      max-width: 18ch;
+    }
+    .process__lede {
+      font-size: 15.5px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+      margin: 0;
+      max-width: 42ch;
+    }
+    .process__steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .process__step {
+      padding: 6px clamp(16px, 2vw, 32px) 6px 0;
+    }
+    .process__step + .process__step {
+      border-left: 1px solid var(--divider);
+      padding-left: clamp(22px, 2.4vw, 40px);
+    }
+    .process__num {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      color: var(--rust);
+      margin: 0 0 22px;
+      font-feature-settings: "tnum";
+    }
+    .process__label {
+      font-size: clamp(19px, 1.6vw, 22px);
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin: 0 0 12px;
+      line-height: 1.15;
+    }
+    .process__desc {
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      line-height: 1.55;
+      margin: 0;
+      max-width: 26ch;
+    }
+
+    /* ═════════════════════════════════════════
+       CRAFT · behind the curtain
+       ═════════════════════════════════════════ */
+    .craft {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: clamp(24px, 3vw, 56px);
+      align-items: stretch;
+    }
+    .craft__img {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 5 / 6;
+      background: #1A130E;
+    }
+    .craft__img img { width: 100%; height: 100%; object-fit: cover; }
+    .craft__badge {
+      position: absolute;
+      left: 20px; bottom: 20px;
+      padding: 8px 14px;
+      background: rgba(23,19,16,.72);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      color: #FBF6EA;
+      border-radius: var(--pill);
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .craft__body {
+      padding: 8px 4px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .craft__title {
+      font-size: clamp(30px, 3.2vw, 50px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.02;
+      margin: 0 0 24px;
+      max-width: 14ch;
+    }
+    .craft__lede {
+      font-size: 16px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+      margin: 0 0 36px;
+      max-width: 42ch;
+    }
+    .craft__stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px 40px;
+      margin: 0;
+      padding-top: 28px;
+      border-top: 1px solid var(--divider);
+    }
+    .craft__stat dt {
+      font-size: clamp(28px, 2.4vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1;
+      margin: 0 0 8px;
+      font-feature-settings: "tnum";
+    }
+    .craft__stat dd {
+      font-size: 12px;
+      color: var(--mute);
+      margin: 0;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    /* ═════════════════════════════════════════
+       BRANDS · the names we stock
+       ═════════════════════════════════════════ */
+    .brands {
+      padding: clamp(28px, 3vw, 44px) clamp(28px, 3vw, 44px);
+      background: var(--shell);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      gap: clamp(24px, 3vw, 56px);
+      align-items: center;
+    }
+    .brands__intro .eyebrow { margin-bottom: 12px; }
+    .brands__intro p {
+      font-size: 14.5px;
+      color: var(--ink-soft);
+      line-height: 1.55;
+      margin: 0;
+      max-width: 30ch;
+    }
+    .brands__list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .brand-pill {
+      padding: 12px 20px;
+      border-radius: var(--pill);
+      background: var(--panel);
+      color: var(--ink);
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: -0.005em;
+      border: 1px solid var(--line);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background .18s ease, transform .18s ease;
+    }
+    .brand-pill:hover { background: var(--chip); transform: translateY(-1px); }
+    .brand-pill__dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--rust);
+      opacity: .72;
+    }
+
+    /* ═════════════════════════════════════════
+       PROJECTS · recent bento gallery
+       ═════════════════════════════════════════ */
+    .projects__grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+      grid-auto-rows: minmax(180px, auto);
+    }
+    .project {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: #1A130E;
+      display: block;
+    }
+    .project img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 900ms cubic-bezier(.25,1,.3,1);
+    }
+    .project:hover img { transform: scale(1.05); }
+    .project::after {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(0deg, rgba(23,19,16,.75) 0%, rgba(23,19,16,.15) 42%, rgba(23,19,16,0) 62%),
+        linear-gradient(180deg, rgba(23,19,16,.35) 0%, rgba(23,19,16,0) 30%);
+      z-index: 1;
+    }
+    .project__meta {
+      position: absolute;
+      top: 22px; left: 22px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: var(--pill);
+      background: rgba(253,251,246,.9);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .project__meta-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--rust);
+    }
+    .project__cap {
+      position: absolute;
+      left: 24px; right: 24px; bottom: 22px;
+      z-index: 2;
+      color: #FBF6EA;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .project__where {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(251,246,234,.72);
+      margin: 0 0 8px;
+    }
+    .project__title {
+      font-size: clamp(17px, 1.5vw, 22px);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 0;
+      color: #FBF6EA;
+      line-height: 1.24;
+      max-width: 22ch;
+    }
+    .project__when {
+      font-size: 12px;
+      color: rgba(251,246,234,.62);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    /* Bento sizing */
+    .project--hero  { grid-column: span 7; grid-row: span 2; }
+    .project--tall  { grid-column: span 5; grid-row: span 2; }
+    .project--a     { grid-column: span 4; }
+    .project--b     { grid-column: span 4; }
+    .project--c     { grid-column: span 4; }
+    .projects__more {
+      margin-top: 28px;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* ═════════════════════════════════════════
+       VOICES · testimonials grid (5 cards)
+       ═════════════════════════════════════════ */
+    .voices__grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 18px;
+    }
+    .voice-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: clamp(24px, 2.4vw, 34px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 220px;
+    }
+    .voice-card--feature {
+      grid-column: span 4;
+      grid-row: span 2;
+      background: var(--dark);
+      color: #FBF6EA;
+      border-color: transparent;
+      background-image:
+        radial-gradient(120% 80% at 100% 0%, rgba(169,82,44,.14) 0%, rgba(169,82,44,0) 60%);
+    }
+    .voice-card--feature .voice-card__quote { color: #FBF6EA; }
+    .voice-card--feature .voice-card__author { color: #FBF6EA; }
+    .voice-card--feature .voice-card__meta { color: rgba(251,246,234,.6); }
+    .voice-card--feature .voice-card__mark { color: rgba(251,246,234,.35); }
+    .voice-card--wide { grid-column: span 2; grid-row: span 1; }
+    .voice-card--sq   { grid-column: span 3; }
+    .voice-card__mark {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 60px;
+      line-height: 0.4;
+      font-weight: 400;
+      color: var(--divider);
+      margin: 0 0 -10px;
+    }
+    .voice-card__quote {
+      font-size: clamp(15px, 1.2vw, 17.5px);
+      font-weight: 500;
+      line-height: 1.5;
+      letter-spacing: -0.005em;
+      color: var(--ink);
+      margin: 0;
+    }
+    .voice-card--feature .voice-card__quote {
+      font-size: clamp(22px, 2.1vw, 30px);
+      font-weight: 600;
+      line-height: 1.28;
+      letter-spacing: -0.02em;
+    }
+    .voice-card__by {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding-top: 20px;
+      border-top: 1px solid var(--divider);
+    }
+    .voice-card--feature .voice-card__by { border-top-color: rgba(255,255,255,.12); }
+    .voice-card__author {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.005em;
+    }
+    .voice-card__meta {
+      font-size: 12px;
+      color: var(--mute);
+      letter-spacing: 0.01em;
+    }
+
+    /* ═════════════════════════════════════════
+       PRICES · starting-at strip
+       ═════════════════════════════════════════ */
+    .prices {
+      padding: clamp(24px, 2.6vw, 32px) clamp(28px, 3vw, 44px);
+      background: var(--shell);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 3fr);
+      gap: clamp(20px, 3vw, 44px);
+      align-items: center;
+    }
+    .prices__intro .eyebrow { margin-bottom: 8px; }
+    .prices__intro h3 {
+      font-size: clamp(18px, 1.4vw, 22px);
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin: 0;
+      line-height: 1.2;
+      max-width: 15ch;
+    }
+    .prices__intro p {
+      font-size: 12.5px;
+      color: var(--mute);
+      margin: 8px 0 0;
+      max-width: 24ch;
+      line-height: 1.5;
+    }
+    .prices__divider { width: 1px; height: 64px; background: var(--divider); }
+    .prices__list {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: clamp(18px, 2vw, 32px);
+    }
+    .price {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .price__label {
+      font-size: 10.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--mute);
+      font-weight: 700;
+    }
+    .price__value {
+      font-size: clamp(17px, 1.4vw, 21px);
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.015em;
+      font-feature-settings: "tnum";
+      line-height: 1.1;
+    }
+    .price__unit {
+      font-size: 12px;
+      color: var(--mute);
+      font-weight: 500;
+      margin-left: 4px;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    /* ═════════════════════════════════════════
+       GUARANTEES · the house promise
+       ═════════════════════════════════════════ */
+    .guarantees__cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .guarantee {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: clamp(28px, 3vw, 40px);
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      position: relative;
+    }
+    .guarantee__num {
+      position: absolute;
+      top: clamp(24px, 3vw, 34px);
+      right: clamp(28px, 3vw, 40px);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      color: var(--rust);
+      font-feature-settings: "tnum";
+    }
+    .guarantee__icon {
+      width: 54px; height: 54px;
+      border-radius: 14px;
+      background: var(--chip);
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+    }
+    .guarantee__icon svg { width: 26px; height: 26px; }
+    .guarantee__title {
+      font-size: clamp(19px, 1.6vw, 23px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0;
+      color: var(--ink);
+      max-width: 16ch;
+    }
+    .guarantee__desc {
+      font-size: 14.5px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .guarantee__fine {
+      font-size: 12px;
+      color: var(--mute);
+      letter-spacing: 0.02em;
+      margin: 6px 0 0;
+      padding-top: 18px;
+      border-top: 1px solid var(--divider);
+      line-height: 1.5;
+    }
+
+    /* ═════════════════════════════════════════
+       VISIT · three-door dark band (redesign)
+       ═════════════════════════════════════════ */
+    .visit-triple {
+      background: var(--dark);
+      color: #FBF6EA;
+      border-radius: var(--radius-lg);
+      padding: clamp(40px, 5vw, 76px) clamp(28px, 4vw, 60px);
+      position: relative;
+      overflow: hidden;
+      background-image:
+        radial-gradient(90% 60% at 100% 0%, rgba(169,82,44,.16) 0%, rgba(169,82,44,0) 55%);
+    }
+    .visit-triple__head {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: clamp(24px, 4vw, 64px);
+      align-items: end;
+      margin-bottom: clamp(32px, 4vw, 52px);
+    }
+    .visit-triple__head .eyebrow--light { margin-bottom: 18px; }
+    .visit-triple__title {
+      font-size: clamp(34px, 3.6vw, 58px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.02;
+      color: #FBF6EA;
+      margin: 0;
+      max-width: 14ch;
+    }
+    .visit-triple__lede {
+      color: rgba(251,246,234,.72);
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 0;
+      max-width: 42ch;
+    }
+    .visit-triple__cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .visit-door {
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius);
+      padding: clamp(26px, 2.6vw, 34px);
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      color: inherit;
+      transition:
+        background .3s ease,
+        transform .3s ease,
+        border-color .3s ease;
+    }
+    .visit-door:hover {
+      background: rgba(255,255,255,.075);
+      border-color: rgba(255,255,255,.22);
+      transform: translateY(-4px);
+    }
+    .visit-door__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .visit-door__icon {
+      width: 50px; height: 50px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.09);
+      display: grid;
+      place-items: center;
+      color: #FBF6EA;
+    }
+    .visit-door__icon svg { width: 24px; height: 24px; }
+    .visit-door__num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      color: rgba(251,246,234,.4);
+      font-feature-settings: "tnum";
+    }
+    .visit-door__title {
+      font-size: clamp(20px, 1.7vw, 24px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0;
+      color: #FBF6EA;
+    }
+    .visit-door__desc {
+      font-size: 14px;
+      color: rgba(251,246,234,.72);
+      line-height: 1.55;
+      margin: 0;
+    }
+    .visit-door__cta {
+      margin-top: auto;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #FBF6EA;
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: -0.005em;
+    }
+    .visit-door__cta-arrow {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: #FDFBF6;
+      color: var(--ink);
+      display: grid;
+      place-items: center;
+      transition: transform .3s ease;
+    }
+    .visit-door__cta-arrow svg { width: 14px; height: 14px; }
+    .visit-door:hover .visit-door__cta-arrow { transform: translateX(3px); }
+
+    /* ═════════════════════════════════════════
+       RESPONSIVE · new sections
+       ═════════════════════════════════════════ */
+    @media (max-width: 1180px) {
+      .cats-mini { grid-template-columns: repeat(3, 1fr); }
+      .process__steps { grid-template-columns: repeat(2, 1fr); gap: 32px 0; }
+      .process__step:nth-child(3),
+      .process__step:nth-child(4) { padding-top: 32px; border-top: 1px solid var(--divider); }
+      .process__step:nth-child(3) { border-left: 0; padding-left: 0; }
+      .voice-card--feature { grid-column: span 6; grid-row: span 1; }
+      .voice-card--wide, .voice-card--sq { grid-column: span 3; }
+    }
+    @media (max-width: 1024px) {
+      .cats-mini { grid-template-columns: repeat(3, 1fr); }
+      .craft { grid-template-columns: 1fr; }
+      .craft__img { aspect-ratio: 4/3; }
+      .brands { grid-template-columns: 1fr; }
+      .projects__grid {
+        grid-template-columns: repeat(6, 1fr);
+        grid-auto-rows: 200px;
+      }
+      .project--hero { grid-column: span 6; grid-row: span 2; }
+      .project--tall { grid-column: span 6; grid-row: span 2; }
+      .project--a, .project--b, .project--c { grid-column: span 2; }
+      .voices__grid { grid-template-columns: repeat(2, 1fr); }
+      .voice-card--feature,
+      .voice-card--wide,
+      .voice-card--sq { grid-column: span 2; grid-row: auto; }
+      .prices { grid-template-columns: 1fr; gap: 24px; }
+      .prices__divider { display: none; }
+      .prices__list { grid-template-columns: repeat(3, 1fr); row-gap: 22px; }
+      .guarantees__cards,
+      .visit-triple__cards { grid-template-columns: 1fr; }
+      .visit-triple__head { grid-template-columns: 1fr; gap: 16px; align-items: start; }
+      .process__head { grid-template-columns: 1fr; gap: 20px; align-items: start; }
+      .section-head--split { grid-template-columns: 1fr; gap: 16px; align-items: start; }
+    }
+    @media (max-width: 720px) {
+      .cats-mini { grid-template-columns: repeat(2, 1fr); }
+      .process { padding: 32px 22px; }
+      .process__steps { grid-template-columns: 1fr; gap: 0; }
+      .process__step + .process__step { border-left: 0; padding-left: 0; padding-top: 26px; margin-top: 26px; border-top: 1px solid var(--divider); }
+      .process__step:nth-child(3), .process__step:nth-child(4) { padding-top: 26px; margin-top: 26px; }
+      .brands { padding: 26px 22px; }
+      .voices__grid { grid-template-columns: 1fr; }
+      .voice-card--feature,
+      .voice-card--wide,
+      .voice-card--sq { grid-column: span 1; }
+      .prices__list { grid-template-columns: repeat(2, 1fr); }
+      .projects__grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+      .project--hero, .project--tall,
+      .project--a, .project--b, .project--c { grid-column: span 1; grid-row: span 1; }
+      .project--hero, .project--tall { grid-row: span 2; }
+      .craft__stats { grid-template-columns: 1fr; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="shell">
+
+    <!-- HEADER -->
+    <header class="nav">
+      <a href="index.html" class="brand" aria-label="Jaydurga Furnishings · Home">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M5 20v-3a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v3" stroke-linecap="round"/>
+            <path d="M7 20v4M25 20v4" stroke-linecap="round"/>
+            <path d="M9 14v-3a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand__wordmark">
+          <span class="brand__name">JAYDURGA</span>
+          <span class="brand__tag">Since 1984 · Ameerpet</span>
+        </span>
+      </a>
+
+      <nav class="nav__menu" id="primary-nav" aria-label="Primary">
+        <a href="index.html" class="is-active">Home</a>
+        <a href="collections.html">Collections</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="nav__tools">
+        <button class="icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <button class="icon-btn icon-btn__badge" aria-label="Enquiry list">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M6 7h13l-1.4 8.2a2 2 0 0 1-2 1.7H9.4a2 2 0 0 1-2-1.7L6 7Z" stroke-linejoin="round"/>
+            <path d="M6 7 5.3 4H3" stroke-linecap="round"/>
+            <circle cx="10" cy="21" r="1.1"/><circle cx="17" cy="21" r="1.1"/>
+          </svg>
+        </button>
+        <a href="tel:+914023730142" class="btn btn--dark">Call Us</a>
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__copy">
+        <p class="eyebrow">Made in Hyderabad · Since 1984</p>
+        <h1 class="hero__title">Furnishings your home<br/>has been asking for.</h1>
+        <p class="hero__lede">
+          Curtains that hang straight. Carpets that lie flat. Mattresses that
+          hold their word. Measured for your window, cut for your bed, delivered
+          without a chase — and looked after long past the last hook. Family-run
+          since 1984; that only matters if we still pick up the phone. We do.
+        </p>
+        <div class="hero__ctas">
+          <a href="contact.html" class="btn btn--dark">
+            Plan Visit
+            <span class="btn__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </a>
+          <a href="collections.html" class="btn btn--light">Explore Collections</a>
+        </div>
+        <div class="hero__features">
+          <div class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path d="M4 15v-2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2" stroke-linecap="round"/>
+                <path d="M5 15v3M19 15v3" stroke-linecap="round"/>
+                <path d="M7 11V9a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="feature__label">Made<br/>to Measure</span>
+          </div>
+          <span class="feature__divider" aria-hidden="true"></span>
+          <div class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path d="M12 3 4 6v6c0 4.5 3.2 8.4 8 9 4.8-.6 8-4.5 8-9V6l-8-3Z" stroke-linejoin="round"/>
+                <path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="feature__label">Free<br/>Measurement</span>
+          </div>
+          <span class="feature__divider" aria-hidden="true"></span>
+          <div class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <rect x="2" y="8" width="12" height="9" rx="1"/>
+                <path d="M14 11h4l3 3v3h-7"/>
+                <circle cx="6" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/>
+              </svg>
+            </span>
+            <span class="feature__label">5 – 7 Day<br/>Tailoring</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__slider" tabindex="0" aria-roledescription="carousel" aria-label="Featured furnishings">
+        <div class="hero__slider-track" data-slider-track>
+          <figure class="hero__slide is-active" aria-roledescription="slide" aria-label="1 of 3">
+            <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1600&q=78" alt="Living room styled with layered curtains" loading="eager"/>
+            <figcaption class="hero__slide-caption">
+              <h2 class="hero__slide-title">The right fabric<br/>for every window</h2>
+              <a href="collections.html#curtains" class="hero__slide-cta">
+                View Collection
+                <span class="hero__slide-cta__arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </a>
+            </figcaption>
+          </figure>
+          <figure class="hero__slide" aria-roledescription="slide" aria-label="2 of 3">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=78" alt="Hand-knotted carpets on a warm wooden floor" loading="lazy"/>
+            <figcaption class="hero__slide-caption">
+              <h2 class="hero__slide-title">Underfoot,<br/>from Bhadohi</h2>
+              <a href="collections.html#carpets" class="hero__slide-cta">
+                View Collection
+                <span class="hero__slide-cta__arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </a>
+            </figcaption>
+          </figure>
+          <figure class="hero__slide" aria-roledescription="slide" aria-label="3 of 3">
+            <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1600&q=78" alt="Made bed with layered pillows and throws" loading="lazy"/>
+            <figcaption class="hero__slide-caption">
+              <h2 class="hero__slide-title">Nights that keep<br/>their promise</h2>
+              <a href="collections.html#mattresses" class="hero__slide-cta">
+                View Collection
+                <span class="hero__slide-cta__arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                    <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </a>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="hero__slider-controls">
+          <div class="hero__slider-dots" role="tablist" aria-label="Choose slide">
+            <button type="button" class="hero__slider-dot" data-slider-dot="0" aria-label="Slide 1" aria-current="true"></button>
+            <button type="button" class="hero__slider-dot" data-slider-dot="1" aria-label="Slide 2"></button>
+            <button type="button" class="hero__slider-dot" data-slider-dot="2" aria-label="Slide 3"></button>
+          </div>
+          <div class="hero__slider-nav">
+            <button type="button" class="hero__slider-btn hero__slider-btn--prev" data-slider-prev aria-label="Previous slide">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M19 12H5M12 6l-7 6 7 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button type="button" class="hero__slider-btn hero__slider-btn--next" data-slider-next aria-label="Next slide">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- COLLECTIONS -->
+    <section class="collections" aria-label="Featured collections">
+      <a class="coll-card" href="collections.html#curtains">
+        <div class="coll-card__text">
+          <div>
+            <h3 class="coll-card__title">Curtains</h3>
+            <p class="coll-card__sub">Sheers, blackouts and jacquards. Drops to 120 inches.</p>
+          </div>
+          <span class="circle-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+        <div class="coll-card__img">
+          <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=78" alt="" loading="lazy"/>
+        </div>
+      </a>
+
+      <a class="coll-card" href="collections.html#carpets">
+        <div class="coll-card__text">
+          <div>
+            <h3 class="coll-card__title">Carpets</h3>
+            <p class="coll-card__sub">Hand-knotted wool from Bhadohi. Dhurries from Mirzapur.</p>
+          </div>
+          <span class="circle-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+        <div class="coll-card__img">
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=78" alt="" loading="lazy"/>
+        </div>
+      </a>
+
+      <a class="coll-card" href="collections.html#mattresses">
+        <div class="coll-card__text">
+          <div>
+            <h3 class="coll-card__title">Mattresses</h3>
+            <p class="coll-card__sub">Sleepwell, Kurlon, Duroflex. Pocket-spring, latex, coir.</p>
+          </div>
+          <span class="circle-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </div>
+        <div class="coll-card__img">
+          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=900&q=78" alt="" loading="lazy"/>
+        </div>
+      </a>
+    </section>
+
+    <!-- ALSO FROM OUR HOUSE · 5 mini categories -->
+    <section class="stack" aria-label="More collections">
+      <header class="section-head--split">
+        <div>
+          <p class="eyebrow">Not just the big three</p>
+          <h2 class="display display--md">Everything soft, from the door<br/>to the dining table.</h2>
+        </div>
+        <p class="lede">
+          A finished room rarely lives on the window alone. It's on the sofa arm
+          your dog favours, on the wall opposite the bed, on the table you set
+          for Sunday lunch. Same measure, same tailors, same person to call.
+        </p>
+      </header>
+      <div class="cats-mini">
+        <a href="collections.html#blinds" class="cats-mini__card">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=78" alt="Roman blinds in a warm-lit living room" loading="lazy"/>
+          <div class="cats-mini__text">
+            <p class="cats-mini__num">04</p>
+            <h3 class="cats-mini__title">Blinds</h3>
+            <p class="cats-mini__sub">Light on your terms, hour by hour.</p>
+          </div>
+        </a>
+        <a href="collections.html#wallpapers" class="cats-mini__card">
+          <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=78" alt="Patterned wallpaper detail" loading="lazy"/>
+          <div class="cats-mini__text">
+            <p class="cats-mini__num">05</p>
+            <h3 class="cats-mini__title">Wallpapers</h3>
+            <p class="cats-mini__sub">One wall, a whole new room.</p>
+          </div>
+        </a>
+        <a href="collections.html#upholstery" class="cats-mini__card">
+          <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=800&q=78" alt="Recovered sofa in warm fabric" loading="lazy"/>
+          <div class="cats-mini__text">
+            <p class="cats-mini__num">06</p>
+            <h3 class="cats-mini__title">Upholstery</h3>
+            <p class="cats-mini__sub">Bring the sofa back to life.</p>
+          </div>
+        </a>
+        <a href="collections.html#bedding" class="cats-mini__card">
+          <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=78" alt="Layered bedding on a made bed" loading="lazy"/>
+          <div class="cats-mini__text">
+            <p class="cats-mini__num">07</p>
+            <h3 class="cats-mini__title">Bedding</h3>
+            <p class="cats-mini__sub">The ten degrees your sleep depends on.</p>
+          </div>
+        </a>
+        <a href="collections.html#table-linen" class="cats-mini__card">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=78" alt="Table set with linen and glassware" loading="lazy"/>
+          <div class="cats-mini__text">
+            <p class="cats-mini__num">08</p>
+            <h3 class="cats-mini__title">Table Linen</h3>
+            <p class="cats-mini__sub">Small ceremonies, quietly set.</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- PROCESS · 4-step how we work -->
+    <section class="process stack" aria-label="How we work">
+      <header class="process__head">
+        <div>
+          <p class="eyebrow">The way we work</p>
+          <h2 class="process__title">You do the choosing. We do the chasing.</h2>
+        </div>
+        <p class="process__lede">
+          You should not have to carry fabric bolts up an elevator, remeasure
+          your own window at 11pm, or hunt the tailor down for a Tuesday
+          delivery. Four steps, in the same order, every time — each one
+          designed to take a decision off your plate.
+        </p>
+      </header>
+      <ol class="process__steps">
+        <li class="process__step">
+          <p class="process__num">01 · Visit or Call</p>
+          <h3 class="process__label">Start where you are.</h3>
+          <p class="process__desc">See the swatch wall in person, or send a photo on WhatsApp. Both routes end in the same shortlist.</p>
+        </li>
+        <li class="process__step">
+          <p class="process__num">02 · Free Measurement</p>
+          <h3 class="process__label">We come to you.</h3>
+          <p class="process__desc">Free measurement across Hyderabad. We bring the ladder, the ideas, and enough restraint to say when you don't need something.</p>
+        </li>
+        <li class="process__step">
+          <p class="process__num">03 · Fabric &amp; Finish</p>
+          <h3 class="process__label">Choose without overwhelm.</h3>
+          <p class="process__desc">Four thousand fabrics narrowed to five. You pick from five, not from four thousand.</p>
+        </li>
+        <li class="process__step">
+          <p class="process__num">04 · Stitch &amp; Install</p>
+          <h3 class="process__label">Delivered and mounted.</h3>
+          <p class="process__desc">Five to seven days. Our two-man team hangs it, squares it, and leaves nothing loose. If a drop is a finger off, we come back the same week.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- CRAFT · behind the curtain -->
+    <section class="craft stack" aria-label="Behind the curtain">
+      <figure class="craft__img">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1200&q=78" alt="A tailor at work in the Jaydurga stitching room, Mandhana Towers" loading="lazy"/>
+        <figcaption class="craft__badge">Our stitching room</figcaption>
+      </figure>
+      <div class="craft__body">
+        <p class="eyebrow">Why it hangs straight</p>
+        <h2 class="craft__title">Nothing is farmed out.</h2>
+        <p class="craft__lede">
+          The reason a curtain sags six months in — or a sofa cover stops meeting
+          its zip — is that three vendors handled it and none of them own the
+          fault. We do the measure, the cut, the stitch, the mount, the alteration.
+          When you call, you don't get transferred.
+        </p>
+        <dl class="craft__stats">
+          <div class="craft__stat">
+            <dt>4,000</dt>
+            <dd>Fabrics already narrowed for you</dd>
+          </div>
+          <div class="craft__stat">
+            <dt>12</dt>
+            <dd>Tailors on our payroll, not on contract</dd>
+          </div>
+          <div class="craft__stat">
+            <dt>1</dt>
+            <dd>Master cutter, same room, since 1997</dd>
+          </div>
+          <div class="craft__stat">
+            <dt>5–7</dt>
+            <dd>Days from order to installed</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- BRANDS · the names we stock -->
+    <section class="brands stack" aria-label="Brands and sources">
+      <div class="brands__intro">
+        <p class="eyebrow">Names, not gambles</p>
+        <p>Curated houses, so you don't have to guess. Every mattress, motor, blind and wallpaper on our floor carries its factory warranty — and we're the ones who talk to Sleepwell if anything ever goes wrong. You talk to us.</p>
+      </div>
+      <div class="brands__list">
+        <span class="brand-pill"><span class="brand-pill__dot" aria-hidden="true"></span>D'Décor</span>
+        <span class="brand-pill"><span class="brand-pill__dot" aria-hidden="true"></span>Marshalls</span>
+        <span class="brand-pill"><span class="brand-pill__dot" aria-hidden="true"></span>Asian Paints</span>
+        <span class="brand-pill"><span class="brand-pill__dot" aria-hidden="true"></span>Sleepwell</span>
+        <span class="brand-pill"><span class="brand-pill__dot" aria-hidden="true"></span>Kurlon</span>
+        <span class="brand-pill"><span class="brand-pill__dot" aria-hidden="true"></span>Duroflex</span>
+        <span class="brand-pill"><span class="brand-pill__dot" aria-hidden="true"></span>Peps</span>
+        <span class="brand-pill"><span class="brand-pill__dot" aria-hidden="true"></span>Bhadohi Weavers</span>
+        <span class="brand-pill"><span class="brand-pill__dot" aria-hidden="true"></span>Mirzapur Cooperatives</span>
+        <span class="brand-pill"><span class="brand-pill__dot" aria-hidden="true"></span>Bhuj Handloom</span>
+      </div>
+    </section>
+
+    <!-- PROJECTS · recent from our books -->
+    <section class="projects stack" aria-label="Recent projects">
+      <header class="section-head--split">
+        <div>
+          <p class="eyebrow">Recent from our books</p>
+          <h2 class="display display--md">Homes you can visit before you commit.</h2>
+        </div>
+        <p class="lede">
+          Five installs from the last four months. If you'd like a reference from
+          a family two streets over, we'll make the introduction. We've been in
+          enough Hyderabad drawing rooms that we probably know one near yours.
+        </p>
+      </header>
+      <div class="projects__grid">
+        <a class="project project--hero" href="gallery.html">
+          <img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&w=1600&q=80" alt="Living room in Kokapet with layered sheers and drapes" loading="lazy"/>
+          <span class="project__meta"><span class="project__meta-dot" aria-hidden="true"></span>Villa · Kokapet</span>
+          <div class="project__cap">
+            <div>
+              <p class="project__where">Living room</p>
+              <h3 class="project__title">Layered sheers behind full-drop velvet drapes</h3>
+            </div>
+            <p class="project__when">Feb 2026</p>
+          </div>
+        </a>
+        <a class="project project--tall" href="gallery.html">
+          <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=1200&q=80" alt="Full-home upholstery in a Banjara Hills duplex" loading="lazy"/>
+          <span class="project__meta"><span class="project__meta-dot" aria-hidden="true"></span>Duplex · Banjara Hills</span>
+          <div class="project__cap">
+            <div>
+              <p class="project__where">Sofa &amp; chair re-cover</p>
+              <h3 class="project__title">Seven pieces, matched, in a single fabric run</h3>
+            </div>
+            <p class="project__when">Dec 2025</p>
+          </div>
+        </a>
+        <a class="project project--a" href="gallery.html">
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=80" alt="Bhadohi carpet in a Jubilee Hills bedroom" loading="lazy"/>
+          <span class="project__meta"><span class="project__meta-dot" aria-hidden="true"></span>Apartment · Jubilee Hills</span>
+          <div class="project__cap">
+            <div>
+              <p class="project__where">Bedroom</p>
+              <h3 class="project__title">Hand-knotted Bhadohi runner + throws</h3>
+            </div>
+            <p class="project__when">Jan 2026</p>
+          </div>
+        </a>
+        <a class="project project--b" href="gallery.html">
+          <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1000&q=80" alt="Blackout curtains at a Shamirpet farmhouse" loading="lazy"/>
+          <span class="project__meta"><span class="project__meta-dot" aria-hidden="true"></span>Farmhouse · Shamirpet</span>
+          <div class="project__cap">
+            <div>
+              <p class="project__where">Master &amp; guest suite</p>
+              <h3 class="project__title">Blackout drapes + Mirzapur dhurries</h3>
+            </div>
+            <p class="project__when">Nov 2025</p>
+          </div>
+        </a>
+        <a class="project project--c" href="gallery.html">
+          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1000&q=80" alt="Guest suite bedding in a Kondapur apartment" loading="lazy"/>
+          <span class="project__meta"><span class="project__meta-dot" aria-hidden="true"></span>Apartment · Kondapur</span>
+          <div class="project__cap">
+            <div>
+              <p class="project__where">Guest suite</p>
+              <h3 class="project__title">Sleepwell pocket-spring + fresh linen set</h3>
+            </div>
+            <p class="project__when">Oct 2025</p>
+          </div>
+        </a>
+      </div>
+      <div class="projects__more">
+        <a href="gallery.html" class="btn btn--light">
+          See the full gallery
+          <span class="btn__arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <!-- TRUST BAR · four house promises -->
+    <section class="trust stack" aria-label="What we promise">
+      <div class="trust__item">
+        <span class="trust__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 4c-3 0-7 2-7 8 0 4 3 8 7 9 4-1 7-5 7-9 0-6-4-8-7-8Z" stroke-linejoin="round"/>
+            <path d="M12 21c0-4 1-6 3-9" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <div>
+          <h4 class="trust__title">Shortlisted, not stocked.</h4>
+          <p class="trust__desc">Four thousand swatches, quietly edited for what actually holds up in a Hyderabad summer.</p>
+        </div>
+      </div>
+      <span class="trust__divider" aria-hidden="true"></span>
+      <div class="trust__item">
+        <span class="trust__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="10" width="18" height="4" rx="1"/>
+            <path d="M7 10V8m4 2V6m4 4V8" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <div>
+          <h4 class="trust__title">Nothing baggy, nothing short.</h4>
+          <p class="trust__desc">Cut for your window, your bed, your sofa. Off-the-shelf is where regret lives.</p>
+        </div>
+      </div>
+      <span class="trust__divider" aria-hidden="true"></span>
+      <div class="trust__item">
+        <span class="trust__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="m12 3 2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5L12 3Z" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <div>
+          <h4 class="trust__title">Alterations by five.</h4>
+          <p class="trust__desc">Because the tailor is in the same building, a bad drop is fixed the same afternoon — not next Wednesday.</p>
+        </div>
+      </div>
+      <span class="trust__divider" aria-hidden="true"></span>
+      <div class="trust__item">
+        <span class="trust__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M4 12a8 8 0 0 1 16 0v5a2 2 0 0 1-2 2h-1v-6h3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 12v5a2 2 0 0 0 2 2h1v-6H4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <div>
+          <h4 class="trust__title">The person who sold it, sells you the fix.</h4>
+          <p class="trust__desc">Ask for Murthy or Anjali. Same names on the callback.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VOICES · testimonials grid -->
+    <section class="voices stack" aria-label="Customer voices">
+      <header class="section-head--split">
+        <div>
+          <p class="eyebrow">The families we're on speed-dial with</p>
+          <h2 class="display display--md">Eleven Diwalis, on average.</h2>
+        </div>
+        <p class="lede">
+          Five voices, five neighbourhoods, one thing in common — none of them
+          are first-time customers. We shortened their quotes; the affection is
+          theirs.
+        </p>
+      </header>
+      <div class="voices__grid">
+        <figure class="voice-card voice-card--feature">
+          <p class="voice-card__mark" aria-hidden="true">&ldquo;</p>
+          <blockquote class="voice-card__quote">
+            The curtains they made for our drawing room have outlasted two house
+            moves and three Diwalis of paint. Still hanging straight. When my
+            daughter set up her flat in Kondapur last year, we called Anjali
+            before we called the landlord.
+          </blockquote>
+          <figcaption class="voice-card__by">
+            <span class="voice-card__author">Padmaja R.</span>
+            <span class="voice-card__meta">Begumpet · Customer since 2009</span>
+          </figcaption>
+        </figure>
+        <figure class="voice-card voice-card--wide">
+          <blockquote class="voice-card__quote">
+            Called Anjali on a Sunday about a torn valance. Someone was here
+            Monday morning. No email, no invoice, no forgetting.
+          </blockquote>
+          <figcaption class="voice-card__by">
+            <span class="voice-card__author">Anil V.</span>
+            <span class="voice-card__meta">Kondapur · Since 2018</span>
+          </figcaption>
+        </figure>
+        <figure class="voice-card voice-card--wide">
+          <blockquote class="voice-card__quote">
+            The Bhadohi runners we bought twelve years ago look better today
+            than the day they came in. Nothing else in the house does.
+          </blockquote>
+          <figcaption class="voice-card__by">
+            <span class="voice-card__author">Meera D.</span>
+            <span class="voice-card__meta">Jubilee Hills · Since 2012</span>
+          </figcaption>
+        </figure>
+        <figure class="voice-card voice-card--sq">
+          <blockquote class="voice-card__quote">
+            Free measurement, quote by evening, installed on the day they
+            promised. No renegotiation — which, honestly, is the whole review.
+          </blockquote>
+          <figcaption class="voice-card__by">
+            <span class="voice-card__author">Rakesh &amp; Suhasini</span>
+            <span class="voice-card__meta">Gachibowli · Since 2021</span>
+          </figcaption>
+        </figure>
+        <figure class="voice-card voice-card--sq">
+          <blockquote class="voice-card__quote">
+            Three houses, one family, one phone number. That's what fifteen
+            years buys you.
+          </blockquote>
+          <figcaption class="voice-card__by">
+            <span class="voice-card__author">Shobha N.</span>
+            <span class="voice-card__meta">Banjara Hills · Since 2005</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- PRICES · fair, published -->
+    <section class="prices stack" aria-label="Starting prices">
+      <div class="prices__intro">
+        <p class="eyebrow">Fair, published</p>
+        <h3>So you can budget before you visit.</h3>
+        <p>Real quotes are always free. This is just enough to see whether we belong in the same conversation.</p>
+      </div>
+      <span class="prices__divider" aria-hidden="true"></span>
+      <div class="prices__list">
+        <div class="price">
+          <p class="price__label">Curtains</p>
+          <p class="price__value">₹450<span class="price__unit">/sq.ft</span></p>
+        </div>
+        <div class="price">
+          <p class="price__label">Blinds</p>
+          <p class="price__value">₹250<span class="price__unit">/sq.ft</span></p>
+        </div>
+        <div class="price">
+          <p class="price__label">Carpets</p>
+          <p class="price__value">₹8,500<span class="price__unit">+</span></p>
+        </div>
+        <div class="price">
+          <p class="price__label">Mattresses</p>
+          <p class="price__value">₹12,000<span class="price__unit">+</span></p>
+        </div>
+        <div class="price">
+          <p class="price__label">Upholstery</p>
+          <p class="price__value">₹22,000<span class="price__unit">/sofa</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GUARANTEES · the house promise -->
+    <section class="guarantees stack" aria-label="After-care guarantees">
+      <header class="section-head--split">
+        <div>
+          <p class="eyebrow">What we're on the hook for</p>
+          <h2 class="display display--md">The bit no one else writes down.</h2>
+        </div>
+        <p class="lede">
+          Furnishings are a long conversation, not a transaction. Three quiet
+          promises you don't have to fight for — no invoice hunt, no email
+          chain, no <em>manufacturer-said-otherwise</em>.
+        </p>
+      </header>
+      <div class="guarantees__cards">
+        <article class="guarantee">
+          <span class="guarantee__num">01</span>
+          <span class="guarantee__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M4 12a8 8 0 1 1 2.6 5.9" stroke-linecap="round"/>
+              <path d="M4 20v-4h4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <h3 class="guarantee__title">If it's off, we come back. Free.</h3>
+          <p class="guarantee__desc">Thirty days from install. Bad drop, wrong hem, valance ridge — we take it down, alter and refit. No charge, once. Just call the same number you called to order.</p>
+          <p class="guarantee__fine">Applies to all made-to-measure curtains, blinds &amp; upholstery.</p>
+        </article>
+        <article class="guarantee">
+          <span class="guarantee__num">02</span>
+          <span class="guarantee__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M15 3 6 12l3 3 9-9-3-3Z" stroke-linejoin="round"/>
+              <path d="m5 21 2.5-4 3 3L5 21Z" stroke-linejoin="round"/>
+              <path d="M17 5a2.5 2.5 0 0 1 3.5 3.5" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <h3 class="guarantee__title">The rod stays tight, for life.</h3>
+          <p class="guarantee__desc">If we mounted it, we come back and tighten it — even years later. Rods and brackets replaced at cost, never at ceremony.</p>
+          <p class="guarantee__fine">One WhatsApp is enough. No invoice hunting.</p>
+        </article>
+        <article class="guarantee">
+          <span class="guarantee__num">03</span>
+          <span class="guarantee__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M12 3 4 6v6c0 4.5 3.2 8.4 8 9 4.8-.6 8-4.5 8-9V6l-8-3Z" stroke-linejoin="round"/>
+              <path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <h3 class="guarantee__title">We handle the warranty claim.</h3>
+          <p class="guarantee__desc">Every mattress, motor, blind and wallpaper on our floor carries a factory warranty. We are the ones who talk to Sleepwell — you talk to us.</p>
+          <p class="guarantee__fine">Sleepwell · Kurlon · Duroflex · Peps · D'Décor · Asian Paints.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- VISIT · three-door dark band -->
+    <section class="visit-triple stack" aria-label="Three ways to visit">
+      <header class="visit-triple__head">
+        <div>
+          <p class="eyebrow eyebrow--light">Choose your door</p>
+          <h2 class="visit-triple__title">Three ways in. Same welcome.</h2>
+        </div>
+        <p class="visit-triple__lede">
+          Come to us, we come to you, or we start on your phone tonight.
+          Whichever is easiest for your week — the answer takes the same shape.
+        </p>
+      </header>
+      <div class="visit-triple__cards">
+        <a class="visit-door" href="contact.html#home-visit">
+          <div class="visit-door__top">
+            <span class="visit-door__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M4 11 12 4l8 7v9a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1v-9Z" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="visit-door__num">01</span>
+          </div>
+          <div>
+            <h3 class="visit-door__title">Home visit</h3>
+            <p class="visit-door__desc">We drive to you. Free across Hyderabad — Banjara, Jubilee, Kondapur, Gachibowli, Kompally, Kukatpally. Book us for two hours; we bring a shortlist for every room we walk.</p>
+          </div>
+          <span class="visit-door__cta">
+            Book a slot
+            <span class="visit-door__cta-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </span>
+        </a>
+        <a class="visit-door" href="contact.html">
+          <div class="visit-door__top">
+            <span class="visit-door__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" stroke-linejoin="round"/>
+                <path d="M4 21h16" stroke-linecap="round"/>
+                <circle cx="15" cy="12" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+            </span>
+            <span class="visit-door__num">02</span>
+          </div>
+          <div>
+            <h3 class="visit-door__title">Visit the showroom</h3>
+            <p class="visit-door__desc">Ameerpet Main Road, next to the Metro. Basement parking. Bring a photo of the room, take home a bundle of swatches. Open 10:30 – 20:30, seven days.</p>
+          </div>
+          <span class="visit-door__cta">
+            Get directions
+            <span class="visit-door__cta-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </span>
+        </a>
+        <a class="visit-door" href="https://wa.me/914023730142">
+          <div class="visit-door__top">
+            <span class="visit-door__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M4 20 5.6 15A8 8 0 1 1 9 18.4L4 20Z" stroke-linejoin="round" stroke-linecap="round"/>
+                <path d="M9 10c.4 2.5 2.1 4.2 4.6 4.6l1.4-1.6-2.4-1.2c-.6.4-1.5-.2-2-1.4-.4-.6-.9-1.4 0-1.8L9 10Z" fill="currentColor" stroke="none"/>
+              </svg>
+            </span>
+            <span class="visit-door__num">03</span>
+          </div>
+          <div>
+            <h3 class="visit-door__title">WhatsApp us a photo</h3>
+            <p class="visit-door__desc">Send one photo of the window, the sofa, the wall. We reply with a fabric shortlist and an approximate quote — same day, usually within the hour.</p>
+          </div>
+          <span class="visit-door__cta">
+            Open WhatsApp
+            <span class="visit-door__cta-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="site-footer__grid">
+        <div class="site-footer__brand">
+          <p><strong>Jaydurga Furnishings.</strong> Since 1984.</p>
+          <p>4th Floor, Mandhana Towers<br/>Ameerpet Main Road<br/>Hyderabad 500 016, Telangana</p>
+          <p><a href="tel:+914023730142">+91 40 2373 0142</a><br/><a href="mailto:hello@jaydurga.in">hello@jaydurga.in</a></p>
+          <em>Open 10:30 — 20:30 · Seven days</em>
+        </div>
+        <div>
+          <h4>Collections</h4>
+          <ul>
+            <li><a href="collections.html#curtains">Curtains</a></li>
+            <li><a href="collections.html#carpets">Carpets</a></li>
+            <li><a href="collections.html#mattresses">Mattresses</a></li>
+            <li><a href="collections.html#blinds">Blinds</a></li>
+            <li><a href="collections.html#wallpapers">Wallpapers</a></li>
+            <li><a href="collections.html#upholstery">Upholstery</a></li>
+            <li><a href="collections.html#bedding">Bedding</a></li>
+            <li><a href="collections.html#table-linen">Table linen</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>House</h4>
+          <ul>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Visit · Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Service</h4>
+          <ul>
+            <li><a href="contact.html#measure">Free measurement</a></li>
+            <li><a href="contact.html#tailoring">In-house tailoring</a></li>
+            <li><a href="contact.html#reupholstery">Re-upholstery</a></li>
+            <li><a href="contact.html#interior">Interior consultation</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__rail">
+        <small>© <span data-year>2026</span> Jaydurga Furnishings Extn. · Ameerpet, Hyderabad</small>
+        <ul>
+          <li><a href="https://www.instagram.com/jaydurgaextn/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://wa.me/914023730142">WhatsApp</a></li>
+        </ul>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
+
+    // Mobile nav toggle
+    (function () {
+      var toggle = document.querySelector('.nav-toggle');
+      var menu = document.getElementById('primary-nav');
+      if (!toggle || !menu) return;
+      toggle.addEventListener('click', function () {
+        var open = menu.classList.toggle('is-open');
+        toggle.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      });
+      document.addEventListener('click', function (e) {
+        if (!toggle.contains(e.target) && !menu.contains(e.target) && menu.classList.contains('is-open')) {
+          menu.classList.remove('is-open');
+          toggle.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.setAttribute('aria-label', 'Open menu');
+        }
+      });
+    })();
+
+    // Hero slider — transform-based, autoplay + manual + touch/swipe
+    (function () {
+      var slider = document.querySelector('.hero__slider');
+      if (!slider) return;
+      var track = slider.querySelector('[data-slider-track]');
+      if (!track) return;
+      var slides = Array.prototype.slice.call(track.querySelectorAll('.hero__slide'));
+      var dots = Array.prototype.slice.call(slider.querySelectorAll('[data-slider-dot]'));
+      var prevBtn = slider.querySelector('[data-slider-prev]');
+      var nextBtn = slider.querySelector('[data-slider-next]');
+      var count = slides.length;
+      if (!count) return;
+
+      var AUTOPLAY_MS = 5500;
+      var current = 0;
+      var autoplayId = null;
+      var isPaused = false;
+      var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // sync CSS var so progress-line duration matches JS interval
+      slider.style.setProperty('--autoplay-ms', AUTOPLAY_MS + 'ms');
+
+      function paint() {
+        track.style.transform = 'translate3d(' + (-current * 100) + '%, 0, 0)';
+        slides.forEach(function (s, i) {
+          s.classList.toggle('is-active', i === current);
+        });
+        dots.forEach(function (d, i) {
+          d.setAttribute('aria-current', i === current ? 'true' : 'false');
+        });
+      }
+
+      // Restart the progress-line animation cleanly by forcing a reflow.
+      function restartProgress() {
+        slider.classList.remove('is-playing');
+        // force reflow so the animation restarts
+        void slider.offsetWidth;
+        if (!prefersReducedMotion && !isPaused) slider.classList.add('is-playing');
+      }
+
+      function goTo(i) {
+        current = ((i % count) + count) % count;
+        paint();
+        restartProgress();
+      }
+
+      function startAutoplay() {
+        if (prefersReducedMotion || isPaused || autoplayId) return;
+        slider.classList.add('is-playing');
+        autoplayId = setInterval(function () {
+          current = (current + 1) % count;
+          paint();
+          restartProgress();
+        }, AUTOPLAY_MS);
+      }
+
+      function stopAutoplay() {
+        if (autoplayId) { clearInterval(autoplayId); autoplayId = null; }
+        slider.classList.remove('is-playing');
+      }
+
+      function restartAutoplay() {
+        stopAutoplay();
+        startAutoplay();
+      }
+
+      // Buttons
+      if (prevBtn) prevBtn.addEventListener('click', function () { goTo(current - 1); restartAutoplay(); });
+      if (nextBtn) nextBtn.addEventListener('click', function () { goTo(current + 1); restartAutoplay(); });
+      dots.forEach(function (dot, idx) {
+        dot.addEventListener('click', function () { goTo(idx); restartAutoplay(); });
+      });
+
+      // Keyboard
+      slider.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); restartAutoplay(); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); restartAutoplay(); }
+      });
+
+      // Pause interactions
+      slider.addEventListener('mouseenter', function () { isPaused = true; stopAutoplay(); });
+      slider.addEventListener('mouseleave', function () { isPaused = false; startAutoplay(); });
+      slider.addEventListener('focusin',   function () { isPaused = true; stopAutoplay(); });
+      slider.addEventListener('focusout',  function () {
+        if (!slider.contains(document.activeElement)) { isPaused = false; startAutoplay(); }
+      });
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) stopAutoplay();
+        else if (!isPaused) startAutoplay();
+      });
+
+      // Touch / swipe support
+      var touchStartX = 0, touchDeltaX = 0, touching = false;
+      track.addEventListener('touchstart', function (e) {
+        touching = true;
+        touchStartX = e.touches[0].clientX;
+        touchDeltaX = 0;
+        stopAutoplay();
+      }, { passive: true });
+      track.addEventListener('touchmove', function (e) {
+        if (!touching) return;
+        touchDeltaX = e.touches[0].clientX - touchStartX;
+      }, { passive: true });
+      track.addEventListener('touchend', function () {
+        if (!touching) return;
+        touching = false;
+        var threshold = track.clientWidth * 0.15;
+        if (touchDeltaX < -threshold)      goTo(current + 1);
+        else if (touchDeltaX >  threshold) goTo(current - 1);
+        else paint();
+        restartAutoplay();
+      });
+
+      // Keep alignment on resize (transform uses % so this is cheap)
+      window.addEventListener('resize', paint);
+
+      paint();
+      startAutoplay();
+    })();
+  </script>
+
+</body>
+</html>

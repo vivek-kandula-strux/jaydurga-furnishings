@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#EEE9DC" />
+
+  <title>Visit · Contact — Jaydurga Furnishings, Ameerpet, Hyderabad</title>
+  <meta name="description" content="Find us on Ameerpet Main Road, beside Karachi Bakery. Showroom hours, directions, phone, and an enquiry form for measurements and consultations." />
+
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+
+  <link rel="stylesheet" href="css/wireframe.css" />
+
+  <style>
+    /* Locate section */
+    .locate {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 20px;
+    }
+    .locate__address {
+      background: var(--shell);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: clamp(28px, 3vw, 44px);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .locate__lines {
+      font-style: normal;
+      font-size: 16px;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      margin: 0;
+    }
+    .locate__lines strong { color: var(--ink); font-weight: 700; }
+    .locate__contact { display: flex; flex-direction: column; gap: 10px; }
+    .locate__link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+      background: var(--panel);
+      border-radius: var(--radius);
+      transition: background .18s ease, transform .18s ease;
+    }
+    .locate__link:hover { background: var(--chip); transform: translateX(2px); }
+    .locate__link-icon {
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      background: var(--shell);
+      border: 1px solid var(--divider);
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      flex-shrink: 0;
+    }
+    .locate__link-icon svg { width: 20px; height: 20px; }
+    .locate__link div { display: flex; flex-direction: column; gap: 2px; }
+    .locate__link span { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute); font-weight: 500; }
+    .locate__link strong { font-size: 15px; font-weight: 700; color: var(--ink); }
+    .locate__hours { border-top: 1px solid var(--divider); padding-top: 20px; }
+    .locate__hours h3 { font-size: 11.5px; font-weight: 700; letter-spacing: 0.22em; color: var(--mute); text-transform: uppercase; margin: 0 0 14px; }
+    .locate__hours dl { display: flex; flex-direction: column; gap: 8px; margin: 0; }
+    .locate__hours dl > div { display: flex; justify-content: space-between; font-size: 14px; }
+    .locate__hours dt { color: var(--ink-soft); }
+    .locate__hours dd { color: var(--ink); font-weight: 600; margin: 0; }
+
+    .locate__map {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      position: relative;
+      min-height: 500px;
+      background: var(--panel);
+    }
+    .locate__map iframe {
+      width: 100%; height: 100%;
+      border: 0;
+      position: absolute;
+      inset: 0;
+    }
+    .locate__map-cta {
+      position: absolute;
+      bottom: 20px; left: 20px;
+      padding: 12px 20px;
+      background: var(--dark);
+      color: #FBF6EA;
+      border-radius: var(--pill);
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 2;
+    }
+    .locate__map-cta:hover { background: var(--dark-hover); }
+
+    /* Directions */
+    .directions { margin-top: 40px; }
+    .directions__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .direction {
+      background: var(--shell);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: clamp(24px, 2.6vw, 36px);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .direction__num {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--chip);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 15px;
+    }
+    .direction h3 { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin: 0; color: var(--ink); }
+    .direction p { font-size: 14px; color: var(--ink-soft); line-height: 1.6; margin: 0; }
+
+    /* Enquiry */
+    .enquiry {
+      margin-top: 40px;
+      background: var(--panel);
+      border-radius: var(--radius-lg);
+      padding: clamp(32px, 4vw, 56px);
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: clamp(28px, 4vw, 60px);
+    }
+    .enquiry__intro h2 { margin: 6px 0 20px; }
+    .enquiry__intro p { font-size: 15.5px; color: var(--ink-soft); line-height: 1.6; margin: 0 0 24px; max-width: 40ch; }
+    .enquiry__services { display: flex; flex-direction: column; gap: 12px; }
+    .enquiry__services li {
+      background: var(--shell);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .enquiry__services strong { font-size: 14px; font-weight: 700; color: var(--ink); }
+    .enquiry__services li { font-size: 13px; color: var(--mute); }
+    .enquiry__form { display: flex; flex-direction: column; gap: 18px; }
+    .form-msg { font-size: 13px; color: var(--rust); }
+
+    @media (max-width: 900px) {
+      .locate { grid-template-columns: 1fr; }
+      .locate__map { min-height: 340px; }
+      .directions__grid { grid-template-columns: 1fr; }
+      .enquiry { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="shell">
+
+    <!-- HEADER -->
+    <header class="nav">
+      <a href="index.html" class="brand" aria-label="Jaydurga Furnishings · Home">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M5 20v-3a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v3" stroke-linecap="round"/>
+            <path d="M7 20v4M25 20v4" stroke-linecap="round"/>
+            <path d="M9 14v-3a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand__wordmark">
+          <span class="brand__name">JAYDURGA</span>
+          <span class="brand__tag">Since 1984 · Ameerpet</span>
+        </span>
+      </a>
+
+      <nav class="nav__menu" id="primary-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="collections.html">Collections</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="is-active">Contact</a>
+      </nav>
+
+      <div class="nav__tools">
+        <button class="icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <button class="icon-btn icon-btn__badge" aria-label="Enquiry list">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M6 7h13l-1.4 8.2a2 2 0 0 1-2 1.7H9.4a2 2 0 0 1-2-1.7L6 7Z" stroke-linejoin="round"/>
+            <path d="M6 7 5.3 4H3" stroke-linecap="round"/>
+            <circle cx="10" cy="21" r="1.1"/><circle cx="17" cy="21" r="1.1"/>
+          </svg>
+        </button>
+        <a href="tel:+914023730142" class="btn btn--dark">Call Us</a>
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="page-hero__inner">
+        <div>
+          <p class="eyebrow">How you'd like to start</p>
+          <h1 class="page-hero__title">Come and take a chair.</h1>
+        </div>
+        <div>
+          <p class="page-hero__lede">
+            Every home visit, every callback, every measurement, every quote — free.
+            We are on Ameerpet Main Road, between the Metro and the bakery. Come by,
+            or don't; the answer starts wherever is easiest for you. Whichever route
+            you take, ask for Anjali or Murthy — same names on the callback.
+          </p>
+          <dl class="page-hero__meta">
+            <div><dt>Open today</dt><strong>10.30 — 20.30</strong></div>
+            <div><dt>Telephone</dt><strong>040 2373 0142</strong></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCATE -->
+    <section class="locate">
+      <div class="locate__address">
+        <div>
+          <p class="eyebrow">Where to find us</p>
+          <h2 class="display display--md" style="margin-top:6px">The showroom.</h2>
+        </div>
+
+        <address class="locate__lines">
+          <strong>Jaydurga Furnishings Extn.</strong><br/>
+          4th Floor, Mandhana Towers<br/>
+          Ameerpet<br/>
+          Hyderabad 500 016<br/>
+          Telangana, India
+        </address>
+
+        <div class="locate__contact">
+          <a href="tel:+914023730142" class="locate__link">
+            <span class="locate__link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.86 19.86 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/>
+              </svg>
+            </span>
+            <div>
+              <span>Call the showroom</span>
+              <strong>+91 40 2373 0142</strong>
+            </div>
+          </a>
+
+          <a href="https://wa.me/914023730142" class="locate__link" target="_blank" rel="noopener">
+            <span class="locate__link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <path d="M21 11.5a8.38 8.38 0 0 1-9 8.5 9 9 0 0 1-4-1L3 21l1.9-4.4A8.5 8.5 0 1 1 21 11.5Z"/>
+              </svg>
+            </span>
+            <div>
+              <span>WhatsApp the manager</span>
+              <strong>Send a message</strong>
+            </div>
+          </a>
+
+          <a href="mailto:hello@jaydurga.in" class="locate__link">
+            <span class="locate__link-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <rect x="3" y="5" width="18" height="14" rx="2"/>
+                <path d="m3 7 9 6 9-6"/>
+              </svg>
+            </span>
+            <div>
+              <span>Or write</span>
+              <strong>hello@jaydurga.in</strong>
+            </div>
+          </a>
+        </div>
+
+        <div class="locate__hours">
+          <h3>Hours</h3>
+          <dl>
+            <div><dt>Monday — Saturday</dt><dd>10:30 — 20:30</dd></div>
+            <div><dt>Sunday</dt><dd>11:00 — 19:30</dd></div>
+            <div><dt>Festival days</dt><dd>By call</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="locate__map">
+        <iframe
+          src="https://www.google.com/maps?q=Jaydurga+Furnishings+Mandhana+Towers+Ameerpet+Hyderabad&output=embed"
+          title="Map to the Jaydurga Furnishings showroom"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen></iframe>
+        <a class="locate__map-cta" href="https://www.google.com/maps/dir/?api=1&destination=Jaydurga+Furnishings+Mandhana+Towers+Ameerpet+Hyderabad" target="_blank" rel="noopener">
+          Open in Google Maps
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M7 17 17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- DIRECTIONS -->
+    <section class="directions">
+      <header class="section-head">
+        <p class="eyebrow">Getting here</p>
+        <h2 class="display display--md">Three quiet ways to arrive.</h2>
+      </header>
+      <ol class="directions__grid">
+        <li class="direction">
+          <span class="direction__num">i.</span>
+          <h3>By Metro</h3>
+          <p>Alight at Ameerpet Metro Station. From there it is a short walk along the main road to Mandhana Towers. The showroom is on the fourth floor.</p>
+        </li>
+        <li class="direction">
+          <span class="direction__num">ii.</span>
+          <h3>By car</h3>
+          <p>Visitor parking is available in the Mandhana Towers basement. Take the lift to the fourth floor — we are right as you step out.</p>
+        </li>
+        <li class="direction">
+          <span class="direction__num">iii.</span>
+          <h3>By auto</h3>
+          <p>Tell the driver "Mandhana Towers, Ameerpet." Head to the fourth floor — Jaydurga Furnishings is signposted at the lift.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ENQUIRY -->
+    <section class="enquiry" id="enquiry">
+      <aside class="enquiry__intro">
+        <p class="eyebrow">Send a note</p>
+        <h2 class="display display--md">Tell us a little about the room.</h2>
+        <p>One working day, real reply, real name. No auto-responder, no ticket number, no "our team will get back to you."</p>
+
+        <ul class="enquiry__services">
+          <li id="measure"><strong>Free measurement</strong>Anywhere in Hyderabad. Two-day booking window, always free — no small print.</li>
+          <li id="tailoring"><strong>In-house tailoring</strong>Curtains, cushions and runners stitched by our own tailors. Alterations by five.</li>
+          <li id="reupholstery"><strong>Re-upholstery service</strong>We collect the sofa, restuff it, re-cover it, bring it back. Quote first.</li>
+          <li id="interior"><strong>Interior consultation</strong>One-hour room walkthroughs, free with any order over ₹40,000.</li>
+        </ul>
+      </aside>
+
+      <form class="enquiry__form" data-form novalidate>
+        <div class="field">
+          <label for="f-subject">I'm enquiring about</label>
+          <select id="f-subject" name="subject">
+            <option value="General">General — not sure yet</option>
+            <option value="Curtains">Curtains</option>
+            <option value="Carpets">Carpets</option>
+            <option value="Mattresses">Mattresses</option>
+            <option value="Blinds">Blinds</option>
+            <option value="Wallpapers">Wallpapers</option>
+            <option value="Upholstery">Upholstery</option>
+            <option value="Bedding">Bedding</option>
+            <option value="Table linen">Table linen</option>
+            <option value="Site measurement">A site measurement visit</option>
+            <option value="Interior consultation">An interior consultation</option>
+          </select>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="f-name">Your name</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="e.g. Padmaja R."/>
+          </div>
+          <div class="field">
+            <label for="f-phone">Phone</label>
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel" required placeholder="+91 98 4810 0000"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required placeholder="padmaja@example.com"/>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="f-area">Area / locality</label>
+            <input id="f-area" name="area" type="text" placeholder="e.g. Banjara Hills, Kondapur"/>
+          </div>
+          <div class="field">
+            <label for="f-contact">Best way to reply</label>
+            <select id="f-contact" name="preferred">
+              <option>By phone</option>
+              <option>By WhatsApp</option>
+              <option>By email</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-message">A few notes about the room</label>
+          <textarea id="f-message" name="message" rows="5" placeholder="The shape of the windows, the kind of fabric you've been thinking of, when you'd like it ready by — anything at all."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn--dark" style="align-self:flex-start;">
+          Send Enquiry
+          <span class="btn__arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+        <span class="form-msg" data-form-msg aria-live="polite"></span>
+      </form>
+    </section>
+
+    <!-- VISIT CTA -->
+    <section class="visit-cta">
+      <div>
+        <p class="eyebrow eyebrow--light">The simplest message of all</p>
+        <h2 class="display display--md">We're already on the line.</h2>
+        <p>Picking up at the showroom desk this very minute.</p>
+      </div>
+      <div class="visit-cta__actions">
+        <a href="tel:+914023730142" class="btn btn--light">Call · +91 40 2373 0142</a>
+        <a href="https://wa.me/914023730142" class="link-arrow--light" target="_blank" rel="noopener">Or WhatsApp <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="site-footer__grid">
+        <div class="site-footer__brand">
+          <p><strong>Jaydurga Furnishings.</strong> Since 1984.</p>
+          <p>4th Floor, Mandhana Towers<br/>Ameerpet Main Road<br/>Hyderabad 500 016, Telangana</p>
+          <p><a href="tel:+914023730142">+91 40 2373 0142</a><br/><a href="mailto:hello@jaydurga.in">hello@jaydurga.in</a></p>
+          <em>Open 10:30 — 20:30 · Seven days</em>
+        </div>
+        <div>
+          <h4>Collections</h4>
+          <ul>
+            <li><a href="collections.html#curtains">Curtains</a></li>
+            <li><a href="collections.html#carpets">Carpets</a></li>
+            <li><a href="collections.html#mattresses">Mattresses</a></li>
+            <li><a href="collections.html#blinds">Blinds</a></li>
+            <li><a href="collections.html#wallpapers">Wallpapers</a></li>
+            <li><a href="collections.html#upholstery">Upholstery</a></li>
+            <li><a href="collections.html#bedding">Bedding</a></li>
+            <li><a href="collections.html#table-linen">Table linen</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>House</h4>
+          <ul>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Visit · Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Service</h4>
+          <ul>
+            <li><a href="#measure">Free measurement</a></li>
+            <li><a href="#tailoring">In-house tailoring</a></li>
+            <li><a href="#reupholstery">Re-upholstery</a></li>
+            <li><a href="#interior">Interior consultation</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__rail">
+        <small>© <span data-year>2026</span> Jaydurga Furnishings Extn. · Ameerpet, Hyderabad</small>
+        <ul>
+          <li><a href="https://www.instagram.com/jaydurgaextn/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://wa.me/914023730142">WhatsApp</a></li>
+        </ul>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
+
+    // Mobile nav toggle
+    (function () {
+      var toggle = document.querySelector('.nav-toggle');
+      var menu = document.getElementById('primary-nav');
+      if (!toggle || !menu) return;
+      toggle.addEventListener('click', function () {
+        var open = menu.classList.toggle('is-open');
+        toggle.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      });
+      document.addEventListener('click', function (e) {
+        if (!toggle.contains(e.target) && !menu.contains(e.target) && menu.classList.contains('is-open')) {
+          menu.classList.remove('is-open');
+          toggle.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.setAttribute('aria-label', 'Open menu');
+        }
+      });
+    })();
+
+    // Simple form handler
+    const form = document.querySelector('[data-form]');
+    const msg = document.querySelector('[data-form-msg]');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        msg.textContent = "Thank you — we'll be in touch within a working day.";
+        msg.style.color = 'var(--ink)';
+      });
+    }
+  </script>
+
+</body>
+</html>

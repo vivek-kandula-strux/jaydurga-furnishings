@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#EEE9DC" />
+
+  <title>Gallery — Rooms we have furnished · Jaydurga Furnishings</title>
+  <meta name="description" content="Plates from customer homes across Hyderabad: curtains, carpets, bedrooms, dining rooms, living rooms — and the showroom itself." />
+
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+
+  <link rel="stylesheet" href="css/wireframe.css" />
+
+  <style>
+    /* Filter chips */
+    .gallery-filter {
+      margin-top: 32px;
+      background: var(--panel);
+      border-radius: var(--pill);
+      padding: 8px;
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .gallery-filter::-webkit-scrollbar { display: none; }
+    .chip {
+      padding: 10px 20px;
+      border-radius: var(--pill);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      white-space: nowrap;
+      transition: background .18s ease, color .18s ease;
+      flex-shrink: 0;
+    }
+    .chip:hover { background: var(--chip); color: var(--ink); }
+    .chip.is-active { background: var(--dark); color: #FBF6EA; }
+
+    /* Grid — masonry-ish with size variants */
+    .plate-grid {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 220px;
+      gap: 16px;
+    }
+    .plate {
+      margin: 0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      background: var(--shell);
+      border: 1px solid var(--line);
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .plate:hover { transform: translateY(-3px); box-shadow: 0 22px 44px -26px rgba(23,19,16,.22); }
+    .plate.is-hidden { display: none; }
+    .plate--tall { grid-row: span 2; }
+    .plate--wide { grid-column: span 2; }
+    .plate__media {
+      display: block;
+      width: 100%; height: 100%;
+      position: absolute;
+      inset: 0;
+    }
+    .plate__media img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .plate:hover .plate__media img { transform: scale(1.04); }
+    .plate__caption {
+      position: absolute;
+      left: 12px; bottom: 12px;
+      background: rgba(15,11,8,.72);
+      color: #FBF6EA;
+      padding: 8px 14px;
+      border-radius: var(--pill);
+      font-size: 11.5px;
+      backdrop-filter: blur(8px);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .plate__caption strong { font-weight: 700; }
+    .plate__caption span + span::before { content: "·"; margin: 0 6px; opacity: 0.5; }
+
+    .gallery__empty {
+      text-align: center;
+      color: var(--mute);
+      font-size: 15px;
+      padding: 60px 20px;
+      background: var(--panel);
+      border-radius: var(--radius-lg);
+      margin-top: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      .plate-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 720px) {
+      .plate-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
+      .plate--wide { grid-column: span 2; }
+    }
+    @media (max-width: 480px) {
+      .plate-grid { grid-template-columns: 1fr; }
+      .plate--wide { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="shell">
+
+    <!-- HEADER -->
+    <header class="nav">
+      <a href="index.html" class="brand" aria-label="Jaydurga Furnishings · Home">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M5 20v-3a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v3" stroke-linecap="round"/>
+            <path d="M7 20v4M25 20v4" stroke-linecap="round"/>
+            <path d="M9 14v-3a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand__wordmark">
+          <span class="brand__name">JAYDURGA</span>
+          <span class="brand__tag">Since 1984 · Ameerpet</span>
+        </span>
+      </a>
+
+      <nav class="nav__menu" id="primary-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="collections.html">Collections</a>
+        <a href="gallery.html" class="is-active">Gallery</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="nav__tools">
+        <button class="icon-btn" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <button class="icon-btn icon-btn__badge" aria-label="Enquiry list">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M6 7h13l-1.4 8.2a2 2 0 0 1-2 1.7H9.4a2 2 0 0 1-2-1.7L6 7Z" stroke-linejoin="round"/>
+            <path d="M6 7 5.3 4H3" stroke-linecap="round"/>
+            <circle cx="10" cy="21" r="1.1"/><circle cx="17" cy="21" r="1.1"/>
+          </svg>
+        </button>
+        <a href="tel:+914023730142" class="btn btn--dark">Call Us</a>
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="page-hero__inner">
+        <div>
+          <p class="eyebrow">Look before you leap</p>
+          <h1 class="page-hero__title">Twenty-four rooms, already done.</h1>
+        </div>
+        <div>
+          <p class="page-hero__lede">
+            Every plate is a real Hyderabad home, real neighbourhood, real date — nothing
+            borrowed from stock. If you're weighing something similar for your own place,
+            ask about a reference. More than a few of these customers have said yes to a
+            chai and a walk-through. Photographed by Vivek S., 2024–26.
+          </p>
+          <dl class="page-hero__meta">
+            <div><dt>Plates</dt><strong>24</strong></div>
+            <div><dt>Homes</dt><strong>14</strong></div>
+            <div><dt>Photographer</dt><strong>V. S.</strong></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTER -->
+    <nav class="gallery-filter" aria-label="Filter plates by collection">
+      <button class="chip is-active" data-filter="all" type="button">All plates</button>
+      <button class="chip" data-filter="curtains" type="button">Curtains</button>
+      <button class="chip" data-filter="carpets" type="button">Carpets</button>
+      <button class="chip" data-filter="bedrooms" type="button">Bedrooms</button>
+      <button class="chip" data-filter="wallpapers" type="button">Wallpapers</button>
+      <button class="chip" data-filter="upholstery" type="button">Upholstery</button>
+      <button class="chip" data-filter="dining" type="button">Dining</button>
+      <button class="chip" data-filter="showroom" type="button">Showroom</button>
+    </nav>
+
+    <!-- GALLERY GRID -->
+    <section class="plate-grid" data-grid>
+
+      <figure class="plate plate--tall" data-cat="curtains">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1616137422495-1e9e46e2aa77?auto=format&fit=crop&w=900&q=70" alt="Sheer linen curtains, three-storey drop in a living room" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>01</strong><span>Curtains</span><span>Banjara Hills</span></figcaption>
+      </figure>
+
+      <figure class="plate" data-cat="carpets">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=900&q=70" alt="A Bhadohi hand-knotted carpet under a wooden dining table" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>02</strong><span>Carpets</span><span>Jubilee</span></figcaption>
+      </figure>
+
+      <figure class="plate plate--wide" data-cat="bedrooms">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1100&q=70" alt="A made bed in cream cotton, drapes drawn part-way" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>03</strong><span>Bedrooms</span><span>Begumpet</span></figcaption>
+      </figure>
+
+      <figure class="plate" data-cat="wallpapers">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=900&q=70" alt="A textured wallpaper above a low console" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>04</strong><span>Wallpapers</span><span>Kondapur</span></figcaption>
+      </figure>
+
+      <figure class="plate" data-cat="upholstery">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=900&q=70" alt="A re-upholstered club chair in jacquard fabric" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>05</strong><span>Upholstery</span><span>Banjara</span></figcaption>
+      </figure>
+
+      <figure class="plate plate--tall" data-cat="curtains">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1604014237800-1c9102c219da?auto=format&fit=crop&w=900&q=70" alt="Roman blinds in cotton-linen, half raised" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>06</strong><span>Curtains</span><span>Madhapur</span></figcaption>
+      </figure>
+
+      <figure class="plate" data-cat="dining">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1530018607912-eff2daa1bac4?auto=format&fit=crop&w=900&q=70" alt="A dining table laid with linen and jacquard runner" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>07</strong><span>Dining</span><span>Jubilee</span></figcaption>
+      </figure>
+
+      <figure class="plate plate--wide" data-cat="showroom">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=1100&q=70" alt="The showroom counter with rolled fabrics and swatch books" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>08</strong><span>Showroom</span><span>Ameerpet</span></figcaption>
+      </figure>
+
+      <figure class="plate" data-cat="bedrooms">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=900&q=70" alt="Folded cotton sheets on a wooden shelf" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>09</strong><span>Bedrooms</span><span>Banjara</span></figcaption>
+      </figure>
+
+      <figure class="plate" data-cat="carpets">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=900&q=70" alt="A flat-weave dhurrie in a sitting room" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>10</strong><span>Carpets</span><span>Sainikpuri</span></figcaption>
+      </figure>
+
+      <figure class="plate plate--tall" data-cat="wallpapers">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1602872030219-ad2b9a54315c?auto=format&fit=crop&w=900&q=70" alt="An accent wall in patterned paper next to a wooden chair" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>11</strong><span>Wallpapers</span><span>Jubilee</span></figcaption>
+      </figure>
+
+      <figure class="plate" data-cat="upholstery">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1565182999561-18d7dc61c393?auto=format&fit=crop&w=900&q=70" alt="A sofa in performance fabric" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>12</strong><span>Upholstery</span><span>Kondapur</span></figcaption>
+      </figure>
+
+      <figure class="plate plate--wide" data-cat="bedrooms">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1540574163026-643ea20ade25?auto=format&fit=crop&w=1100&q=70" alt="A bedroom with patterned drapes and bedding" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>13</strong><span>Bedrooms</span><span>Begumpet</span></figcaption>
+      </figure>
+
+      <figure class="plate" data-cat="dining">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=900&q=70" alt="A dining setting with table linen" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>14</strong><span>Dining</span><span>Bowenpally</span></figcaption>
+      </figure>
+
+      <figure class="plate" data-cat="curtains">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=900&q=70" alt="Sheer voile curtains in afternoon light" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>15</strong><span>Curtains</span><span>Kompally</span></figcaption>
+      </figure>
+
+      <figure class="plate plate--tall" data-cat="showroom">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=70" alt="Bolts of fabric stacked on the showroom wall" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>16</strong><span>Showroom</span><span>Ameerpet</span></figcaption>
+      </figure>
+
+      <figure class="plate" data-cat="carpets">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1571508601891-cd96b2f1c4cb?auto=format&fit=crop&w=900&q=70" alt="A wool runner along a corridor" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>17</strong><span>Carpets</span><span>Banjara</span></figcaption>
+      </figure>
+
+      <figure class="plate" data-cat="dining">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=900&q=70" alt="A close-up of jacquard napkins folded on a sideboard" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>18</strong><span>Dining</span><span>Wedding</span></figcaption>
+      </figure>
+
+      <figure class="plate plate--wide" data-cat="upholstery">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&w=1100&q=70" alt="A sectional sofa in cream linen with patterned cushions" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>19</strong><span>Upholstery</span><span>Madhapur</span></figcaption>
+      </figure>
+
+      <figure class="plate" data-cat="wallpapers">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=70" alt="A muted-pattern wallpaper behind a bed headboard" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>20</strong><span>Wallpapers</span><span>Banjara</span></figcaption>
+      </figure>
+
+      <figure class="plate" data-cat="bedrooms">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=900&q=70" alt="A bedroom corner with reading chair and curtains" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>21</strong><span>Bedrooms</span><span>Jubilee</span></figcaption>
+      </figure>
+
+      <figure class="plate plate--tall" data-cat="curtains">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=900&q=70" alt="Eyelet-headed curtains in a tall window" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>22</strong><span>Curtains</span><span>Sainikpuri</span></figcaption>
+      </figure>
+
+      <figure class="plate" data-cat="showroom">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?auto=format&fit=crop&w=900&q=70" alt="A tailor at work in the showroom workshop" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>23</strong><span>Showroom</span><span>Tailoring</span></figcaption>
+      </figure>
+
+      <figure class="plate" data-cat="carpets">
+        <a class="plate__media" href="#" aria-label="Open plate">
+          <img src="https://images.unsplash.com/photo-1532323544230-7191fd51bc1b?auto=format&fit=crop&w=900&q=70" alt="A silk-blend carpet detail" loading="lazy"/>
+        </a>
+        <figcaption class="plate__caption"><strong>24</strong><span>Carpets</span><span>Banjara</span></figcaption>
+      </figure>
+
+    </section>
+
+    <p class="gallery__empty" data-grid-empty hidden>No plates in this collection yet — please check the others, or come see them in person at the showroom.</p>
+
+    <!-- VISIT CTA -->
+    <section class="visit-cta">
+      <div>
+        <p class="eyebrow eyebrow--light">Walk through them yourself</p>
+        <h2 class="display display--md">The unphotographed plates are at the shop.</h2>
+        <p>The light is better in person, anyway.</p>
+      </div>
+      <div class="visit-cta__actions">
+        <a href="contact.html" class="btn btn--light">Plan Your Visit</a>
+        <a href="collections.html" class="link-arrow--light">See the collections <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="site-footer__grid">
+        <div class="site-footer__brand">
+          <p><strong>Jaydurga Furnishings.</strong> Since 1984.</p>
+          <p>4th Floor, Mandhana Towers<br/>Ameerpet Main Road<br/>Hyderabad 500 016, Telangana</p>
+          <p><a href="tel:+914023730142">+91 40 2373 0142</a><br/><a href="mailto:hello@jaydurga.in">hello@jaydurga.in</a></p>
+          <em>Open 10:30 — 20:30 · Seven days</em>
+        </div>
+        <div>
+          <h4>Collections</h4>
+          <ul>
+            <li><a href="collections.html#curtains">Curtains</a></li>
+            <li><a href="collections.html#carpets">Carpets</a></li>
+            <li><a href="collections.html#mattresses">Mattresses</a></li>
+            <li><a href="collections.html#blinds">Blinds</a></li>
+            <li><a href="collections.html#wallpapers">Wallpapers</a></li>
+            <li><a href="collections.html#upholstery">Upholstery</a></li>
+            <li><a href="collections.html#bedding">Bedding</a></li>
+            <li><a href="collections.html#table-linen">Table linen</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>House</h4>
+          <ul>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Visit · Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Service</h4>
+          <ul>
+            <li><a href="contact.html#measure">Free measurement</a></li>
+            <li><a href="contact.html#tailoring">In-house tailoring</a></li>
+            <li><a href="contact.html#reupholstery">Re-upholstery</a></li>
+            <li><a href="contact.html#interior">Interior consultation</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__rail">
+        <small>© <span data-year>2026</span> Jaydurga Furnishings Extn. · Ameerpet, Hyderabad</small>
+        <ul>
+          <li><a href="https://www.instagram.com/jaydurgaextn/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://wa.me/914023730142">WhatsApp</a></li>
+        </ul>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
+
+    // Mobile nav toggle
+    (function () {
+      var toggle = document.querySelector('.nav-toggle');
+      var menu = document.getElementById('primary-nav');
+      if (!toggle || !menu) return;
+      toggle.addEventListener('click', function () {
+        var open = menu.classList.toggle('is-open');
+        toggle.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      });
+      document.addEventListener('click', function (e) {
+        if (!toggle.contains(e.target) && !menu.contains(e.target) && menu.classList.contains('is-open')) {
+          menu.classList.remove('is-open');
+          toggle.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.setAttribute('aria-label', 'Open menu');
+        }
+      });
+    })();
+
+    // Gallery filter
+    const chips = document.querySelectorAll('.chip');
+    const plates = document.querySelectorAll('[data-cat]');
+    const emptyMsg = document.querySelector('[data-grid-empty]');
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('is-active'));
+        chip.classList.add('is-active');
+        const filter = chip.dataset.filter;
+        let shown = 0;
+        plates.forEach(p => {
+          const match = filter === 'all' || p.dataset.cat === filter;
+          p.classList.toggle('is-hidden', !match);
+          if (match) shown++;
+        });
+        emptyMsg.hidden = shown > 0;
+      });
+    });
+  </script>
+
+</body>
+</html>
