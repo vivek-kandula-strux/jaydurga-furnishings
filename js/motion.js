@@ -5,18 +5,26 @@
    Every effect respects prefers-reduced-motion. If GSAP or
    Lenis fail to load, the page still works (blur-fade markers
    are cleared, content is visible).
+
+   Notes:
+   - `js-ready` class + curtain-drop are already set by an inline
+     <head> script (before this file loads) so the FOUC + slow-load
+     curtain issues are handled without waiting for GSAP.
+   - FAB and sticky-scroll are bound via ScrollTrigger.matchMedia
+     so they rebind cleanly on breakpoint changes.
    ═══════════════════════════════════════════════════════════ */
 
 (function () {
   'use strict';
 
+  // Signal to the inline <head> safety-net that motion.js is alive.
+  // Prevents the 3s fallback from stripping js-ready.
+  window.jdMotionAlive = true;
+
   const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hasGSAP = typeof window.gsap !== 'undefined';
   const hasScrollTrigger = typeof window.ScrollTrigger !== 'undefined';
   const hasLenis = typeof window.Lenis !== 'undefined';
-
-  // Mark <html> as JS-ready so blur-fade CSS kicks in (fallback if JS fails: everything visible).
-  document.documentElement.classList.add('js-ready');
 
   // If GSAP failed to load, clear all blur-fade markers immediately so nothing is hidden.
   if (!hasGSAP) {
@@ -30,7 +38,7 @@
       el.style.transform = 'none';
       el.style.pointerEvents = '';
     });
-    console.warn('[motion] GSAP not loaded — motion effects skipped.');
+    if (window.console && console.warn) console.warn('[motion] GSAP not loaded — motion effects skipped.');
     return;
   }
 
@@ -71,31 +79,6 @@
     });
   });
 
-  /* ─── CURTAIN-DROP · one-time hero reveal ───────────
-     Two dark panels part like curtains. Fires once per session. */
-  (function curtainDrop() {
-    const cover = document.querySelector('[data-curtain-cover]');
-    if (!cover) return;
-
-    const alreadyDone = sessionStorage.getItem('jd_curtain_done');
-    if (REDUCED || alreadyDone) {
-      cover.remove();
-      return;
-    }
-
-    const left = cover.querySelector('.curtain-cover__panel--left');
-    const right = cover.querySelector('.curtain-cover__panel--right');
-
-    gsap.timeline({
-      onComplete: () => {
-        cover.remove();
-        sessionStorage.setItem('jd_curtain_done', '1');
-      }
-    })
-      .to(left,  { xPercent: -102, duration: 1.1, ease: 'power3.inOut' }, 0.2)
-      .to(right, { xPercent:  102, duration: 1.1, ease: 'power3.inOut' }, 0.2);
-  })();
-
   /* ─── BLUR-FADE · universal scroll reveal ───────────
      Every .blur-fade element clears its filter/transform on enter. */
   (function blurFadeReveal() {
@@ -103,7 +86,6 @@
     if (!items.length) return;
 
     if (REDUCED || !hasScrollTrigger) {
-      // Just clear everything so content is visible.
       items.forEach(el => gsap.set(el, { opacity: 1, y: 0, filter: 'none' }));
       return;
     }
@@ -124,23 +106,20 @@
     });
   })();
 
-  /* ─── WORD ROTATE · rotating room type in hero ──────
-     Cycles through room types every 2.5s. Stops when
-     tab is hidden. */
+  /* ─── WORD ROTATE · rotating room type in hero ────── */
   (function wordRotate() {
     const container = document.querySelector('[data-word-rotate]');
     if (!container) return;
 
     const items = Array.from(container.querySelectorAll('.word-rotate__item'));
     if (items.length < 2) return;
-
-    if (REDUCED) return; // Leave the first word static.
+    if (REDUCED) return;
 
     let current = 0;
     const INTERVAL_MS = 2500;
 
     function advance() {
-      if (document.hidden) return; // pause when tab isn't visible
+      if (document.hidden) return;
       const prev = current;
       current = (current + 1) % items.length;
 
@@ -158,8 +137,8 @@
   })();
 
   /* ─── VANISHING PLACEHOLDER · ghost input in enquiry form ──
-     Cycles through example prompts every 3.2s. Hides when
-     the field is focused or has value. */
+     Uses a single reschedulable timer instead of setInterval so
+     focus/blur can cleanly cancel + restart without overlaps. */
   (function ghostPlaceholder() {
     const wrap = document.querySelector('[data-ghost-input]');
     if (!wrap) return;
@@ -167,23 +146,37 @@
     const textarea = wrap.querySelector('textarea');
     if (!hint || !textarea) return;
 
+    if (REDUCED) return;
+
     const HINTS = [
       "Living room curtains for a 3BHK in Kondapur...",
       "Need to recover two sofas — grey linen if possible...",
       "Blackout curtains for the bedroom — motorised if possible...",
       "Full home measurement — I'm not sure where to start."
     ];
-    let i = 0;
-    let cycling = true;
     const CYCLE_MS = 3200;
 
+    let i = 0;
+    let timer = null;      // pending setTimeout id
+    let entering = null;   // active entry tween
+    let exiting = null;    // active exit tween
+
+    function killTweens() {
+      if (entering) { entering.kill(); entering = null; }
+      if (exiting)  { exiting.kill();  exiting  = null; }
+    }
+
+    function isBusy() {
+      return document.activeElement === textarea || !!textarea.value;
+    }
+
     function show(text) {
-      if (!cycling) return;
+      killTweens();
       hint.textContent = text;
-      gsap.fromTo(hint,
+      entering = gsap.fromTo(hint,
         { opacity: 0, y: 8, filter: 'blur(4px)' },
         { opacity: 0.55, y: 0, filter: 'blur(0px)', duration: 0.55, ease: 'power2.out' });
-      gsap.to(hint, {
+      exiting = gsap.to(hint, {
         opacity: 0, y: -8, filter: 'blur(4px)',
         duration: 0.45, ease: 'power2.in',
         delay: CYCLE_MS / 1000 - 0.6
@@ -191,30 +184,48 @@
     }
 
     function tick() {
-      if (!cycling) return;
-      if (document.activeElement === textarea || textarea.value) return;
+      if (isBusy()) return;
       show(HINTS[i]);
       i = (i + 1) % HINTS.length;
     }
 
-    // Initial fire, then interval.
-    if (!REDUCED) {
-      tick();
-      const iv = setInterval(tick, CYCLE_MS);
-      textarea.addEventListener('focus', () => { cycling = false; gsap.set(hint, { opacity: 0 }); wrap.classList.add('is-focused'); });
-      textarea.addEventListener('blur',  () => { wrap.classList.remove('is-focused'); if (!textarea.value) { cycling = true; tick(); } });
-      textarea.addEventListener('input', () => { wrap.classList.toggle('has-value', !!textarea.value); if (textarea.value) cycling = false; });
+    function schedule() {
+      cancel();
+      timer = setTimeout(function loop() {
+        tick();
+        timer = setTimeout(loop, CYCLE_MS);
+      }, 0);
     }
+
+    function cancel() {
+      if (timer) { clearTimeout(timer); timer = null; }
+      killTweens();
+      gsap.set(hint, { opacity: 0 });
+    }
+
+    // Initial fire.
+    schedule();
+
+    textarea.addEventListener('focus', () => {
+      cancel();
+      wrap.classList.add('is-focused');
+    });
+    textarea.addEventListener('blur', () => {
+      wrap.classList.remove('is-focused');
+      if (!textarea.value) schedule();
+    });
+    textarea.addEventListener('input', () => {
+      wrap.classList.toggle('has-value', !!textarea.value);
+      if (textarea.value) cancel();
+    });
   })();
 
-  /* ─── BENTO · focus-dim on hover ────────────────────
-     Hovering any cell dims the others. Undoes on mouseleave. */
+  /* ─── BENTO · focus-dim on hover ──────────────────── */
   (function bentoFocus() {
     const grid = document.querySelector('[data-bento-grid]');
     if (!grid) return;
     const cells = grid.querySelectorAll('.bento__cell');
 
-    // Ignore on touch devices (no hover); pointer:coarse detects that.
     const isTouch = window.matchMedia('(pointer: coarse)').matches;
     if (isTouch) return;
 
@@ -230,64 +241,81 @@
     });
   })();
 
-  /* ─── STICKY-SCROLL PROCESS · image swaps per active step ──
-     Each step becomes active as it crosses viewport centre.
-     Corresponding image in the sticky panel switches. */
+  /* ─── STICKY-SCROLL PROCESS ─────────────────────────
+     Wrapped in ScrollTrigger.matchMedia so triggers rebind
+     cleanly at breakpoint change (desktop ↔ mobile). */
   (function stickyProcess() {
+    if (!hasScrollTrigger) return;
+
     const steps = document.querySelectorAll('[data-scroll-steps] .process-scroll__step');
     const images = document.querySelectorAll('[data-scroll-images] .process-scroll__image');
-    if (!steps.length || !images.length || !hasScrollTrigger) return;
-
-    // Below 1024px the layout collapses to stacked (CSS media query);
-    // no need for scroll-driven behaviour there.
-    const isNarrow = () => window.matchMedia('(max-width: 1024px)').matches;
-    if (isNarrow()) return;
+    if (!steps.length || !images.length) return;
 
     function activate(stepNum) {
       steps.forEach(s => s.classList.toggle('is-active', s.dataset.step === String(stepNum)));
       images.forEach(im => im.classList.toggle('is-active', im.dataset.step === String(stepNum)));
     }
 
-    steps.forEach((step) => {
-      ScrollTrigger.create({
-        trigger: step,
-        start: 'top center',
-        end: 'bottom center',
-        onEnter:     () => activate(step.dataset.step),
-        onEnterBack: () => activate(step.dataset.step),
-      });
+    ScrollTrigger.matchMedia({
+      // Desktop only: scroll-driven step activation
+      '(min-width: 1025px)': function () {
+        steps.forEach((step) => {
+          ScrollTrigger.create({
+            trigger: step,
+            start: 'top center',
+            end: 'bottom center',
+            onEnter:     () => activate(step.dataset.step),
+            onEnterBack: () => activate(step.dataset.step),
+          });
+        });
+        // Cleanup runs automatically when the media query no longer matches.
+      },
+      // Mobile/tablet: force all steps + first image visible (no scroll magic)
+      '(max-width: 1024px)': function () {
+        steps.forEach(s => s.classList.add('is-active'));
+        images.forEach((im, idx) => im.classList.toggle('is-active', idx === 0));
+      }
     });
   })();
 
   /* ─── FAB · reveal on scroll past hero ──────────────
-     Hidden while user is above the hero bottom.
-     Slides in from right (desktop) or bottom (mobile). */
+     matchMedia handles the desktop-slide-in-from-right vs
+     mobile-slide-in-from-bottom split, so resize doesn't
+     leave the FAB stranded off-screen. */
   (function fabReveal() {
     const fab = document.querySelector('[data-fab]');
     const hero = document.querySelector('.hero');
-    if (!fab || !hero || !hasScrollTrigger) {
-      // Fallback: just show the FAB.
-      if (fab) { fab.style.opacity = 1; fab.style.transform = 'none'; fab.style.pointerEvents = ''; }
+    if (!fab || !hero) return;
+    if (!hasScrollTrigger) {
+      fab.style.opacity = 1;
+      fab.style.transform = 'none';
+      fab.style.pointerEvents = '';
       return;
     }
 
-    const isMobile = () => window.matchMedia('(max-width: 720px)').matches;
-    const hiddenX  = isMobile() ? 0    : 100;
-    const hiddenY  = isMobile() ? 100  : 0;
-
-    gsap.set(fab, { x: hiddenX, y: hiddenY, autoAlpha: 0, pointerEvents: 'none' });
-
-    ScrollTrigger.create({
-      trigger: hero,
-      start: 'bottom 80%',
-      onEnter:     () => gsap.to(fab, { x: 0, y: 0, autoAlpha: 1, pointerEvents: 'auto', duration: 0.45, ease: 'power2.out' }),
-      onLeaveBack: () => gsap.to(fab, { x: hiddenX, y: hiddenY, autoAlpha: 0, pointerEvents: 'none', duration: 0.25, ease: 'power2.in' }),
+    ScrollTrigger.matchMedia({
+      '(min-width: 721px)': function () {
+        gsap.set(fab, { x: 100, y: 0, autoAlpha: 0, pointerEvents: 'none' });
+        ScrollTrigger.create({
+          trigger: hero,
+          start: 'bottom 80%',
+          onEnter:     () => gsap.to(fab, { x: 0, y: 0, autoAlpha: 1, pointerEvents: 'auto', duration: 0.45, ease: 'power2.out' }),
+          onLeaveBack: () => gsap.to(fab, { x: 100, y: 0, autoAlpha: 0, pointerEvents: 'none', duration: 0.25, ease: 'power2.in' }),
+        });
+      },
+      '(max-width: 720px)': function () {
+        gsap.set(fab, { x: 0, y: 100, autoAlpha: 0, pointerEvents: 'none' });
+        ScrollTrigger.create({
+          trigger: hero,
+          start: 'bottom 80%',
+          onEnter:     () => gsap.to(fab, { x: 0, y: 0, autoAlpha: 1, pointerEvents: 'auto', duration: 0.45, ease: 'power2.out' }),
+          onLeaveBack: () => gsap.to(fab, { x: 0, y: 100, autoAlpha: 0, pointerEvents: 'none', duration: 0.25, ease: 'power2.in' }),
+        });
+      }
     });
   })();
 
-  /* ─── ENQUIRY FORM · Apps Script POST + success checkmark ──
-     Same guard as the original: if endpoint is placeholder,
-     show banner + disable submit. */
+  /* ─── ENQUIRY FORM · Apps Script POST + success checkmark ── */
   (function enquiryForm() {
     const GAS_ENDPOINT_URL = 'GAS_ENDPOINT_URL';
 
@@ -307,19 +335,18 @@
     if (GAS_ENDPOINT_URL === 'GAS_ENDPOINT_URL') {
       const banner = document.createElement('p');
       banner.className = 'enquire__banner';
-      banner.innerHTML = "This form isn't connected yet — please WhatsApp or call us and we'll pick up the same day.";
+      banner.textContent = "This form isn't connected yet — please WhatsApp or call us and we'll pick up the same day.";
       form.insertBefore(banner, form.firstChild);
       submit.disabled = true;
       if (label) label.textContent = 'Please WhatsApp us instead';
+      // Belt-and-braces: block the browser-default POST if disabled state is bypassed.
+      form.addEventListener('submit', function (e) { e.preventDefault(); });
       return;
     }
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (form._gotcha && form._gotcha.value) {
-        showSuccess();
-        return;
-      }
+      if (form._gotcha && form._gotcha.value) { showSuccess(); return; }
       if (!form.checkValidity()) {
         setStatus("Please fill in your name, phone and what you're looking for.", 'error');
         form.reportValidity();
@@ -328,10 +355,8 @@
       const data = new FormData(form);
       data.append('submittedAt', new Date().toISOString());
       data.append('pageUrl', location.href);
-
       submit.disabled = true;
       setStatus('Sending...');
-
       fetch(GAS_ENDPOINT_URL, { method: 'POST', body: data })
         .then((res) => { if (!res.ok) throw new Error('bad'); return res.text(); })
         .then(() => { showSuccess(); form.reset(); })
@@ -343,7 +368,6 @@
       submit.classList.add('is-success');
       if (label) label.textContent = "Sent — we'll reply today";
       setStatus('', 'success');
-      // Revert after 6s so user can send another
       setTimeout(() => {
         submit.classList.remove('is-success');
         if (label) label.textContent = 'Send enquiry';
@@ -351,7 +375,6 @@
     }
   })();
 
-  // Log once so it's easy to see motion is live from devtools.
   if (window.console && console.info) {
     console.info('[motion] initialised · GSAP', gsap.version, '· ScrollTrigger', hasScrollTrigger ? 'ready' : 'missing', '· Lenis', hasLenis ? 'ready' : 'missing', REDUCED ? '· reduced-motion active' : '');
   }

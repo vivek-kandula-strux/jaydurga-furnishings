@@ -21,6 +21,31 @@
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 
+  <!-- Synchronous · runs before CSS paints. Sets js-ready (kills blur-fade FOUC),
+       decides whether the curtain-drop should play, and installs a safety net
+       that un-hides blur-fade content if motion.js never confirms alive. -->
+  <script>
+    (function () {
+      var html = document.documentElement;
+      html.classList.add('js-ready');
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var seen = false;
+      try { seen = !!sessionStorage.getItem('jd_curtain_done'); } catch (e) { /* private mode */ }
+      if (reduced || seen) {
+        html.classList.add('no-curtain');
+      } else {
+        html.classList.add('play-curtain');
+        try { sessionStorage.setItem('jd_curtain_done', '1'); } catch (e) {}
+      }
+      // Safety net: if motion.js fails to load within 3s, drop js-ready so
+      // blur-fade content becomes visible instead of trapped at opacity: 0.
+      window.jdMotionAlive = false;
+      setTimeout(function () {
+        if (!window.jdMotionAlive) html.classList.remove('js-ready');
+      }, 3000);
+    })();
+  </script>
+
   <style>
     /* GLOBAL · smooth scroll · focus · a11y */
     html { scroll-behavior: smooth; }
@@ -57,9 +82,19 @@
     /* BLUR-FADE reveal marker · JS clears it as elements enter view */
     .js-ready .blur-fade { opacity: 0; transform: translateY(24px); filter: blur(6px); }
 
-    /* CURTAIN-DROP · one-time hero reveal */
-    .curtain-cover { position: absolute; inset: 0; z-index: 10; pointer-events: none; display: flex; overflow: hidden; }
-    .curtain-cover__panel { width: 50%; height: 100%; background: linear-gradient(180deg, #0A0704 0%, #1A130E 100%); box-shadow: 0 0 40px rgba(0,0,0,.5); position: relative; }
+    /* CURTAIN-DROP · one-time hero reveal · pure CSS so it fires before any external JS.
+       Default is display:none. Inline <head> script decides:
+         - no JS at all → stays display:none, hero image is visible immediately
+         - reduced-motion / seen before → .no-curtain added (still display:none)
+         - first visit, motion OK → .play-curtain added, animation runs */
+    .curtain-cover { position: absolute; inset: 0; z-index: 10; pointer-events: none; display: none; overflow: hidden; }
+    .play-curtain .curtain-cover { display: flex; }
+    .no-curtain .curtain-cover { display: none; }
+    .curtain-cover__panel { width: 50%; height: 100%; background: linear-gradient(180deg, #0A0704 0%, #1A130E 100%); box-shadow: 0 0 40px rgba(0,0,0,.5); position: relative; transform: translateX(0); will-change: transform; }
+    .play-curtain .curtain-cover__panel--left  { animation: curtainDropL 1.1s 0.25s cubic-bezier(.7,.05,.3,1) forwards; }
+    .play-curtain .curtain-cover__panel--right { animation: curtainDropR 1.1s 0.25s cubic-bezier(.7,.05,.3,1) forwards; }
+    @keyframes curtainDropL { to { transform: translateX(-102%); } }
+    @keyframes curtainDropR { to { transform: translateX(102%); } }
     .curtain-cover__panel::before {
       content: ""; position: absolute; inset: 0;
       background: repeating-linear-gradient(90deg, rgba(255,255,255,.015) 0 2px, rgba(0,0,0,.05) 2px 6px);
@@ -76,7 +111,8 @@
     .hero__copy { padding: 8px 4px 4px 8px; display: flex; flex-direction: column; min-width: 0; }
     .hero__title { font-size: clamp(42px, 5.2vw, 82px); line-height: 0.99; letter-spacing: -0.035em; font-weight: 700; margin: 0 0 20px; color: var(--ink); }
     .hero__rotate { font-size: 15px; color: var(--ink-soft); margin: 0 0 24px; display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
-    .word-rotate { display: inline-block; position: relative; height: 1.2em; min-width: 10ch; vertical-align: baseline; overflow: hidden; }
+    /* min-width sized for the longest item ("home theatre.") to prevent clip */
+    .word-rotate { display: inline-block; position: relative; height: 1.2em; min-width: 14ch; vertical-align: baseline; overflow: hidden; }
     .word-rotate__item { position: absolute; top: 0; left: 0; color: var(--rust); font-weight: 700; white-space: nowrap; opacity: 0; transform: translateY(100%); }
     .word-rotate__item.is-active { opacity: 1; transform: translateY(0); }
     .hero__lede { font-size: 16px; color: var(--ink-soft); max-width: 44ch; margin: 0 0 32px; line-height: 1.55; }
@@ -374,11 +410,12 @@
           <a href="index-modern.html" class="is-active">Modern</a>
           <a href="collections.html">Collections</a>
           <a href="gallery.html">Gallery</a>
+          <a href="about.html">About</a>
           <a href="contact.html">Contact</a>
         </nav>
 
         <div class="nav__tools">
-          <a href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I%20have%20an%20enquiry." class="btn btn--light" target="_blank" rel="noopener">
+          <a href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I%20have%20an%20enquiry%20(modern%20homepage%20header)." class="btn btn--light" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
               <path fill="currentColor" d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm5.5 12.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.9-.5-1.9-1-2.6-1.9-.7-.9-1.2-1.9-1.5-2.7-.1-.3 0-.5.1-.6.1-.1.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2.1-.4 0-.6-.1-.2-.7-1.6-.9-2.1-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.6.1-.8.4-.3.4-1.1 1.1-1.1 2.6 0 1.6 1.2 3.1 1.4 3.3.2.2 2.4 3.6 5.7 5.1.8.3 1.4.5 1.9.6.8.2 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.6-.4Z"/>
             </svg>
@@ -531,8 +568,9 @@
                 <span class="bento__chip">Motorised</span>
                 <span class="bento__chip">Rods &amp; Tracks</span>
               </div>
+              <!-- REVIEW · collections.html not yet rebuilt with new taxonomy -->
               <span class="bento__cta">
-                Explore window collection
+                Explore our collections
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="14" height="14">
                   <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -657,8 +695,8 @@
           <div>
             <label for="f-notes">Anything else? (optional)</label>
             <div class="ghost-input" data-ghost-input>
-              <textarea id="f-notes" name="notes"></textarea>
-              <span class="ghost-input__hint" data-ghost-hint></span>
+              <textarea id="f-notes" name="notes" aria-describedby="f-notes-hint"></textarea>
+              <span class="ghost-input__hint" id="f-notes-hint" data-ghost-hint aria-hidden="true"></span>
             </div>
           </div>
           <input type="hidden" name="source" value="homepage-modern" />
@@ -882,7 +920,7 @@
               <li><a href="#enquire">Free measurement</a></li>
               <li><a href="collections.html">Windows &amp; curtains</a></li>
               <li><a href="collections.html">Sofa recovers</a></li>
-              <li><a href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I%20have%20an%20enquiry." target="_blank" rel="noopener">WhatsApp us</a></li>
+              <li><a href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I%20have%20an%20enquiry%20(modern%20footer%20service%20link)." target="_blank" rel="noopener">WhatsApp us</a></li>
             </ul>
           </div>
         </div>
@@ -890,7 +928,7 @@
           <small>© <span data-year>2026</span> Jay Durga Furnishings · Ameerpet, Hyderabad</small>
           <ul>
             <li><a href="https://www.instagram.com/jaydurgaextn/" target="_blank" rel="noopener">Instagram</a></li>
-            <li><a href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I%20have%20an%20enquiry." target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I%20have%20an%20enquiry%20(modern%20footer%20social)." target="_blank" rel="noopener">WhatsApp</a></li>
             <li><a href="#" aria-label="Privacy policy (coming soon)">Privacy</a></li>
           </ul>
         </div>
@@ -915,7 +953,7 @@
       <span class="fab__caption">Book</span>
     </div>
     <div class="fab__group">
-      <a class="fab__btn fab__btn--wa" href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I%20have%20an%20enquiry." target="_blank" rel="noopener" aria-label="WhatsApp us">
+      <a class="fab__btn fab__btn--wa" href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I%20have%20an%20enquiry%20(modern%20floating%20button)." target="_blank" rel="noopener" aria-label="WhatsApp us">
         <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm5.5 12.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.9-.5-1.9-1-2.6-1.9-.7-.9-1.2-1.9-1.5-2.7-.1-.3 0-.5.1-.6.1-.1.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2.1-.4 0-.6-.1-.2-.7-1.6-.9-2.1-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.6.1-.8.4-.3.4-1.1 1.1-1.1 2.6 0 1.6 1.2 3.1 1.4 3.3.2.2 2.4 3.6 5.7 5.1.8.3 1.4.5 1.9.6.8.2 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.6-.4Z"/></svg>
         <span class="fab__label">WhatsApp</span>
       </a>
