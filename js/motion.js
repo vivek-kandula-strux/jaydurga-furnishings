@@ -375,6 +375,267 @@
     }
   })();
 
+  /* ═══════════════════════════════════════════════════════════
+     TIER 2 · magnetic buttons · scroll-progress · custom cursor
+     · fabric preview · card-stack testimonials · page transitions
+     ═══════════════════════════════════════════════════════════ */
+
+  const IS_FINE_POINTER = window.matchMedia('(pointer: fine)').matches;
+  if (IS_FINE_POINTER) document.documentElement.classList.add('has-fine-pointer');
+
+  /* ─── SCROLL PROGRESS BAR (#3) ────────────────────── */
+  (function scrollProgress() {
+    const bar = document.querySelector('[data-scroll-progress]');
+    if (!bar) return;
+    function paint() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = max > 0 ? Math.min(100, Math.max(0, (scrollTop / max) * 100)) : 0;
+      bar.style.width = pct + '%';
+    }
+    if (lenis) {
+      lenis.on('scroll', paint);
+    } else {
+      window.addEventListener('scroll', paint, { passive: true });
+    }
+    window.addEventListener('resize', paint);
+    paint();
+  })();
+
+  /* ─── MAGNETIC BUTTONS (#1) ───────────────────────── */
+  (function magneticButtons() {
+    if (!IS_FINE_POINTER || REDUCED) return;
+    const nodes = document.querySelectorAll('[data-magnetic]');
+    if (!nodes.length) return;
+
+    nodes.forEach((el) => {
+      const strength = parseFloat(el.dataset.magneticStrength || '0.3');
+      let raf = null;
+
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.clientX - cx) * strength;
+        const dy = (e.clientY - cy) * strength;
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          gsap.to(el, { x: dx, y: dy, duration: 0.35, ease: 'power2.out' });
+        });
+      });
+
+      el.addEventListener('mouseleave', () => {
+        gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)' });
+      });
+    });
+  })();
+
+  /* ─── CUSTOM CURSOR (#7) ──────────────────────────── */
+  (function customCursor() {
+    if (!IS_FINE_POINTER || REDUCED) return;
+    const dot = document.querySelector('[data-cursor-dot]');
+    const ring = document.querySelector('[data-cursor-ring]');
+    if (!dot || !ring) return;
+
+    // Smooth-follow ring, snappy dot
+    let mx = 0, my = 0;
+    let rx = 0, ry = 0;
+    document.addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = 'translate3d(' + mx + 'px, ' + my + 'px, 0)';
+    });
+    document.addEventListener('mouseleave', () => {
+      dot.style.opacity = '0'; ring.style.opacity = '0';
+    });
+    document.addEventListener('mouseenter', () => {
+      dot.style.opacity = ''; ring.style.opacity = '';
+    });
+
+    function tick() {
+      rx += (mx - rx) * 0.18;
+      ry += (my - ry) * 0.18;
+      ring.style.transform = 'translate3d(' + rx + 'px, ' + ry + 'px, 0)';
+      requestAnimationFrame(tick);
+    }
+    tick();
+
+    // Hover states over interactive elements
+    const INTERACTIVE = 'a, button, [role="button"], input, textarea, select, .bento__cell, .voice-stack__card, [data-magnetic]';
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(INTERACTIVE)) ring.classList.add('is-hovering');
+    });
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(INTERACTIVE) && !e.relatedTarget?.closest(INTERACTIVE)) {
+        ring.classList.remove('is-hovering');
+      }
+    });
+  })();
+
+  /* ─── FABRIC PREVIEW · Windows chip hover swap (#2) ── */
+  (function fabricPreview() {
+    const stage = document.querySelector('[data-fabric-stage]');
+    if (!stage) return;
+    const chips = document.querySelectorAll('[data-fabric-chip]');
+    const swatches = stage.querySelectorAll('.fabric-swatch');
+    if (!chips.length || !swatches.length) return;
+
+    function activate(name) {
+      swatches.forEach(sw => sw.classList.toggle('is-active', sw.dataset.fabric === name));
+      chips.forEach(c => c.classList.toggle('is-hot', c.dataset.fabricChip === name));
+    }
+    function clear() {
+      swatches.forEach(sw => sw.classList.remove('is-active'));
+      chips.forEach(c => c.classList.remove('is-hot'));
+    }
+
+    chips.forEach((chip) => {
+      chip.addEventListener('mouseenter', () => activate(chip.dataset.fabricChip));
+      // Also support click/tap for touch devices
+      chip.addEventListener('click', (e) => {
+        e.preventDefault();
+        activate(chip.dataset.fabricChip);
+      });
+    });
+    // Clear when leaving the chip strip container
+    const chipStrip = document.querySelector('.bento__cell--feature .bento__chips');
+    if (chipStrip) chipStrip.addEventListener('mouseleave', clear);
+  })();
+
+  /* ─── CARD-STACK TESTIMONIALS (#5) ────────────────── */
+  (function voiceStack() {
+    const stack = document.querySelector('[data-voice-stack]');
+    if (!stack) return;
+    const cards = Array.from(stack.querySelectorAll('[data-voice-card]'));
+    const dots = document.querySelectorAll('[data-voice-dot]');
+    const prev = document.querySelector('[data-voice-prev]');
+    const next = document.querySelector('[data-voice-next]');
+    if (cards.length < 2) return;
+
+    let current = 0;
+    const OFFSET_Y = 14;   // px each card behind is pushed down
+    const OFFSET_SCALE = 0.05; // each card behind shrinks by this
+    const OPACITY_STEP = 0.35; // each card behind fades by this
+
+    function layout(animate = true) {
+      cards.forEach((card, idx) => {
+        const rel = (idx - current + cards.length) % cards.length;
+        const z = cards.length - rel;
+        const y = rel * OFFSET_Y;
+        const scale = 1 - (rel * OFFSET_SCALE);
+        const opacity = Math.max(0, 1 - (rel * OPACITY_STEP));
+        const pointerEvents = rel === 0 ? 'auto' : 'none';
+        gsap.to(card, {
+          y, scale, opacity,
+          zIndex: z,
+          duration: animate ? 0.45 : 0,
+          ease: 'power2.out',
+          onComplete: () => { card.style.pointerEvents = pointerEvents; }
+        });
+        card.setAttribute('aria-hidden', rel === 0 ? 'false' : 'true');
+      });
+      dots.forEach((d, i) => d.setAttribute('aria-current', i === current ? 'true' : 'false'));
+    }
+
+    function goTo(i) {
+      current = ((i % cards.length) + cards.length) % cards.length;
+      layout(true);
+    }
+    function nextCard() { goTo(current + 1); }
+    function prevCard() { goTo(current - 1); }
+
+    if (next) next.addEventListener('click', nextCard);
+    if (prev) prev.addEventListener('click', prevCard);
+    dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+
+    // Keyboard nav when stack is focused
+    stack.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); prevCard(); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); nextCard(); }
+    });
+    stack.tabIndex = 0;
+
+    // Drag/swipe on the front card
+    let startX = 0, dragging = false, currentDx = 0;
+    const SWIPE_THRESHOLD = 80;
+
+    cards.forEach((card) => {
+      card.addEventListener('pointerdown', (e) => {
+        if (card !== cards[current]) return;
+        dragging = true;
+        startX = e.clientX;
+        currentDx = 0;
+        card.setPointerCapture(e.pointerId);
+        card.classList.add('is-dragging');
+      });
+      card.addEventListener('pointermove', (e) => {
+        if (!dragging || card !== cards[current]) return;
+        currentDx = e.clientX - startX;
+        card.style.transform = 'translate(' + currentDx + 'px, 0) rotate(' + (currentDx * 0.06) + 'deg)';
+      });
+      card.addEventListener('pointerup', (e) => {
+        if (!dragging) return;
+        dragging = false;
+        card.classList.remove('is-dragging');
+        try { card.releasePointerCapture(e.pointerId); } catch (err) {}
+        if (Math.abs(currentDx) > SWIPE_THRESHOLD) {
+          const dir = currentDx > 0 ? -1 : 1;
+          // Fling animation
+          gsap.to(card, {
+            x: (currentDx > 0 ? 1 : -1) * 400,
+            rotation: (currentDx > 0 ? 1 : -1) * 20,
+            opacity: 0,
+            duration: 0.35,
+            ease: 'power2.in',
+            onComplete: () => {
+              gsap.set(card, { x: 0, rotation: 0 });
+              goTo(current + dir);
+            }
+          });
+        } else {
+          // Snap back
+          gsap.to(card, { x: 0, rotation: 0, duration: 0.4, ease: 'elastic.out(1, 0.6)' });
+        }
+      });
+      card.addEventListener('pointercancel', () => {
+        dragging = false;
+        card.classList.remove('is-dragging');
+        gsap.to(card, { x: 0, rotation: 0, duration: 0.3, ease: 'power2.out' });
+      });
+    });
+
+    layout(false);
+  })();
+
+  /* ─── PAGE TRANSITIONS (#6, minimal) ──────────────── */
+  (function pageTransitions() {
+    if (REDUCED) return;
+
+    // Entrance handled by CSS animation on body (fires before motion.js runs).
+    // This block only handles the exit → navigate.
+
+    // Intercept internal .html links → fade out → navigate
+    const internal = /^(index|index-modern|collections|gallery|about|contact)\.html(#|\?|$)/;
+    document.querySelectorAll('a[href]').forEach((a) => {
+      const href = a.getAttribute('href');
+      if (!href) return;
+      if (a.target === '_blank' || a.hasAttribute('download')) return;
+      if (!internal.test(href)) return;
+
+      a.addEventListener('click', (e) => {
+        // Modifier keys → let browser handle
+        if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button !== 0) return;
+        e.preventDefault();
+        document.body.classList.add('is-leaving');
+        setTimeout(() => { window.location.href = href; }, 300);
+      });
+    });
+
+    // If user hits back button from bfcache, drop any leaving class
+    window.addEventListener('pageshow', (e) => {
+      if (e.persisted) document.body.classList.remove('is-leaving');
+    });
+  })();
+
   if (window.console && console.info) {
     console.info('[motion] initialised · GSAP', gsap.version, '· ScrollTrigger', hasScrollTrigger ? 'ready' : 'missing', '· Lenis', hasLenis ? 'ready' : 'missing', REDUCED ? '· reduced-motion active' : '');
   }

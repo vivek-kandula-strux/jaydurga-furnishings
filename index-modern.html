@@ -380,11 +380,229 @@
       .enquire__row { grid-template-columns: 1fr; }
       body { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
     }
+
+    /* ═════════════════════════════════════════
+       TIER 2 · scroll-progress · cursor · magnetic ·
+       fabric-preview · card-stack · page-transition
+       ═════════════════════════════════════════ */
+
+    /* Scroll-progress bar (#3) */
+    .scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--rust), #d47a4d);
+      z-index: 300;
+      pointer-events: none;
+      transform-origin: left center;
+      will-change: width;
+    }
+
+    /* Custom cursor (#7) */
+    .cursor-dot,
+    .cursor-ring {
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 400;
+      transform: translate3d(-100px, -100px, 0);
+      mix-blend-mode: normal;
+      opacity: 0;
+      transition: opacity .25s ease;
+    }
+    .js-ready.has-fine-pointer .cursor-dot,
+    .js-ready.has-fine-pointer .cursor-ring { opacity: 1; }
+    .cursor-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--rust);
+      transition: opacity .25s ease, transform .05s linear, background .2s ease, width .2s ease, height .2s ease;
+    }
+    .cursor-ring {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(169,82,44,.4);
+      transition: opacity .25s ease, width .25s cubic-bezier(.25,1,.3,1), height .25s cubic-bezier(.25,1,.3,1), background .2s ease, border-color .2s ease;
+      margin-left: -17px;
+      margin-top: -17px;
+    }
+    .cursor-ring.is-hovering {
+      width: 56px; height: 56px;
+      margin-left: -28px; margin-top: -28px;
+      background: rgba(169,82,44,.08);
+      border-color: rgba(169,82,44,.7);
+    }
+    .cursor-dot.is-hovering { opacity: 0; }
+    /* Hide native cursor when custom is active, only on interactive elements
+       — keep native for form inputs so users can text-select */
+    .js-ready.has-fine-pointer body { cursor: none; }
+    .js-ready.has-fine-pointer input,
+    .js-ready.has-fine-pointer textarea,
+    .js-ready.has-fine-pointer select { cursor: text; }
+    .js-ready.has-fine-pointer button,
+    .js-ready.has-fine-pointer a { cursor: none; }
+    /* No custom cursor on touch */
+    @media (pointer: coarse) {
+      .cursor-dot, .cursor-ring { display: none; }
+      .js-ready.has-fine-pointer body { cursor: auto; }
+    }
+
+    /* Magnetic buttons (#1) — GSAP writes inline transform, but we mark the
+       origin so the tween eases naturally */
+    [data-magnetic] { transform-origin: center; will-change: transform; }
+
+    /* Fabric preview swap (#2) — the feature cell's media background swaps
+       when a chip is hovered. Each fabric class overrides the placeholder. */
+    .bento__cell--feature .bento__media { transition: background .35s ease; }
+    .bento__chip { cursor: pointer; transition: background .2s ease, border-color .2s ease, color .2s ease, transform .2s ease; }
+    .bento__chip:hover, .bento__chip.is-hot { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.32); color: #FFF; transform: translateY(-1px); }
+
+    .fabric-swatch {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .35s ease;
+    }
+    .fabric-swatch.is-active { opacity: 1; }
+    .fabric-swatch::after {
+      content: attr(data-label);
+      position: absolute;
+      left: 16px; bottom: 16px;
+      background: rgba(15,11,8,.72);
+      color: #FBF6EA;
+      padding: 6px 12px;
+      border-radius: var(--pill);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+    }
+    /* 7 fabric-style placeholder textures — replace with real photos later */
+    .fabric-swatch--curtains { background:
+      linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55)),
+      repeating-linear-gradient(180deg, rgba(120,80,60,.6) 0 6px, rgba(90,60,45,.9) 6px 12px); }
+    .fabric-swatch--sheers { background:
+      linear-gradient(180deg, rgba(0,0,0,.2), rgba(0,0,0,.4)),
+      repeating-linear-gradient(90deg, rgba(240,225,205,.35) 0 3px, rgba(255,245,225,.2) 3px 6px); }
+    .fabric-swatch--blackouts { background:
+      linear-gradient(180deg, rgba(0,0,0,.6), rgba(0,0,0,.85)),
+      repeating-linear-gradient(45deg, rgba(30,20,15,.9) 0 8px, rgba(15,10,8,1) 8px 16px); }
+    .fabric-swatch--roman { background:
+      linear-gradient(180deg, rgba(0,0,0,.3), rgba(0,0,0,.5)),
+      repeating-linear-gradient(180deg, rgba(200,170,140,.7) 0 24px, rgba(160,130,100,.9) 24px 26px); }
+    .fabric-swatch--roller { background:
+      linear-gradient(180deg, rgba(0,0,0,.3), rgba(0,0,0,.5)),
+      linear-gradient(180deg, rgba(190,160,130,.6), rgba(120,90,60,.8) 90%, rgba(80,55,35,1) 100%); }
+    .fabric-swatch--motorised { background:
+      linear-gradient(180deg, rgba(0,0,0,.4), rgba(0,0,0,.6)),
+      linear-gradient(90deg, rgba(50,40,35,.9), rgba(80,60,50,.9)),
+      repeating-linear-gradient(0deg, transparent 0 30px, rgba(255,255,255,.05) 30px 32px); }
+    .fabric-swatch--rods { background:
+      linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55)),
+      repeating-linear-gradient(90deg, rgba(90,70,55,.8) 0 4px, rgba(140,110,85,.9) 4px 8px); }
+
+    /* Card-stack testimonials (#5) */
+    .voice-stack {
+      position: relative;
+      max-width: 640px;
+      margin: 0 auto;
+      height: 340px;
+      perspective: 1200px;
+    }
+    .voice-stack__slot {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      pointer-events: none;
+    }
+    .voice-stack__card {
+      position: relative;
+      width: min(100%, 620px);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: clamp(28px, 3vw, 40px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 300px;
+      cursor: grab;
+      pointer-events: auto;
+      user-select: none;
+      touch-action: pan-y;
+      transition: box-shadow .2s ease;
+      box-shadow: 0 20px 40px -24px rgba(23,19,16,.24);
+      will-change: transform;
+    }
+    .voice-stack__card.is-dragging { cursor: grabbing; transition: none; }
+    .voice-stack__card--feature {
+      background: var(--dark);
+      color: #FBF6EA;
+      border-color: transparent;
+      background-image: radial-gradient(120% 80% at 100% 0%, rgba(169,82,44,.16) 0%, rgba(169,82,44,0) 60%);
+    }
+    .voice-stack__nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      margin-top: 24px;
+    }
+    .voice-stack__nav button {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      transition: background .2s ease, transform .2s ease;
+      cursor: pointer;
+    }
+    .voice-stack__nav button:hover { background: var(--chip); transform: translateY(-1px); }
+    .voice-stack__nav button svg { width: 16px; height: 16px; }
+    .voice-stack__dots { display: flex; gap: 6px; padding: 0 6px; }
+    .voice-stack__dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--divider);
+      cursor: pointer;
+      transition: background .2s ease, transform .2s ease;
+    }
+    .voice-stack__dot[aria-current="true"] { background: var(--rust); transform: scale(1.3); }
+    .voice-stack__hint {
+      text-align: center;
+      font-size: 12px;
+      color: var(--mute);
+      margin: 12px 0 0;
+      letter-spacing: 0.02em;
+    }
+
+    /* Page transitions (#6) — cross-fade + slight scale · CSS-driven entrance
+       so it works even before motion.js loads */
+    body { animation: bodyEnter .35s ease-out both; }
+    @keyframes bodyEnter { from { opacity: 0; transform: scale(1.005); } to { opacity: 1; transform: scale(1); } }
+    body.is-leaving { animation: none; opacity: 0; transform: scale(.99); pointer-events: none; transition: opacity .3s ease, transform .3s ease; }
+    @media (prefers-reduced-motion: reduce) {
+      body { animation: none; }
+      body.is-leaving { transition: none; }
+    }
   </style>
 </head>
 <body>
 
   <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Tier-2 · scroll-progress bar (#3) -->
+  <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
+
+  <!-- Tier-2 · custom cursor (#7) — display: none on touch devices via CSS -->
+  <div class="cursor-ring" data-cursor-ring aria-hidden="true"></div>
+  <div class="cursor-dot" data-cursor-dot aria-hidden="true"></div>
 
   <main id="main">
     <div class="shell">
@@ -451,7 +669,7 @@
             measured, stitched and installed by our own team, from one address.
           </p>
           <div class="hero__ctas">
-            <a href="#enquire" class="btn btn--dark btn--beam" data-lenis-scroll>
+            <a href="#enquire" class="btn btn--dark btn--beam" data-lenis-scroll data-magnetic data-magnetic-strength="0.35">
               Book Free Measurement
               <span class="btn__arrow" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
@@ -459,7 +677,7 @@
                 </svg>
               </span>
             </a>
-            <a href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I'd%20like%20to%20enquire%20about%20curtains%20%2F%20windows." class="btn btn--light" target="_blank" rel="noopener">WhatsApp us</a>
+            <a href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I'd%20like%20to%20enquire%20about%20curtains%20%2F%20windows." class="btn btn--light" target="_blank" rel="noopener" data-magnetic data-magnetic-strength="0.3">WhatsApp us</a>
           </div>
           <div class="hero__chips" aria-label="What we do">
             <span class="hero__chip hero__chip--lead">Curtains &amp; Windows</span>
@@ -544,13 +762,22 @@
 
         <div class="bento__grid" data-bento-grid>
           <a href="collections.html" class="bento__cell bento__cell--feature" aria-label="Curtains & Windows">
-            <div class="bento__media">
+            <div class="bento__media" data-fabric-stage>
+              <!-- Base placeholder shows when no chip is hovered -->
               <div class="ph ph--dark">
                 <div class="ph__inner">
                   <p class="ph__tag">Real photo · feature</p>
-                  <p class="ph__note">Wide shot of a completed curtain installation</p>
+                  <p class="ph__note">Wide shot of a completed curtain installation · hover a chip to preview a fabric</p>
                 </div>
               </div>
+              <!-- Fabric-preview swatches · CSS placeholder textures until real photos arrive -->
+              <div class="fabric-swatch fabric-swatch--curtains"  data-fabric="curtains"  data-label="Curtains &amp; Drapes"></div>
+              <div class="fabric-swatch fabric-swatch--sheers"    data-fabric="sheers"    data-label="Sheers"></div>
+              <div class="fabric-swatch fabric-swatch--blackouts" data-fabric="blackouts" data-label="Blackouts"></div>
+              <div class="fabric-swatch fabric-swatch--roman"     data-fabric="roman"     data-label="Roman Blinds"></div>
+              <div class="fabric-swatch fabric-swatch--roller"    data-fabric="roller"    data-label="Roller Blinds"></div>
+              <div class="fabric-swatch fabric-swatch--motorised" data-fabric="motorised" data-label="Motorised Systems"></div>
+              <div class="fabric-swatch fabric-swatch--rods"      data-fabric="rods"      data-label="Rods &amp; Tracks"></div>
             </div>
             <div class="bento__body">
               <p class="eyebrow eyebrow--light">Our first craft</p>
@@ -560,13 +787,13 @@
                 Sheers, blackouts, blinds, motorised systems and rods.
               </p>
               <div class="bento__chips">
-                <span class="bento__chip">Curtains &amp; Drapes</span>
-                <span class="bento__chip">Sheers</span>
-                <span class="bento__chip">Blackouts</span>
-                <span class="bento__chip">Roman Blinds</span>
-                <span class="bento__chip">Roller Blinds</span>
-                <span class="bento__chip">Motorised</span>
-                <span class="bento__chip">Rods &amp; Tracks</span>
+                <span class="bento__chip" data-fabric-chip="curtains">Curtains &amp; Drapes</span>
+                <span class="bento__chip" data-fabric-chip="sheers">Sheers</span>
+                <span class="bento__chip" data-fabric-chip="blackouts">Blackouts</span>
+                <span class="bento__chip" data-fabric-chip="roman">Roman Blinds</span>
+                <span class="bento__chip" data-fabric-chip="roller">Roller Blinds</span>
+                <span class="bento__chip" data-fabric-chip="motorised">Motorised</span>
+                <span class="bento__chip" data-fabric-chip="rods">Rods &amp; Tracks</span>
               </div>
               <!-- REVIEW · collections.html not yet rebuilt with new taxonomy -->
               <span class="bento__cta">
@@ -862,26 +1089,68 @@
         </div>
       </section>
 
-      <!-- VOICES -->
+      <!-- VOICES · card-stack with drag-to-swipe (#5) -->
       <section class="voices stack blur-fade" aria-label="Customer voices">
         <header class="section-head--split">
           <div>
             <p class="eyebrow">What our families say</p>
-            <h2 class="display display--md">Three notes from the last year.</h2>
+            <h2 class="display display--md">Notes from the last year.</h2>
           </div>
-          <p class="lede">Real, authorised customer notes will live here. Placeholder cards below show the layout — client to supply three quotes with name, neighbourhood and permission to publish.</p>
+          <p class="lede">Real, authorised customer notes will live here. Placeholder cards below show the layout — client to supply quotes with name, neighbourhood and permission to publish. Drag or swipe to browse.</p>
         </header>
-        <div class="voices__grid">
-          <figure class="voice-card voice-card--feature">
-            <div class="ph ph--dark"><div class="ph__inner"><p class="ph__tag">Real testimonial · feature</p><p class="ph__note">Longer quote with customer name, area and year.</p></div></div>
-          </figure>
-          <figure class="voice-card">
-            <div class="ph"><div class="ph__inner"><p class="ph__tag">Real testimonial · card 2</p><p class="ph__note">Short quote + name + area + year.</p></div></div>
-          </figure>
-          <figure class="voice-card">
-            <div class="ph"><div class="ph__inner"><p class="ph__tag">Real testimonial · card 3</p><p class="ph__note">Short quote + name + area + year.</p></div></div>
-          </figure>
+        <div class="voice-stack" data-voice-stack aria-roledescription="carousel" aria-label="Customer testimonials">
+          <div class="voice-stack__slot">
+            <figure class="voice-stack__card voice-stack__card--feature" data-voice-card="0" aria-hidden="false">
+              <div class="ph ph--dark"><div class="ph__inner">
+                <p class="ph__tag">Real testimonial · feature</p>
+                <p class="ph__note">Longer quote (2–3 sentences) with customer name, area and year.</p>
+              </div></div>
+            </figure>
+          </div>
+          <div class="voice-stack__slot">
+            <figure class="voice-stack__card" data-voice-card="1" aria-hidden="true">
+              <div class="ph"><div class="ph__inner">
+                <p class="ph__tag">Real testimonial · card 2</p>
+                <p class="ph__note">Short quote + name + area + year.</p>
+              </div></div>
+            </figure>
+          </div>
+          <div class="voice-stack__slot">
+            <figure class="voice-stack__card" data-voice-card="2" aria-hidden="true">
+              <div class="ph"><div class="ph__inner">
+                <p class="ph__tag">Real testimonial · card 3</p>
+                <p class="ph__note">Short quote + name + area + year.</p>
+              </div></div>
+            </figure>
+          </div>
+          <div class="voice-stack__slot">
+            <figure class="voice-stack__card" data-voice-card="3" aria-hidden="true">
+              <div class="ph"><div class="ph__inner">
+                <p class="ph__tag">Real testimonial · card 4</p>
+                <p class="ph__note">Short quote + name + area + year.</p>
+              </div></div>
+            </figure>
+          </div>
         </div>
+        <div class="voice-stack__nav">
+          <button type="button" data-voice-prev aria-label="Previous testimonial">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M19 12H5M12 6l-7 6 7 6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="voice-stack__dots" role="tablist" aria-label="Choose testimonial">
+            <button type="button" class="voice-stack__dot" data-voice-dot="0" aria-current="true" aria-label="Testimonial 1"></button>
+            <button type="button" class="voice-stack__dot" data-voice-dot="1" aria-label="Testimonial 2"></button>
+            <button type="button" class="voice-stack__dot" data-voice-dot="2" aria-label="Testimonial 3"></button>
+            <button type="button" class="voice-stack__dot" data-voice-dot="3" aria-label="Testimonial 4"></button>
+          </div>
+          <button type="button" data-voice-next aria-label="Next testimonial">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <p class="voice-stack__hint">Drag, swipe or use ← → keys to browse.</p>
       </section>
 
       <!-- FOOTER -->
