@@ -1,0 +1,977 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#EEE9DC" />
+
+  <title>Jay Durga Furnishings — modern preview · Curtains, windows &amp; complete home furnishings</title>
+  <meta name="description" content="Curtains, blinds, sofa fabrics, mattresses, carpets, bedding and bath — measured, stitched and installed by one team. Ameerpet, Hyderabad." />
+
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+
+  <link rel="stylesheet" href="css/wireframe.css" />
+
+  <!-- MODERN STACK · GSAP + ScrollTrigger + Lenis (CDN, defer'd) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+
+  <style>
+    /* GLOBAL · smooth scroll · focus · a11y */
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+      outline: 2px solid var(--rust); outline-offset: 3px; border-radius: 6px;
+    }
+    .skip-link {
+      position: absolute; top: -80px; left: 16px;
+      background: var(--dark); color: #FBF6EA;
+      padding: 12px 20px; border-radius: var(--pill);
+      font-size: 14px; font-weight: 600; z-index: 200;
+      transition: top .2s ease;
+    }
+    .skip-link:focus { top: 16px; }
+    .mark { font-style: normal; background: linear-gradient(180deg, transparent 62%, rgba(169,82,44,.22) 62%, rgba(169,82,44,.22) 92%, transparent 92%); }
+
+    /* PLACEHOLDER TILES */
+    .ph { position: relative; width: 100%; height: 100%;
+      background: repeating-linear-gradient(135deg, rgba(23,19,16,.03) 0 12px, rgba(23,19,16,.06) 12px 24px), var(--chip);
+      display: grid; place-items: center; color: var(--ink); overflow: hidden;
+    }
+    .ph--dark {
+      background: repeating-linear-gradient(135deg, rgba(255,255,255,.03) 0 12px, rgba(255,255,255,.06) 12px 24px), #1A130E;
+      color: #FBF6EA;
+    }
+    .ph__inner { padding: 14px 18px; background: rgba(252,250,244,.92); border-radius: 12px; max-width: 82%; text-align: center; box-shadow: 0 8px 24px -14px rgba(23,19,16,.25); }
+    .ph--dark .ph__inner { background: rgba(15,11,8,.7); color: #FBF6EA; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+    .ph__tag { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rust); margin: 0 0 4px; }
+    .ph--dark .ph__tag { color: #E9A57A; }
+    .ph__note { font-size: 13px; margin: 0; color: var(--ink-soft); line-height: 1.4; font-weight: 500; }
+    .ph--dark .ph__note { color: rgba(251,246,234,.85); }
+
+    /* BLUR-FADE reveal marker · JS clears it as elements enter view */
+    .js-ready .blur-fade { opacity: 0; transform: translateY(24px); filter: blur(6px); }
+
+    /* CURTAIN-DROP · one-time hero reveal */
+    .curtain-cover { position: absolute; inset: 0; z-index: 10; pointer-events: none; display: flex; overflow: hidden; }
+    .curtain-cover__panel { width: 50%; height: 100%; background: linear-gradient(180deg, #0A0704 0%, #1A130E 100%); box-shadow: 0 0 40px rgba(0,0,0,.5); position: relative; }
+    .curtain-cover__panel::before {
+      content: ""; position: absolute; inset: 0;
+      background: repeating-linear-gradient(90deg, rgba(255,255,255,.015) 0 2px, rgba(0,0,0,.05) 2px 6px);
+    }
+    .curtain-cover__panel::after {
+      content: ""; position: absolute; top: 0; bottom: 0; width: 32px;
+      background: linear-gradient(90deg, rgba(0,0,0,.6), transparent);
+    }
+    .curtain-cover__panel--right::after { right: auto; left: 0; background: linear-gradient(-90deg, rgba(0,0,0,.6), transparent); }
+    .curtain-cover__panel--left::after { right: 0; }
+
+    /* HERO */
+    .hero { display: grid; grid-template-columns: minmax(0, 45fr) minmax(0, 55fr); gap: clamp(24px, 3vw, 46px); margin-top: 40px; align-items: stretch; }
+    .hero__copy { padding: 8px 4px 4px 8px; display: flex; flex-direction: column; min-width: 0; }
+    .hero__title { font-size: clamp(42px, 5.2vw, 82px); line-height: 0.99; letter-spacing: -0.035em; font-weight: 700; margin: 0 0 20px; color: var(--ink); }
+    .hero__rotate { font-size: 15px; color: var(--ink-soft); margin: 0 0 24px; display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+    .word-rotate { display: inline-block; position: relative; height: 1.2em; min-width: 10ch; vertical-align: baseline; overflow: hidden; }
+    .word-rotate__item { position: absolute; top: 0; left: 0; color: var(--rust); font-weight: 700; white-space: nowrap; opacity: 0; transform: translateY(100%); }
+    .word-rotate__item.is-active { opacity: 1; transform: translateY(0); }
+    .hero__lede { font-size: 16px; color: var(--ink-soft); max-width: 44ch; margin: 0 0 32px; line-height: 1.55; }
+    .hero__ctas { display: flex; gap: 12px; margin-bottom: 32px; flex-wrap: wrap; }
+    .hero__chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 28px; border-top: 1px solid var(--divider); }
+    .hero__chip { font-size: 12.5px; font-weight: 600; color: var(--ink-soft); background: var(--chip); padding: 8px 14px; border-radius: var(--pill); }
+    .hero__chip--lead { background: var(--dark); color: #FBF6EA; }
+
+    /* BORDER BEAM on primary CTA */
+    .btn--beam { position: relative; overflow: hidden; isolation: isolate; }
+    .btn--beam::before {
+      content: ""; position: absolute; inset: -2px; border-radius: inherit;
+      background: conic-gradient(from 0deg, transparent 0deg, transparent 320deg, rgba(255,255,255,.15) 340deg, rgba(255,255,255,.85) 355deg, rgba(255,255,255,.15) 20deg, transparent 40deg, transparent 360deg);
+      padding: 2px;
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+              mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      animation: beamSpin 4.5s linear infinite;
+      pointer-events: none; z-index: -1;
+    }
+    @keyframes beamSpin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .btn--beam::before { animation: none; } }
+
+    /* Hero slider */
+    .hero__stage { position: relative; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 1.25 / 1; width: 100%; min-width: 0; box-shadow: 0 40px 80px -48px rgba(23, 19, 16, .35), 0 12px 28px -20px rgba(23, 19, 16, .28); }
+    .hero__stage-track { display: flex; width: 100%; height: 100%; transition: transform 600ms cubic-bezier(.25, 1, .3, 1); }
+    .hero__stage-slide { flex: 0 0 100%; height: 100%; position: relative; }
+    .hero__stage-cap { position: absolute; left: 20px; right: 20px; bottom: 20px; z-index: 2; padding: 12px 16px; background: rgba(15,11,8,.72); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border-radius: var(--radius-sm); color: #FBF6EA; font-size: 13.5px; font-weight: 600; }
+    .hero__stage-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: rgba(253, 251, 246, .92); color: var(--ink); display: grid; place-items: center; box-shadow: 0 8px 20px -8px rgba(0,0,0,.45); z-index: 3; cursor: pointer; transition: transform .2s ease, background .2s ease; }
+    .hero__stage-btn:hover { background: #fff; transform: translateY(-50%) scale(1.05); }
+    .hero__stage-btn--prev { left: 16px; }
+    .hero__stage-btn--next { right: 16px; }
+    .hero__stage-btn svg { width: 18px; height: 18px; }
+    .hero__stage-dots { position: absolute; bottom: 76px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; gap: 8px; padding: 8px 12px; border-radius: var(--pill); background: rgba(15,11,8,.55); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+    .hero__stage-dot { width: 24px; height: 4px; border-radius: 2px; background: rgba(253, 251, 246, .4); transition: background .3s ease, width .3s ease; padding: 0; cursor: pointer; }
+    .hero__stage-dot[aria-current="true"] { background: #FDFBF6; width: 40px; }
+
+    /* BENTO · unified Windows + Categories */
+    .stack { margin-top: clamp(56px, 6vw, 88px); }
+    .bento__grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: minmax(200px, auto); gap: 16px; margin-top: 24px; }
+    .bento__cell { position: relative; border-radius: var(--radius-lg); overflow: hidden; background: var(--panel); border: 1px solid var(--line); display: block; transition: transform .35s ease, box-shadow .35s ease, opacity .3s ease, filter .3s ease; min-width: 0; min-height: 220px; }
+    .bento__cell:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -24px rgba(23,19,16,.22); }
+    .bento__media { position: absolute; inset: 0; z-index: 0; }
+    .bento__media .ph { border-radius: 0; }
+    .bento__cell::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(23,19,16,.15) 0%, rgba(23,19,16,0) 40%, rgba(23,19,16,.85) 100%); z-index: 1; }
+    .bento__body { position: relative; z-index: 2; padding: 20px; color: #FBF6EA; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; }
+    .bento__cell .cat__num { font-size: 10.5px; font-weight: 700; letter-spacing: 0.22em; color: rgba(251,246,234,.65); margin: 0 0 2px; }
+    .bento__cell .cat__title { font-size: 18px; font-weight: 700; letter-spacing: -0.015em; margin: 0 0 4px; color: #FBF6EA; }
+    .bento__cell .cat__sub { font-size: 13px; color: rgba(251,246,234,.78); margin: 0; line-height: 1.4; }
+
+    /* Feature cell · Curtains & Windows */
+    .bento__cell--feature {
+      grid-column: 1 / 9; grid-row: 1 / 3;
+      background: var(--dark);
+      background-image: radial-gradient(120% 60% at 100% 0%, rgba(169,82,44,.18) 0%, rgba(169,82,44,0) 55%);
+      color: #FBF6EA; border-color: transparent;
+    }
+    .bento__cell--feature::after { display: none; }
+    .bento__cell--feature .bento__media { left: auto; width: 42%; right: 0; top: 0; bottom: 0; border-left: 1px solid rgba(255,255,255,.06); }
+    .bento__cell--feature .bento__body { width: 58%; padding: clamp(28px, 3vw, 44px); justify-content: center; gap: 16px; }
+    .bento__cell--feature .eyebrow--light { margin: 0; }
+    .bento__cell--feature .bento__title { font-size: clamp(28px, 3.2vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; margin: 0; color: #FBF6EA; max-width: 12ch; }
+    .bento__cell--feature .bento__sub { font-size: 15px; color: rgba(251,246,234,.78); line-height: 1.55; max-width: 36ch; margin: 0; }
+    .bento__chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 0; }
+    .bento__chip { font-size: 11.5px; font-weight: 600; color: rgba(251,246,234,.85); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); padding: 6px 12px; border-radius: var(--pill); }
+    .bento__cta { display: inline-flex; align-items: center; gap: 8px; color: #FBF6EA; font-size: 13.5px; font-weight: 600; margin-top: 8px; }
+    .bento__cta svg { transition: transform .25s ease; }
+    .bento__cell:hover .bento__cta svg { transform: translateX(4px); }
+
+    .bento__cell--02 { grid-column: 9 / 13; grid-row: 1 / 2; }
+    .bento__cell--03 { grid-column: 9 / 13; grid-row: 2 / 3; }
+    .bento__cell--04 { grid-column: 1 / 4;  grid-row: 3 / 4; }
+    .bento__cell--05 { grid-column: 4 / 7;  grid-row: 3 / 4; }
+    .bento__cell--06 { grid-column: 7 / 10; grid-row: 3 / 4; }
+    .bento__cell--07 { grid-column: 10 / 13; grid-row: 3 / 4; }
+
+    /* Focus-dim · hovering any cell dims the others */
+    .bento__grid.is-focusing .bento__cell:not(.is-focused) {
+      opacity: .55; filter: blur(1px) saturate(.85); transform: scale(.99);
+    }
+
+    /* ENQUIRE */
+    .enquire { background: var(--dark); color: #FBF6EA; border-radius: var(--radius-lg); padding: clamp(36px, 4.5vw, 64px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(28px, 4vw, 60px); background-image: radial-gradient(120% 60% at 0% 0%, rgba(169,82,44,.16) 0%, rgba(169,82,44,0) 55%); }
+    .enquire__intro h2 { font-size: clamp(28px, 3.2vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.04; margin: 0 0 18px; color: #FBF6EA; max-width: 16ch; }
+    .enquire__intro p { color: rgba(251,246,234,.75); font-size: 15.5px; line-height: 1.6; margin: 0 0 22px; max-width: 40ch; }
+    .enquire__intro strong { color: #FBF6EA; font-weight: 600; }
+    .enquire__ways { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+    .enquire__way { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius-sm); color: #FBF6EA; font-size: 14px; font-weight: 600; transition: background .2s ease, border-color .2s ease, transform .2s ease; }
+    .enquire__way:hover { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.24); transform: translateY(-2px); }
+    .enquire__way-ic { width: 36px; height: 36px; border-radius: 10px; background: rgba(255,255,255,.09); display: grid; place-items: center; color: #FBF6EA; flex-shrink: 0; }
+    .enquire__way-ic svg { width: 18px; height: 18px; }
+    .enquire__way small { display: block; font-size: 11.5px; font-weight: 500; color: rgba(251,246,234,.6); margin-top: 2px; }
+
+    .enquire__form { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius); padding: clamp(24px, 2.6vw, 34px); display: flex; flex-direction: column; gap: 16px; }
+    .enquire__form label { font-size: 13px; font-weight: 600; color: rgba(251,246,234,.85); margin-bottom: 2px; display: block; }
+    .enquire__form input, .enquire__form select, .enquire__form textarea { background: rgba(0,0,0,.3); border: 1px solid rgba(255,255,255,.16); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 14.5px; color: #FBF6EA; font-family: inherit; width: 100%; transition: border-color .2s ease, background .2s ease; }
+    .enquire__form input::placeholder, .enquire__form textarea::placeholder { color: rgba(251,246,234,.55); }
+    .enquire__form input:focus, .enquire__form select:focus, .enquire__form textarea:focus { outline: none; border-color: rgba(251,246,234,.6); background: rgba(0,0,0,.4); }
+    .enquire__form textarea { resize: vertical; min-height: 96px; }
+    .enquire__row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* Ghost input · vanishing placeholder */
+    .ghost-input { position: relative; }
+    .ghost-input textarea { position: relative; z-index: 2; background: rgba(0,0,0,.3); }
+    .ghost-input__hint { position: absolute; top: 12px; left: 14px; right: 14px; z-index: 3; pointer-events: none; font-size: 14.5px; color: rgba(251,246,234,.55); line-height: 1.5; opacity: 0; }
+    .ghost-input.has-value .ghost-input__hint,
+    .ghost-input.is-focused .ghost-input__hint { display: none; }
+
+    /* Submit + success morph */
+    .enquire__submit { background: #FBF6EA; color: var(--ink); padding: 14px 22px; border-radius: var(--pill); font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: transform .2s ease, background .2s ease, color .3s ease; cursor: pointer; position: relative; }
+    .enquire__submit:hover:not(:disabled) { background: #fff; transform: translateY(-1px); }
+    .enquire__submit:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+    .enquire__submit.is-success { background: #a8e0b8; color: #0f4d2e; }
+    .enquire__submit .check-svg { width: 18px; height: 18px; display: none; }
+    .enquire__submit.is-success .check-svg { display: inline-block; }
+    .enquire__submit.is-success .send-svg { display: none; }
+    .check-svg path { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 24; stroke-dashoffset: 24; }
+    .enquire__submit.is-success .check-svg path { animation: checkDraw .55s .05s ease-out forwards; }
+    @keyframes checkDraw { to { stroke-dashoffset: 0; } }
+
+    .enquire__status { font-size: 13px; color: rgba(251,246,234,.75); min-height: 20px; margin: 4px 0 0; }
+    .enquire__status.is-error { color: #ffb894; }
+    .enquire__status.is-success { color: #a8e0b8; }
+    .enquire__banner { background: rgba(255, 184, 148, .12); border: 1px solid rgba(255, 184, 148, .3); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 13px; color: #ffd6bd; margin: 0 0 4px; line-height: 1.5; }
+    .honeypot { position: absolute !important; left: -9999px !important; top: -9999px !important; width: 1px !important; height: 1px !important; opacity: 0 !important; }
+
+    /* PROMISES */
+    .promises { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; background: var(--panel); border-radius: var(--radius-lg); padding: 26px clamp(20px, 2.6vw, 32px); }
+    .promise { display: flex; align-items: flex-start; gap: 14px; padding: 4px clamp(14px, 1.6vw, 22px); }
+    .promise + .promise { border-left: 1px solid var(--divider); }
+    .promise__icon { width: 40px; height: 40px; border-radius: 12px; background: var(--chip); display: grid; place-items: center; color: var(--ink); flex-shrink: 0; }
+    .promise__icon svg { width: 20px; height: 20px; }
+    .promise h4 { font-size: 14px; font-weight: 700; margin: 0 0 4px; color: var(--ink); }
+    .promise p { font-size: 13px; color: var(--mute); margin: 0; line-height: 1.45; }
+
+    /* STICKY-SCROLL PROCESS */
+    .process-scroll { background: var(--shell); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(32px, 3.4vw, 48px); overflow: hidden; }
+    .process-scroll__head { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 60px); align-items: end; padding-bottom: 28px; margin-bottom: 28px; border-bottom: 1px solid var(--divider); }
+    .process-scroll__title { font-size: clamp(26px, 3vw, 42px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; margin: 0; max-width: 18ch; }
+    .process-scroll__lede { font-size: 15px; color: var(--ink-soft); line-height: 1.6; margin: 0; max-width: 42ch; }
+    .process-scroll__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 60px); align-items: start; }
+    .process-scroll__steps { display: flex; flex-direction: column; gap: clamp(24px, 3vw, 40px); }
+    .process-scroll__step { min-height: 42vh; padding: 24px 0; opacity: .35; transition: opacity .5s ease; display: flex; flex-direction: column; justify-content: center; }
+    .process-scroll__step.is-active { opacity: 1; }
+    .process-scroll__num { font-size: 11.5px; font-weight: 700; letter-spacing: 0.28em; color: var(--rust); margin: 0 0 14px; }
+    .process-scroll__label { font-size: clamp(24px, 2.4vw, 34px); font-weight: 700; margin: 0 0 12px; line-height: 1.1; letter-spacing: -0.02em; }
+    .process-scroll__desc { font-size: 15px; color: var(--ink-soft); line-height: 1.6; margin: 0; max-width: 34ch; }
+    .process-scroll__sticky { position: sticky; top: 15vh; height: 70vh; border-radius: var(--radius); overflow: hidden; background: #1A130E; }
+    .process-scroll__images { position: relative; width: 100%; height: 100%; }
+    .process-scroll__image { position: absolute; inset: 0; opacity: 0; transition: opacity .5s ease, transform .5s ease; transform: scale(1.04); }
+    .process-scroll__image.is-active { opacity: 1; transform: scale(1); }
+
+    /* CRAFT */
+    .craft { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(24px, 3vw, 48px); align-items: stretch; }
+    .craft__img { position: relative; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 5 / 6; background: #1A130E; }
+    .craft__body { padding: 8px 4px 12px; display: flex; flex-direction: column; justify-content: center; }
+    .craft__title { font-size: clamp(28px, 3vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; margin: 0 0 20px; max-width: 16ch; }
+    .craft__lede { font-size: 15.5px; color: var(--ink-soft); line-height: 1.65; margin: 0 0 16px; max-width: 44ch; }
+
+    /* MARQUEE · brands */
+    .brands-marquee { padding: clamp(24px, 2.8vw, 36px) 0; background: var(--panel); border-radius: var(--radius-lg); }
+    .brands-marquee__intro { padding: 0 clamp(24px, 3vw, 44px); margin-bottom: 24px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: clamp(24px, 3vw, 44px); align-items: center; }
+    .brands-marquee__intro p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; margin: 0; max-width: 30ch; }
+    .brands-marquee__note { font-size: 12px; color: var(--mute); text-align: right; }
+    .marquee { overflow: hidden; position: relative; padding: 12px 0;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+              mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+    }
+    .marquee__track { display: flex; gap: 12px; width: max-content; animation: marqueeSlide 42s linear infinite; }
+    .marquee--reverse .marquee__track { animation-direction: reverse; animation-duration: 55s; }
+    .marquee:hover .marquee__track { animation-play-state: paused; }
+    @keyframes marqueeSlide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }
+    .marquee .brand-pill { flex-shrink: 0; }
+    .brand-pill { padding: 10px 16px; border-radius: var(--pill); background: var(--shell); color: var(--ink); font-size: 13.5px; font-weight: 600; border: 1px solid var(--line); display: inline-flex; align-items: center; gap: 8px; }
+    .brand-pill__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--rust); opacity: .72; }
+
+    /* VOICES */
+    .voices__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 16px; }
+    .voice-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(22px, 2.2vw, 30px); display: flex; flex-direction: column; justify-content: space-between; gap: 20px; min-height: 200px; }
+    .voice-card--feature { background: var(--dark); color: #FBF6EA; border-color: transparent; background-image: radial-gradient(120% 80% at 100% 0%, rgba(169,82,44,.14) 0%, rgba(169,82,44,0) 60%); }
+    .voice-card .ph { border-radius: var(--radius-sm); min-height: 140px; }
+
+    /* SECTION HEAD */
+    .section-head--split { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 60px); align-items: end; margin-bottom: clamp(24px, 3vw, 40px); }
+    .section-head--split .display { max-width: 18ch; }
+    .section-head--split .lede { max-width: 46ch; }
+
+    /* FAB · with reveal-on-scroll hook */
+    .fab { position: fixed; right: clamp(16px, 2vw, 28px); bottom: clamp(20px, 2vw, 32px); z-index: 60; display: flex; flex-direction: column; gap: 10px; }
+    .js-ready .fab { opacity: 0; pointer-events: none; transform: translateX(100px); }
+    .fab__btn { width: 56px; height: 56px; border-radius: 50%; background: var(--dark); color: #FBF6EA; display: grid; place-items: center; box-shadow: 0 12px 28px -12px rgba(0,0,0,.55); transition: transform .2s ease, background .2s ease; position: relative; }
+    .fab__btn svg { width: 22px; height: 22px; }
+    .fab__btn:hover { transform: translateY(-2px) scale(1.03); background: #000; }
+    .fab__btn--wa { background: #25D366; color: #fff; }
+    .fab__btn--wa:hover { background: #1EBE5D; }
+    .fab__btn--book { background: var(--rust); color: #fff; }
+    .fab__btn--book:hover { background: #92451f; }
+    .fab__btn--dir { background: var(--shell); color: var(--ink); border: 1px solid var(--line); }
+    .fab__btn--dir:hover { background: #fff; }
+    .fab__label { position: absolute; right: calc(100% + 12px); top: 50%; transform: translateY(-50%); background: var(--dark); color: #FBF6EA; padding: 6px 12px; border-radius: var(--pill); font-size: 12px; font-weight: 600; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .2s ease; }
+    .fab__btn:hover .fab__label { opacity: 1; }
+    .fab__caption { display: none; }
+
+    @media (max-width: 720px) {
+      .fab { flex-direction: row; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); padding: 8px 10px 6px; background: rgba(15,11,8,.94); border-radius: var(--radius); box-shadow: 0 12px 32px -8px rgba(0,0,0,.5); justify-content: space-around; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); align-items: flex-start; }
+      .js-ready .fab { transform: translateY(100px); }
+      .fab__btn { width: 44px; height: 44px; box-shadow: none; margin: 0 auto; }
+      .fab__btn--dir { border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.08); color: #FBF6EA; }
+      .fab__label { display: none; }
+      .fab__group { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 56px; color: #FBF6EA; }
+      .fab__caption { display: block; font-size: 10px; font-weight: 600; color: rgba(251,246,234,.85); line-height: 1; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1180px) {
+      .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); }
+      .bento__cell--feature { grid-column: 1 / 13; grid-row: 1 / 2; min-height: 380px; }
+      .bento__cell--02 { grid-column: 1 / 7; grid-row: 2 / 3; }
+      .bento__cell--03 { grid-column: 7 / 13; grid-row: 2 / 3; }
+      .bento__cell--04 { grid-column: 1 / 7; grid-row: 3 / 4; }
+      .bento__cell--05 { grid-column: 7 / 13; grid-row: 3 / 4; }
+      .bento__cell--06 { grid-column: 1 / 7; grid-row: 4 / 5; }
+      .bento__cell--07 { grid-column: 7 / 13; grid-row: 4 / 5; }
+      .bento__cell--feature .bento__media { width: 100%; left: 0; opacity: .45; }
+      .bento__cell--feature .bento__body { width: 100%; }
+      .bento__cell--feature::after { display: block; background: linear-gradient(180deg, rgba(15,11,8,.4) 0%, rgba(15,11,8,.85) 100%); }
+    }
+    @media (max-width: 1024px) {
+      .promises { grid-template-columns: 1fr 1fr; gap: 16px 0; }
+      .promise:nth-child(2) { border-left: 0; }
+      .promise:nth-child(3), .promise:nth-child(4) { padding-top: 16px; border-top: 1px solid var(--divider); }
+      .promise:nth-child(3) { border-left: 0; }
+      .craft { grid-template-columns: 1fr; }
+      .craft__img { aspect-ratio: 4/3; }
+      .brands-marquee__intro { grid-template-columns: 1fr; }
+      .brands-marquee__note { text-align: left; }
+      .voices__grid { grid-template-columns: 1fr 1fr; }
+      .voice-card--feature { grid-column: span 2; }
+      .enquire { grid-template-columns: 1fr; }
+      .section-head--split { grid-template-columns: 1fr; gap: 14px; align-items: start; }
+      .process-scroll__grid { grid-template-columns: 1fr; }
+      .process-scroll__sticky { position: relative; top: 0; height: 45vh; margin-bottom: 24px; }
+      .process-scroll__step { min-height: 0; opacity: 1; }
+      .process-scroll__step + .process-scroll__step { border-top: 1px solid var(--divider); padding-top: 32px; }
+    }
+    @media (max-width: 720px) {
+      .hero { grid-template-columns: 1fr; margin-top: 24px; }
+      .hero__stage { aspect-ratio: 1.15 / 1; }
+      .hero__title { font-size: clamp(38px, 9vw, 54px); }
+      .hero__stage-btn { width: 38px; height: 38px; }
+      .hero__stage-btn--prev { left: 10px; }
+      .hero__stage-btn--next { right: 10px; }
+      .hero__stage-dots { bottom: 66px; }
+      .bento__grid { grid-template-columns: 1fr; }
+      .bento__cell--feature { grid-column: 1; grid-row: auto; min-height: 320px; }
+      .bento__cell--02, .bento__cell--03, .bento__cell--04, .bento__cell--05, .bento__cell--06, .bento__cell--07 { grid-column: 1; grid-row: auto; min-height: 200px; }
+      .bento__cell--feature .bento__body { padding: 24px; }
+      .promises { grid-template-columns: 1fr; padding: 20px; }
+      .promise { padding: 14px 0; border-left: 0 !important; border-top: 1px solid var(--divider) !important; }
+      .promise:first-child { border-top: 0 !important; padding-top: 4px; }
+      .voices__grid { grid-template-columns: 1fr; }
+      .voice-card--feature { grid-column: span 1; }
+      .enquire { padding: 28px 22px; }
+      .enquire__row { grid-template-columns: 1fr; }
+      body { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main">
+    <div class="shell">
+
+      <!-- HEADER -->
+      <header class="nav">
+        <a href="index.html" class="brand" aria-label="Jay Durga Furnishings · Home">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M5 20v-3a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v3" stroke-linecap="round"/>
+              <path d="M7 20v4M25 20v4" stroke-linecap="round"/>
+              <path d="M9 14v-3a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="brand__wordmark">
+            <span class="brand__name">JAY DURGA</span>
+            <span class="brand__tag">Modern preview · Since 1984</span>
+          </span>
+        </a>
+
+        <nav class="nav__menu" id="primary-nav" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="index-modern.html" class="is-active">Modern</a>
+          <a href="collections.html">Collections</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="nav__tools">
+          <a href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I%20have%20an%20enquiry." class="btn btn--light" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+              <path fill="currentColor" d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm5.5 12.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.9-.5-1.9-1-2.6-1.9-.7-.9-1.2-1.9-1.5-2.7-.1-.3 0-.5.1-.6.1-.1.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2.1-.4 0-.6-.1-.2-.7-1.6-.9-2.1-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.6.1-.8.4-.3.4-1.1 1.1-1.1 2.6 0 1.6 1.2 3.1 1.4 3.3.2.2 2.4 3.6 5.7 5.1.8.3 1.4.5 1.9.6.8.2 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.6-.4Z"/>
+            </svg>
+            WhatsApp
+          </a>
+          <a href="tel:+914023730142" class="btn btn--dark">Call Us</a>
+          <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero__copy blur-fade">
+          <p class="eyebrow">Ameerpet · Home-furnishings house</p>
+          <h1 class="hero__title">
+            <span class="mark">Curtains</span>, windows and<br/>everything soft in&nbsp;your&nbsp;home.
+          </h1>
+          <p class="hero__rotate">
+            Cut for your
+            <span class="word-rotate" data-word-rotate>
+              <span class="word-rotate__item is-active">living room.</span>
+              <span class="word-rotate__item">bedroom.</span>
+              <span class="word-rotate__item">home theatre.</span>
+              <span class="word-rotate__item">nursery.</span>
+              <span class="word-rotate__item">whole home.</span>
+            </span>
+          </p>
+          <p class="hero__lede">
+            Windows are where we started, and where we're still the strongest.
+            After that: sofa fabrics, mattresses, carpets, bedding, bath and décor —
+            measured, stitched and installed by our own team, from one address.
+          </p>
+          <div class="hero__ctas">
+            <a href="#enquire" class="btn btn--dark btn--beam" data-lenis-scroll>
+              Book Free Measurement
+              <span class="btn__arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </a>
+            <a href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I'd%20like%20to%20enquire%20about%20curtains%20%2F%20windows." class="btn btn--light" target="_blank" rel="noopener">WhatsApp us</a>
+          </div>
+          <div class="hero__chips" aria-label="What we do">
+            <span class="hero__chip hero__chip--lead">Curtains &amp; Windows</span>
+            <span class="hero__chip">Sofa Fabrics</span>
+            <span class="hero__chip">Mattresses</span>
+            <span class="hero__chip">Carpets &amp; Rugs</span>
+            <span class="hero__chip">Bedding</span>
+            <span class="hero__chip">Bath</span>
+            <span class="hero__chip">Décor</span>
+          </div>
+        </div>
+
+        <div class="hero__stage" aria-roledescription="carousel" aria-label="Curtain and window solutions">
+          <!-- Curtain-drop cover · removed by motion.js on first visit -->
+          <div class="curtain-cover" data-curtain-cover aria-hidden="true">
+            <div class="curtain-cover__panel curtain-cover__panel--left"></div>
+            <div class="curtain-cover__panel curtain-cover__panel--right"></div>
+          </div>
+
+          <div class="hero__stage-track" data-stage-track>
+            <div class="hero__stage-slide" role="group" aria-roledescription="slide" aria-label="1 of 3">
+              <div class="ph ph--dark">
+                <div class="ph__inner">
+                  <p class="ph__tag">Real photo · slot 1</p>
+                  <p class="ph__note">Full-drop curtain in a customer home</p>
+                </div>
+              </div>
+              <p class="hero__stage-cap">Full-drop drapes, cut for the window.</p>
+            </div>
+            <div class="hero__stage-slide" role="group" aria-roledescription="slide" aria-label="2 of 3">
+              <div class="ph ph--dark">
+                <div class="ph__inner">
+                  <p class="ph__tag">Real photo · slot 2</p>
+                  <p class="ph__note">Sheer + blackout layered installation</p>
+                </div>
+              </div>
+              <p class="hero__stage-cap">Sheers behind blackouts, layered together.</p>
+            </div>
+            <div class="hero__stage-slide" role="group" aria-roledescription="slide" aria-label="3 of 3">
+              <div class="ph ph--dark">
+                <div class="ph__inner">
+                  <p class="ph__tag">Real photo · slot 3</p>
+                  <p class="ph__note">Curtain fabric wall — showroom shot</p>
+                </div>
+              </div>
+              <p class="hero__stage-cap">The fabric wall — pick from what you can touch.</p>
+            </div>
+          </div>
+
+          <button type="button" class="hero__stage-btn hero__stage-btn--prev" data-stage-prev aria-label="Previous slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M19 12H5M12 6l-7 6 7 6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button type="button" class="hero__stage-btn hero__stage-btn--next" data-stage-next aria-label="Next slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <div class="hero__stage-dots" role="tablist" aria-label="Choose slide">
+            <button type="button" class="hero__stage-dot" data-stage-dot="0" aria-label="Slide 1" aria-current="true"></button>
+            <button type="button" class="hero__stage-dot" data-stage-dot="1" aria-label="Slide 2"></button>
+            <button type="button" class="hero__stage-dot" data-stage-dot="2" aria-label="Slide 3"></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- BENTO · Windows + Categories merged -->
+      <section class="stack blur-fade" aria-label="Collections">
+        <header class="section-head--split">
+          <div>
+            <p class="eyebrow">What we offer</p>
+            <h2 class="display display--md">Curtains &amp; windows first.<br/>Then the rest of the home.</h2>
+          </div>
+          <p class="lede">
+            Windows are our first craft. After that, the same measure-cut-install
+            team handles sofa fabrics, mattresses, carpets, bedding, bath and
+            décor — so a whole room can come from one number.
+          </p>
+        </header>
+
+        <div class="bento__grid" data-bento-grid>
+          <a href="collections.html" class="bento__cell bento__cell--feature" aria-label="Curtains & Windows">
+            <div class="bento__media">
+              <div class="ph ph--dark">
+                <div class="ph__inner">
+                  <p class="ph__tag">Real photo · feature</p>
+                  <p class="ph__note">Wide shot of a completed curtain installation</p>
+                </div>
+              </div>
+            </div>
+            <div class="bento__body">
+              <p class="eyebrow eyebrow--light">Our first craft</p>
+              <h3 class="bento__title">Curtains &amp; Windows</h3>
+              <p class="bento__sub">
+                Measured on-site, cut and stitched in-house, installed by our own team.
+                Sheers, blackouts, blinds, motorised systems and rods.
+              </p>
+              <div class="bento__chips">
+                <span class="bento__chip">Curtains &amp; Drapes</span>
+                <span class="bento__chip">Sheers</span>
+                <span class="bento__chip">Blackouts</span>
+                <span class="bento__chip">Roman Blinds</span>
+                <span class="bento__chip">Roller Blinds</span>
+                <span class="bento__chip">Motorised</span>
+                <span class="bento__chip">Rods &amp; Tracks</span>
+              </div>
+              <span class="bento__cta">
+                Explore window collection
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="14" height="14">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </a>
+
+          <a href="collections.html" class="bento__cell bento__cell--02" aria-label="Sofa Fabrics & Cushioning">
+            <div class="bento__media"><div class="ph"><div class="ph__inner"><p class="ph__tag">Real photo · 02</p><p class="ph__note">Sofa fabric wall or recovered sofa</p></div></div></div>
+            <div class="bento__body">
+              <p class="cat__num">02</p>
+              <h3 class="cat__title">Sofa Fabrics &amp; Cushioning</h3>
+              <p class="cat__sub">Give a tired sofa a second life — new fabric, fresh cushion fills.</p>
+            </div>
+          </a>
+
+          <a href="collections.html" class="bento__cell bento__cell--03" aria-label="Mattresses">
+            <div class="bento__media"><div class="ph"><div class="ph__inner"><p class="ph__tag">Real photo · 03</p><p class="ph__note">Mattress stack in showroom</p></div></div></div>
+            <div class="bento__body">
+              <p class="cat__num">03</p>
+              <h3 class="cat__title">Mattresses</h3>
+              <p class="cat__sub">Sleep back on your side. Trusted brands, home delivery.</p>
+            </div>
+          </a>
+
+          <a href="collections.html" class="bento__cell bento__cell--04" aria-label="Carpets & Rugs">
+            <div class="bento__media"><div class="ph"><div class="ph__inner"><p class="ph__tag">Real photo · 04</p><p class="ph__note">Carpet or rug display</p></div></div></div>
+            <div class="bento__body">
+              <p class="cat__num">04</p>
+              <h3 class="cat__title">Carpets &amp; Rugs</h3>
+              <p class="cat__sub">Warmer floors. Hand-knotted, dhurries and runners.</p>
+            </div>
+          </a>
+
+          <a href="collections.html" class="bento__cell bento__cell--05" aria-label="Bedding">
+            <div class="bento__media"><div class="ph"><div class="ph__inner"><p class="ph__tag">Real photo · 05</p><p class="ph__note">Bedding stack</p></div></div></div>
+            <div class="bento__body">
+              <p class="cat__num">05</p>
+              <h3 class="cat__title">Bedding</h3>
+              <p class="cat__sub">Sheets, quilts, pillows and comforters you look forward to.</p>
+            </div>
+          </a>
+
+          <a href="collections.html" class="bento__cell bento__cell--06" aria-label="Bath">
+            <div class="bento__media"><div class="ph"><div class="ph__inner"><p class="ph__tag">Real photo · 06</p><p class="ph__note">Bath section</p></div></div></div>
+            <div class="bento__body">
+              <p class="cat__num">06</p>
+              <h3 class="cat__title">Bath</h3>
+              <p class="cat__sub">Towels, mats and shower curtains — the everyday softness.</p>
+            </div>
+          </a>
+
+          <a href="collections.html" class="bento__cell bento__cell--07" aria-label="Décor & Accessories">
+            <div class="bento__media"><div class="ph"><div class="ph__inner"><p class="ph__tag">Real photo · 07</p><p class="ph__note">Décor &amp; accessories</p></div></div></div>
+            <div class="bento__body">
+              <p class="cat__num">07</p>
+              <h3 class="cat__title">Décor &amp; Accessories</h3>
+              <p class="cat__sub">Cushions, throws and table linen — the finishing pieces.</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- ENQUIRE -->
+      <section class="enquire stack blur-fade" id="enquire" aria-label="Enquire">
+        <div class="enquire__intro">
+          <p class="eyebrow eyebrow--light">Enquire</p>
+          <h2>Tell us the window, the room, or the whole home.</h2>
+          <p>Fill this in and we'll reply <strong>within the same working day</strong>. Or reach us directly — three ways, one team.</p>
+          <div class="enquire__ways">
+            <a class="enquire__way" href="tel:+914023730142">
+              <span class="enquire__way-ic" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5c0 8 7 15 15 15l2-3-4-2-2 2c-3-1-6-4-7-7l2-2-2-4-4 1Z" stroke-linejoin="round"/></svg>
+              </span>
+              <div>Call us<small>+91 40 2373 0142</small></div>
+            </a>
+            <a class="enquire__way" href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I'd%20like%20to%20send%20a%20photo." target="_blank" rel="noopener">
+              <span class="enquire__way-ic" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm5.5 12.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.9-.5-1.9-1-2.6-1.9-.7-.9-1.2-1.9-1.5-2.7-.1-.3 0-.5.1-.6.1-.1.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2.1-.4 0-.6-.1-.2-.7-1.6-.9-2.1-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.6.1-.8.4-.3.4-1.1 1.1-1.1 2.6 0 1.6 1.2 3.1 1.4 3.3.2.2 2.4 3.6 5.7 5.1.8.3 1.4.5 1.9.6.8.2 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.6-.4Z"/></svg>
+              </span>
+              <div>WhatsApp us<small>Send a photo · quick reply</small></div>
+            </a>
+            <a class="enquire__way" href="https://maps.google.com/?q=Jay+Durga+Furnishings+Ameerpet+Hyderabad" target="_blank" rel="noopener">
+              <span class="enquire__way-ic" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4"/></svg>
+              </span>
+              <div>Get directions<small>Ameerpet Main Road · Metro-side</small></div>
+            </a>
+          </div>
+        </div>
+
+        <form class="enquire__form" id="enquire-form" novalidate>
+          <div>
+            <label for="f-name">Your name</label>
+            <input id="f-name" name="name" type="text" required autocomplete="name" placeholder="Full name" />
+          </div>
+          <div class="enquire__row">
+            <div>
+              <label for="f-phone">Phone</label>
+              <input id="f-phone" name="phone" type="tel" required autocomplete="tel" placeholder="10-digit mobile" pattern="[0-9+\s\-()]{7,}" />
+            </div>
+            <div>
+              <label for="f-area">Area</label>
+              <input id="f-area" name="area" type="text" placeholder="e.g. Kondapur" />
+            </div>
+          </div>
+          <div>
+            <label for="f-interest">I'm looking for</label>
+            <select id="f-interest" name="interest" required>
+              <option value="">Please choose</option>
+              <option>Curtains &amp; Windows</option>
+              <option>Sofa Fabrics &amp; Cushioning</option>
+              <option>Mattresses</option>
+              <option>Carpets &amp; Rugs</option>
+              <option>Bedding</option>
+              <option>Bath</option>
+              <option>Décor &amp; Accessories</option>
+              <option>Complete home consultation</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div>
+            <label for="f-notes">Anything else? (optional)</label>
+            <div class="ghost-input" data-ghost-input>
+              <textarea id="f-notes" name="notes"></textarea>
+              <span class="ghost-input__hint" data-ghost-hint></span>
+            </div>
+          </div>
+          <input type="hidden" name="source" value="homepage-modern" />
+          <div class="honeypot" aria-hidden="true">
+            <label for="f-website">Do not fill</label>
+            <input id="f-website" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <button class="enquire__submit" type="submit">
+            <span class="enquire__submit-label">Send enquiry</span>
+            <svg class="send-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="14" height="14" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <svg class="check-svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12l5 5 9-11"/>
+            </svg>
+          </button>
+          <p class="enquire__status" role="status" aria-live="polite" data-form-status></p>
+        </form>
+      </section>
+
+      <!-- PROMISES -->
+      <section class="promises stack blur-fade" aria-label="What we promise">
+        <div class="promise">
+          <span class="promise__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12a8 8 0 1 1 2.6 5.9" stroke-linecap="round"/><path d="M4 20v-4h4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><h4>Free measurement</h4><p>Home visit across Hyderabad. No charge.</p></div>
+        </div>
+        <div class="promise">
+          <span class="promise__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 15v-2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2" stroke-linecap="round"/><path d="M7 11V9a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2" stroke-linecap="round"/></svg></span>
+          <div><h4>Stitched in-house</h4><p>Own tailors, own cutting table. Nothing farmed out.</p></div>
+        </div>
+        <div class="promise">
+          <span class="promise__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 4 6v6c0 4.5 3.2 8.4 8 9 4.8-.6 8-4.5 8-9V6l-8-3Z" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><h4>Installed by our team</h4><p>Two-man install. Rod, drop, alteration — same team.</p></div>
+        </div>
+        <div class="promise">
+          <span class="promise__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12a8 8 0 0 1 16 0v5a2 2 0 0 1-2 2h-1v-6h3" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 12v5a2 2 0 0 0 2 2h1v-6H4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><h4>After-care that answers</h4><p>The person who sold it, sells you the fix. One number.</p></div>
+        </div>
+      </section>
+
+      <!-- STICKY-SCROLL PROCESS -->
+      <section class="process-scroll stack blur-fade" aria-label="How we work">
+        <header class="process-scroll__head">
+          <div>
+            <p class="eyebrow">The way we work</p>
+            <h2 class="process-scroll__title">Four steps. Same order, every time.</h2>
+          </div>
+          <p class="process-scroll__lede">You do the choosing. We do the measuring, stitching, chasing and finishing.</p>
+        </header>
+        <div class="process-scroll__grid">
+          <ol class="process-scroll__steps" data-scroll-steps>
+            <li class="process-scroll__step is-active" data-step="1">
+              <p class="process-scroll__num">01 · Enquire</p>
+              <h3 class="process-scroll__label">Call, WhatsApp or visit.</h3>
+              <p class="process-scroll__desc">Send a photo, or come see the fabric wall. Both routes end in the same shortlist — no wasted trips.</p>
+            </li>
+            <li class="process-scroll__step" data-step="2">
+              <p class="process-scroll__num">02 · Free measurement</p>
+              <h3 class="process-scroll__label">We come to you.</h3>
+              <p class="process-scroll__desc">We visit, measure and note preferences — window heights, ceiling drops, sofa dimensions. No obligation.</p>
+            </li>
+            <li class="process-scroll__step" data-step="3">
+              <p class="process-scroll__num">03 · Choose</p>
+              <h3 class="process-scroll__label">Fabric &amp; finish.</h3>
+              <p class="process-scroll__desc">Shortlist brought to you, or picked from our wall. You pick from five, not from four thousand — decision fatigue removed.</p>
+            </li>
+            <li class="process-scroll__step" data-step="4">
+              <p class="process-scroll__num">04 · Stitch &amp; install</p>
+              <h3 class="process-scroll__label">Delivered and mounted.</h3>
+              <p class="process-scroll__desc">Cut, stitched, hung and squared by our team. Any drop off by a finger — we come back the same week.</p>
+            </li>
+          </ol>
+          <div class="process-scroll__sticky">
+            <div class="process-scroll__images" data-scroll-images>
+              <div class="process-scroll__image is-active" data-step="1">
+                <div class="ph ph--dark"><div class="ph__inner"><p class="ph__tag">Real photo · step 1</p><p class="ph__note">Customer on the phone / WhatsApp screenshot</p></div></div>
+              </div>
+              <div class="process-scroll__image" data-step="2">
+                <div class="ph ph--dark"><div class="ph__inner"><p class="ph__tag">Real photo · step 2</p><p class="ph__note">Tape-measure at a window / measurement in a home</p></div></div>
+              </div>
+              <div class="process-scroll__image" data-step="3">
+                <div class="ph ph--dark"><div class="ph__inner"><p class="ph__tag">Real photo · step 3</p><p class="ph__note">Hand on fabric swatches on the showroom wall</p></div></div>
+              </div>
+              <div class="process-scroll__image" data-step="4">
+                <div class="ph ph--dark"><div class="ph__inner"><p class="ph__tag">Real photo · step 4</p><p class="ph__note">Rod being fitted / drapes hanging in a finished room</p></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CRAFT -->
+      <section class="craft stack blur-fade" aria-label="Behind the curtain">
+        <figure class="craft__img">
+          <div class="ph ph--dark"><div class="ph__inner"><p class="ph__tag">Real photo · craft</p><p class="ph__note">Tailor at work in the Jay Durga stitching room</p></div></div>
+        </figure>
+        <div class="craft__body">
+          <p class="eyebrow">Why it hangs straight</p>
+          <h2 class="craft__title">Nothing is farmed out.</h2>
+          <p class="craft__lede">The measure, the cut, the stitch, the mount and the alteration all happen under one roof. When you call, you don't get transferred.</p>
+          <p class="craft__lede">Every curtain, blind and cushion cover leaves through the same door it entered — reviewed by the same person from first shortlist to final install.</p>
+        </div>
+      </section>
+
+      <!-- BRANDS · marquee -->
+      <section class="brands-marquee stack blur-fade" aria-label="Brands and sources">
+        <div class="brands-marquee__intro">
+          <div>
+            <p class="eyebrow">Names, not gambles</p>
+            <p>Every mattress, motor, blind and wallpaper we stock carries a factory warranty. We handle the claim on your behalf.</p>
+          </div>
+          <p class="brands-marquee__note">Hover to pause · scroll to browse</p>
+        </div>
+
+        <div class="marquee" aria-hidden="true">
+          <div class="marquee__track">
+            <span class="brand-pill"><span class="brand-pill__dot"></span>D'Décor</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Marshalls</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Asian Paints</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Sleepwell</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Kurlon</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Duroflex</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Peps</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Bhadohi Weavers</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Mirzapur Cooperatives</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Bhuj Handloom</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>D'Décor</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Marshalls</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Asian Paints</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Sleepwell</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Kurlon</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Duroflex</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Peps</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Bhadohi Weavers</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Mirzapur Cooperatives</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Bhuj Handloom</span>
+          </div>
+        </div>
+
+        <div class="marquee marquee--reverse" aria-hidden="true">
+          <div class="marquee__track">
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Motorised · Somfy</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Nilkamal</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Wallcraft</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Elemis</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Bombay Dyeing</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Welspun</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Portico</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Trident</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Raymond Home</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Local Weavers</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Motorised · Somfy</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Nilkamal</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Wallcraft</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Elemis</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Bombay Dyeing</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Welspun</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Portico</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Trident</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Raymond Home</span>
+            <span class="brand-pill"><span class="brand-pill__dot"></span>Local Weavers</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- VOICES -->
+      <section class="voices stack blur-fade" aria-label="Customer voices">
+        <header class="section-head--split">
+          <div>
+            <p class="eyebrow">What our families say</p>
+            <h2 class="display display--md">Three notes from the last year.</h2>
+          </div>
+          <p class="lede">Real, authorised customer notes will live here. Placeholder cards below show the layout — client to supply three quotes with name, neighbourhood and permission to publish.</p>
+        </header>
+        <div class="voices__grid">
+          <figure class="voice-card voice-card--feature">
+            <div class="ph ph--dark"><div class="ph__inner"><p class="ph__tag">Real testimonial · feature</p><p class="ph__note">Longer quote with customer name, area and year.</p></div></div>
+          </figure>
+          <figure class="voice-card">
+            <div class="ph"><div class="ph__inner"><p class="ph__tag">Real testimonial · card 2</p><p class="ph__note">Short quote + name + area + year.</p></div></div>
+          </figure>
+          <figure class="voice-card">
+            <div class="ph"><div class="ph__inner"><p class="ph__tag">Real testimonial · card 3</p><p class="ph__note">Short quote + name + area + year.</p></div></div>
+          </figure>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="site-footer">
+        <div class="site-footer__grid">
+          <div class="site-footer__brand">
+            <p><strong>Jay Durga Furnishings.</strong> Since 1984.</p>
+            <p>4th Floor, Mandhana Towers<br/>Ameerpet Main Road<br/>Hyderabad 500 016, Telangana</p>
+            <p><a href="tel:+914023730142">+91 40 2373 0142</a><br/><a href="mailto:hello@jaydurga.in">hello@jaydurga.in</a></p>
+            <em>Open 10:30 — 20:30 · Seven days</em>
+          </div>
+          <div>
+            <h4>Collections</h4>
+            <ul>
+              <li><a href="collections.html">Curtains &amp; Windows</a></li>
+              <li><a href="collections.html">Sofa Fabrics &amp; Cushioning</a></li>
+              <li><a href="collections.html">Mattresses</a></li>
+              <li><a href="collections.html">Carpets &amp; Rugs</a></li>
+              <li><a href="collections.html">Bedding</a></li>
+              <li><a href="collections.html">Bath</a></li>
+              <li><a href="collections.html">Décor &amp; Accessories</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>House</h4>
+            <ul>
+              <li><a href="about.html">About us</a></li>
+              <li><a href="gallery.html">Gallery</a></li>
+              <li><a href="contact.html">Visit · Contact</a></li>
+              <li><a href="index.html">Original version</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Service</h4>
+            <ul>
+              <li><a href="#enquire">Free measurement</a></li>
+              <li><a href="collections.html">Windows &amp; curtains</a></li>
+              <li><a href="collections.html">Sofa recovers</a></li>
+              <li><a href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I%20have%20an%20enquiry." target="_blank" rel="noopener">WhatsApp us</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="site-footer__rail">
+          <small>© <span data-year>2026</span> Jay Durga Furnishings · Ameerpet, Hyderabad</small>
+          <ul>
+            <li><a href="https://www.instagram.com/jaydurgaextn/" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I%20have%20an%20enquiry." target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a href="#" aria-label="Privacy policy (coming soon)">Privacy</a></li>
+          </ul>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <!-- FAB · reveal on scroll -->
+  <div class="fab" role="complementary" aria-label="Quick actions" data-fab>
+    <div class="fab__group">
+      <a class="fab__btn fab__btn--dir" href="https://maps.google.com/?q=Jay+Durga+Furnishings+Ameerpet+Hyderabad" target="_blank" rel="noopener" aria-label="Get directions">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4"/></svg>
+        <span class="fab__label">Directions</span>
+      </a>
+      <span class="fab__caption">Map</span>
+    </div>
+    <div class="fab__group">
+      <a class="fab__btn fab__btn--book" href="#enquire" aria-label="Book free measurement" data-lenis-scroll>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16" stroke-linecap="round"/></svg>
+        <span class="fab__label">Book measurement</span>
+      </a>
+      <span class="fab__caption">Book</span>
+    </div>
+    <div class="fab__group">
+      <a class="fab__btn fab__btn--wa" href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I%20have%20an%20enquiry." target="_blank" rel="noopener" aria-label="WhatsApp us">
+        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm5.5 12.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.9-.5-1.9-1-2.6-1.9-.7-.9-1.2-1.9-1.5-2.7-.1-.3 0-.5.1-.6.1-.1.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2.1-.4 0-.6-.1-.2-.7-1.6-.9-2.1-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.6.1-.8.4-.3.4-1.1 1.1-1.1 2.6 0 1.6 1.2 3.1 1.4 3.3.2.2 2.4 3.6 5.7 5.1.8.3 1.4.5 1.9.6.8.2 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.6-.4Z"/></svg>
+        <span class="fab__label">WhatsApp</span>
+      </a>
+      <span class="fab__caption">WhatsApp</span>
+    </div>
+    <div class="fab__group">
+      <a class="fab__btn" href="tel:+914023730142" aria-label="Call us">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5c0 8 7 15 15 15l2-3-4-2-2 2c-3-1-6-4-7-7l2-2-2-4-4 1Z" stroke-linejoin="round"/></svg>
+        <span class="fab__label">Call us</span>
+      </a>
+      <span class="fab__caption">Call</span>
+    </div>
+  </div>
+
+  <!-- Baseline utilities (year, nav toggle, slider) — work without motion.js -->
+  <script>
+    document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
+    (function () {
+      var toggle = document.querySelector('.nav-toggle');
+      var menu = document.getElementById('primary-nav');
+      if (!toggle || !menu) return;
+      toggle.addEventListener('click', function () {
+        var open = menu.classList.toggle('is-open');
+        toggle.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+      document.addEventListener('click', function (e) {
+        if (!toggle.contains(e.target) && !menu.contains(e.target) && menu.classList.contains('is-open')) {
+          menu.classList.remove('is-open');
+          toggle.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
+    (function () {
+      var stage = document.querySelector('.hero__stage');
+      if (!stage) return;
+      var track = stage.querySelector('[data-stage-track]');
+      var slides = stage.querySelectorAll('.hero__stage-slide');
+      var dots = stage.querySelectorAll('[data-stage-dot]');
+      var prev = stage.querySelector('[data-stage-prev]');
+      var next = stage.querySelector('[data-stage-next]');
+      if (!track || slides.length < 2) return;
+      var current = 0;
+      function paint() {
+        track.style.transform = 'translate3d(' + (-current * 100) + '%, 0, 0)';
+        dots.forEach(function (d, i) { d.setAttribute('aria-current', i === current ? 'true' : 'false'); });
+      }
+      function goTo(i) { current = ((i % slides.length) + slides.length) % slides.length; paint(); }
+      dots.forEach(function (d, i) { d.addEventListener('click', function () { goTo(i); }); });
+      if (prev) prev.addEventListener('click', function () { goTo(current - 1); });
+      if (next) next.addEventListener('click', function () { goTo(current + 1); });
+    })();
+  </script>
+
+  <!-- Motion layer -->
+  <script defer src="js/motion.js"></script>
+</body>
+</html>
