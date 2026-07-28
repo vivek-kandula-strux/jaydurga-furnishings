@@ -440,9 +440,20 @@
     // Smooth-follow ring, snappy dot
     let mx = 0, my = 0;
     let rx = 0, ry = 0;
+    let firstMove = true;
+
     document.addEventListener('mousemove', (e) => {
       mx = e.clientX; my = e.clientY;
       dot.style.transform = 'translate3d(' + mx + 'px, ' + my + 'px, 0)';
+
+      if (firstMove) {
+        firstMove = false;
+        // Snap ring immediately so it doesn't glide from (0,0)
+        rx = mx; ry = my;
+        ring.style.transform = 'translate3d(' + rx + 'px, ' + ry + 'px, 0)';
+        // NOW it's safe to hide native cursor and reveal ours
+        document.documentElement.classList.add('cursor-ready');
+      }
     });
     document.addEventListener('mouseleave', () => {
       dot.style.opacity = '0'; ring.style.opacity = '0';

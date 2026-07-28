@@ -411,8 +411,10 @@
       opacity: 0;
       transition: opacity .25s ease;
     }
-    .js-ready.has-fine-pointer .cursor-dot,
-    .js-ready.has-fine-pointer .cursor-ring { opacity: 1; }
+    /* Custom cursor + native-hide only after JS has synced to a real mouse
+       position (see .cursor-ready set in motion.js on first mousemove). */
+    .js-ready.has-fine-pointer.cursor-ready .cursor-dot,
+    .js-ready.has-fine-pointer.cursor-ready .cursor-ring { opacity: 1; }
     .cursor-dot {
       width: 6px; height: 6px;
       border-radius: 50%;
@@ -436,12 +438,12 @@
     .cursor-dot.is-hovering { opacity: 0; }
     /* Hide native cursor when custom is active, only on interactive elements
        — keep native for form inputs so users can text-select */
-    .js-ready.has-fine-pointer body { cursor: none; }
-    .js-ready.has-fine-pointer input,
-    .js-ready.has-fine-pointer textarea,
-    .js-ready.has-fine-pointer select { cursor: text; }
-    .js-ready.has-fine-pointer button,
-    .js-ready.has-fine-pointer a { cursor: none; }
+    .js-ready.has-fine-pointer.cursor-ready body { cursor: none; }
+    .js-ready.has-fine-pointer.cursor-ready input,
+    .js-ready.has-fine-pointer.cursor-ready textarea,
+    .js-ready.has-fine-pointer.cursor-ready select { cursor: text; }
+    .js-ready.has-fine-pointer.cursor-ready button,
+    .js-ready.has-fine-pointer.cursor-ready a { cursor: none; }
     /* No custom cursor on touch */
     @media (pointer: coarse) {
       .cursor-dot, .cursor-ring { display: none; }
