@@ -247,17 +247,33 @@
   (function stickyProcess() {
     if (!hasScrollTrigger) return;
 
+    const stepsList = document.querySelector('[data-scroll-steps]');
     const steps = document.querySelectorAll('[data-scroll-steps] .process-scroll__step');
     const images = document.querySelectorAll('[data-scroll-images] .process-scroll__image');
-    if (!steps.length || !images.length) return;
+    const numerals = document.querySelectorAll('[data-scroll-numeral] span');
+    const pips = document.querySelectorAll('[data-scroll-pips] .process-scroll__pip');
+    const captions = document.querySelectorAll('[data-scroll-caption] span[data-cap]');
+    if (!stepsList || !steps.length || !images.length) return;
 
     function activate(stepNum) {
-      steps.forEach(s => s.classList.toggle('is-active', s.dataset.step === String(stepNum)));
-      images.forEach(im => im.classList.toggle('is-active', im.dataset.step === String(stepNum)));
+      const n = Number(stepNum);
+      steps.forEach(s => {
+        const sn = Number(s.dataset.step);
+        s.classList.toggle('is-active', sn === n);
+        s.classList.toggle('is-passed', sn < n);
+      });
+      images.forEach(im => im.classList.toggle('is-active', Number(im.dataset.step) === n));
+      numerals.forEach(el => el.classList.toggle('is-active', Number(el.dataset.num) === n));
+      pips.forEach(p => {
+        const pn = Number(p.dataset.pip);
+        p.classList.toggle('is-active', pn === n);
+        p.classList.toggle('is-passed', pn < n);
+      });
+      captions.forEach(c => c.classList.toggle('is-active', Number(c.dataset.cap) === n));
     }
 
     ScrollTrigger.matchMedia({
-      // Desktop only: scroll-driven step activation
+      // Desktop: scroll-driven step activation + scrubbed rail fill
       '(min-width: 1025px)': function () {
         steps.forEach((step) => {
           ScrollTrigger.create({
@@ -268,12 +284,25 @@
             onEnterBack: () => activate(step.dataset.step),
           });
         });
-        // Cleanup runs automatically when the media query no longer matches.
+        // Scrub the vertical rail fill from 0 to 1 across the whole steps list.
+        ScrollTrigger.create({
+          trigger: stepsList,
+          start: 'top 65%',
+          end: 'bottom 45%',
+          scrub: 0.6,
+          onUpdate: (self) => {
+            stepsList.style.setProperty('--rail-progress', self.progress.toFixed(3));
+          },
+        });
       },
-      // Mobile/tablet: force all steps + first image visible (no scroll magic)
+      // Mobile/tablet: fill the rail, unfade every body, show first image
       '(max-width: 1024px)': function () {
-        steps.forEach(s => s.classList.add('is-active'));
+        stepsList.style.setProperty('--rail-progress', '1');
+        steps.forEach(s => { s.classList.add('is-active'); s.classList.add('is-passed'); });
         images.forEach((im, idx) => im.classList.toggle('is-active', idx === 0));
+        numerals.forEach((el, idx) => el.classList.toggle('is-active', idx === 0));
+        pips.forEach((p, idx) => p.classList.toggle('is-active', idx === 0));
+        captions.forEach((c, idx) => c.classList.toggle('is-active', idx === 0));
       }
     });
   })();

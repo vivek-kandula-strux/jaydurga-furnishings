@@ -248,22 +248,63 @@
     .promise h4 { font-size: 14px; font-weight: 700; margin: 0 0 4px; color: var(--ink); }
     .promise p { font-size: 13px; color: var(--mute); margin: 0; line-height: 1.45; }
 
-    /* STICKY-SCROLL PROCESS */
-    .process-scroll { background: var(--shell); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(32px, 3.4vw, 48px); overflow: hidden; }
-    .process-scroll__head { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 60px); align-items: end; padding-bottom: 28px; margin-bottom: 28px; border-bottom: 1px solid var(--divider); }
-    .process-scroll__title { font-size: clamp(26px, 3vw, 42px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.02; margin: 0; max-width: 18ch; }
-    .process-scroll__lede { font-size: 15px; color: var(--ink-soft); line-height: 1.6; margin: 0; max-width: 42ch; }
-    .process-scroll__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 60px); align-items: start; }
-    .process-scroll__steps { display: flex; flex-direction: column; gap: clamp(24px, 3vw, 40px); }
-    .process-scroll__step { min-height: 42vh; padding: 24px 0; opacity: .35; transition: opacity .5s ease; display: flex; flex-direction: column; justify-content: center; }
-    .process-scroll__step.is-active { opacity: 1; }
-    .process-scroll__num { font-size: 11.5px; font-weight: 700; letter-spacing: 0.28em; color: var(--rust); margin: 0 0 14px; }
-    .process-scroll__label { font-size: clamp(24px, 2.4vw, 34px); font-weight: 700; margin: 0 0 12px; line-height: 1.1; letter-spacing: -0.02em; }
-    .process-scroll__desc { font-size: 15px; color: var(--ink-soft); line-height: 1.6; margin: 0; max-width: 34ch; }
-    .process-scroll__sticky { position: sticky; top: 15vh; height: 70vh; border-radius: var(--radius); overflow: hidden; background: #1A130E; }
-    .process-scroll__images { position: relative; width: 100%; height: 100%; }
-    .process-scroll__image { position: absolute; inset: 0; opacity: 0; transition: opacity .5s ease, transform .5s ease; transform: scale(1.04); }
+    /* PROCESS · scrubbed rail on the left, pinned editorial visual on the right */
+    .process-scroll { position: relative; background: var(--shell); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(32px, 3.4vw, 56px); overflow: hidden; }
+    .process-scroll::before { content: ""; position: absolute; inset: -20% -10% auto auto; width: 60%; height: 55%; background: radial-gradient(60% 60% at 70% 30%, rgba(169,82,44,.10), transparent 70%); pointer-events: none; }
+
+    .process-scroll__head { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 60px); align-items: end; padding-bottom: 28px; margin-bottom: clamp(28px, 3.4vw, 44px); border-bottom: 1px solid var(--divider); position: relative; }
+    .process-scroll__status { display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px 7px 10px; border-radius: var(--pill); background: var(--panel); border: 1px solid var(--divider); font-size: 12px; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.01em; margin: 0 0 16px; width: -moz-fit-content; width: fit-content; }
+    .process-scroll__status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rust); box-shadow: 0 0 0 4px rgba(169,82,44,.18); }
+    .process-scroll__status strong { font-weight: 700; color: var(--ink); }
+    .process-scroll__title { font-size: clamp(28px, 3.2vw, 46px); font-weight: 800; letter-spacing: -0.035em; line-height: 1; margin: 0; max-width: 18ch; }
+    .process-scroll__title em { font-style: normal; color: var(--rust); }
+    .process-scroll__lede { font-size: 15.5px; color: var(--ink-soft); line-height: 1.6; margin: 0; max-width: 40ch; }
+
+    .process-scroll__grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(28px, 4.6vw, 80px); align-items: start; }
+
+    /* LEFT · rail + steps */
+    .process-scroll__steps { --rail-progress: 0; position: relative; padding-left: 68px; margin: 0; }
+    .process-scroll__steps::before { content: ""; position: absolute; left: 21px; top: 22px; bottom: 22px; width: 2px; background: var(--divider); border-radius: 2px; }
+    .process-scroll__steps::after { content: ""; position: absolute; left: 21px; top: 22px; width: 2px; height: calc((100% - 44px) * var(--rail-progress)); background: linear-gradient(180deg, var(--rust), #E9A57A); border-radius: 2px; transition: height .35s ease-out; box-shadow: 0 0 0 4px rgba(169,82,44,.06); }
+
+    .process-scroll__step { position: relative; min-height: 44vh; padding: 22px 0; display: flex; flex-direction: column; justify-content: center; }
+    .process-scroll__chip { position: absolute; left: -68px; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font-size: 13px; font-weight: 700; letter-spacing: 0.02em; background: var(--shell); color: var(--rust); border: 1.5px solid var(--rust); font-variant-numeric: tabular-nums; transition: background .35s ease, color .35s ease, box-shadow .35s ease, transform .35s ease; z-index: 2; }
+    .process-scroll__step.is-active .process-scroll__chip { background: var(--rust); color: #FBF6EA; transform: translateY(-50%) scale(1.08); box-shadow: 0 0 0 6px rgba(169,82,44,.14), 0 10px 24px -12px rgba(169,82,44,.6); }
+    .process-scroll__step.is-passed .process-scroll__chip { background: var(--rust); color: #FBF6EA; }
+
+    .process-scroll__body { opacity: .38; transform: translateY(4px); transition: opacity .5s ease, transform .5s ease; }
+    .process-scroll__step.is-active .process-scroll__body { opacity: 1; transform: none; }
+    .process-scroll__kicker { font-size: 11px; font-weight: 700; letter-spacing: 0.32em; color: var(--rust); margin: 0 0 12px; text-transform: uppercase; }
+    .process-scroll__label { font-size: clamp(24px, 2.6vw, 36px); font-weight: 700; margin: 0 0 14px; line-height: 1.05; letter-spacing: -0.025em; color: var(--ink); }
+    .process-scroll__desc { font-size: 15.5px; color: var(--ink-soft); line-height: 1.65; margin: 0 0 18px; max-width: 36ch; }
+    .process-scroll__meta { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: var(--pill); background: var(--panel); border: 1px solid var(--line); font-size: 12.5px; font-weight: 600; color: var(--ink-soft); margin: 0; }
+    .process-scroll__meta::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--rust); opacity: .7; }
+
+    /* RIGHT · pinned editorial visual */
+    .process-scroll__sticky { position: sticky; top: 12vh; height: 76vh; border-radius: var(--radius); overflow: hidden; background: #140F0B; box-shadow: 0 40px 80px -40px rgba(15,11,8,.55), inset 0 0 0 1px rgba(255,255,255,.04); }
+    .process-scroll__sticky::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,11,8,0) 40%, rgba(15,11,8,.55) 100%); pointer-events: none; z-index: 3; }
+
+    .process-scroll__pips { position: absolute; top: 22px; left: 22px; right: 22px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; z-index: 5; }
+    .process-scroll__pip { height: 3px; border-radius: 2px; background: rgba(251,246,234,.18); overflow: hidden; position: relative; }
+    .process-scroll__pip::after { content: ""; position: absolute; inset: 0; background: #FBF6EA; transform: scaleX(0); transform-origin: left center; transition: transform .5s ease; }
+    .process-scroll__pip.is-passed::after { transform: scaleX(1); }
+    .process-scroll__pip.is-active::after { transform: scaleX(1); background: #E9A57A; }
+
+    .process-scroll__numeral { position: absolute; top: clamp(30px, 5vw, 60px); right: clamp(16px, 2.4vw, 32px); font-size: clamp(160px, 22vw, 340px); font-weight: 800; line-height: .82; letter-spacing: -0.06em; color: transparent; -webkit-text-stroke: 1px rgba(233,165,122,.28); z-index: 4; pointer-events: none; font-variant-numeric: tabular-nums; }
+    .process-scroll__numeral span { position: absolute; top: 0; right: 0; opacity: 0; transform: translateY(24px); transition: opacity .5s ease, transform .5s ease; }
+    .process-scroll__numeral span.is-active { opacity: 1; transform: none; }
+
+    .process-scroll__images { position: absolute; inset: 0; }
+    .process-scroll__image { position: absolute; inset: 22px; border-radius: calc(var(--radius) - 6px); overflow: hidden; opacity: 0; transform: scale(1.05); transition: opacity .55s ease, transform .55s ease; }
     .process-scroll__image.is-active { opacity: 1; transform: scale(1); }
+    .process-scroll__image .ph { border-radius: inherit; }
+
+    .process-scroll__caption { position: absolute; left: 22px; bottom: 22px; right: 22px; z-index: 5; display: flex; align-items: center; gap: 10px; }
+    .process-scroll__caption-chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: var(--pill); background: rgba(15,11,8,.72); color: #FBF6EA; font-size: 12.5px; font-weight: 600; letter-spacing: 0.01em; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.08); position: relative; min-height: 34px; overflow: hidden; }
+    .process-scroll__caption-chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #E9A57A; flex: none; }
+    .process-scroll__caption-chip span { position: absolute; left: 32px; right: 14px; top: 50%; transform: translate(0, calc(-50% + 10px)); opacity: 0; transition: opacity .4s ease, transform .4s ease; white-space: nowrap; }
+    .process-scroll__caption-chip span.is-active { opacity: 1; transform: translate(0, -50%); }
+    .process-scroll__caption-chip-sizer { visibility: hidden; padding-left: 14px; }
 
     /* CRAFT */
     .craft { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(24px, 3vw, 48px); align-items: stretch; }
@@ -355,9 +396,13 @@
       .enquire { grid-template-columns: 1fr; }
       .section-head--split { grid-template-columns: 1fr; gap: 14px; align-items: start; }
       .process-scroll__grid { grid-template-columns: 1fr; }
-      .process-scroll__sticky { position: relative; top: 0; height: 45vh; margin-bottom: 24px; }
-      .process-scroll__step { min-height: 0; opacity: 1; }
-      .process-scroll__step + .process-scroll__step { border-top: 1px solid var(--divider); padding-top: 32px; }
+      .process-scroll__sticky { position: relative; top: 0; height: 52vh; margin-bottom: 28px; order: -1; }
+      .process-scroll__step { min-height: 0; padding: 26px 0; }
+      .process-scroll__body { opacity: 1; transform: none; }
+      .process-scroll__steps { --rail-progress: 1; padding-left: 60px; }
+      .process-scroll__steps::before, .process-scroll__steps::after { left: 17px; }
+      .process-scroll__chip { left: -60px; width: 36px; height: 36px; font-size: 12px; }
+      .process-scroll__label { font-size: clamp(22px, 5vw, 28px); }
     }
     @media (max-width: 720px) {
       .hero { grid-template-columns: 1fr; margin-top: 24px; }
@@ -966,39 +1011,71 @@
         </div>
       </section>
 
-      <!-- STICKY-SCROLL PROCESS -->
+      <!-- PROCESS · scrubbed rail + pinned editorial visual -->
       <section class="process-scroll stack blur-fade" aria-label="How we work">
         <header class="process-scroll__head">
           <div>
-            <p class="eyebrow">The way we work</p>
-            <h2 class="process-scroll__title">Four steps. Same order, every time.</h2>
+            <p class="process-scroll__status"><span class="process-scroll__status-dot" aria-hidden="true"></span>Door to drape · <strong>~2 weeks</strong> · 4 steps</p>
+            <h2 class="process-scroll__title">Four steps. <em>Same order</em>, every time.</h2>
           </div>
-          <p class="process-scroll__lede">You do the choosing. We do the measuring, stitching, chasing and finishing.</p>
+          <p class="process-scroll__lede">You do the choosing. We do the measuring, stitching, chasing and finishing — with one point of contact from first call to final drop.</p>
         </header>
+
         <div class="process-scroll__grid">
           <ol class="process-scroll__steps" data-scroll-steps>
             <li class="process-scroll__step is-active" data-step="1">
-              <p class="process-scroll__num">01 · Enquire</p>
-              <h3 class="process-scroll__label">Call, WhatsApp or visit.</h3>
-              <p class="process-scroll__desc">Send a photo, or come see the fabric wall. Both routes end in the same shortlist — no wasted trips.</p>
+              <span class="process-scroll__chip" aria-hidden="true">01</span>
+              <div class="process-scroll__body">
+                <p class="process-scroll__kicker">Enquire</p>
+                <h3 class="process-scroll__label">Call, WhatsApp or visit.</h3>
+                <p class="process-scroll__desc">Send a photo, or come see the fabric wall. Both routes end in the same shortlist — no wasted trips.</p>
+                <p class="process-scroll__meta">Reply within the hour · 10 am to 8 pm</p>
+              </div>
             </li>
             <li class="process-scroll__step" data-step="2">
-              <p class="process-scroll__num">02 · Free measurement</p>
-              <h3 class="process-scroll__label">We come to you.</h3>
-              <p class="process-scroll__desc">We visit, measure and note preferences — window heights, ceiling drops, sofa dimensions. No obligation.</p>
+              <span class="process-scroll__chip" aria-hidden="true">02</span>
+              <div class="process-scroll__body">
+                <p class="process-scroll__kicker">Free measurement</p>
+                <h3 class="process-scroll__label">We come to you.</h3>
+                <p class="process-scroll__desc">We visit, measure and note preferences — window heights, ceiling drops, sofa dimensions. No obligation.</p>
+                <p class="process-scroll__meta">Free within Hyderabad · same-week slots</p>
+              </div>
             </li>
             <li class="process-scroll__step" data-step="3">
-              <p class="process-scroll__num">03 · Choose</p>
-              <h3 class="process-scroll__label">Fabric &amp; finish.</h3>
-              <p class="process-scroll__desc">Shortlist brought to you, or picked from our wall. You pick from five, not from four thousand — decision fatigue removed.</p>
+              <span class="process-scroll__chip" aria-hidden="true">03</span>
+              <div class="process-scroll__body">
+                <p class="process-scroll__kicker">Choose</p>
+                <h3 class="process-scroll__label">Fabric &amp; finish.</h3>
+                <p class="process-scroll__desc">A curated shortlist brought to you, or picked from our wall. You pick from five, not from four thousand — decision fatigue removed.</p>
+                <p class="process-scroll__meta">Swatches at home on request</p>
+              </div>
             </li>
             <li class="process-scroll__step" data-step="4">
-              <p class="process-scroll__num">04 · Stitch &amp; install</p>
-              <h3 class="process-scroll__label">Delivered and mounted.</h3>
-              <p class="process-scroll__desc">Cut, stitched, hung and squared by our team. Any drop off by a finger — we come back the same week.</p>
+              <span class="process-scroll__chip" aria-hidden="true">04</span>
+              <div class="process-scroll__body">
+                <p class="process-scroll__kicker">Stitch &amp; install</p>
+                <h3 class="process-scroll__label">Delivered and mounted.</h3>
+                <p class="process-scroll__desc">Cut, stitched, hung and squared by our team. Any drop off by a finger — we come back the same week.</p>
+                <p class="process-scroll__meta">One-year alteration cover</p>
+              </div>
             </li>
           </ol>
-          <div class="process-scroll__sticky">
+
+          <div class="process-scroll__sticky" aria-hidden="true">
+            <div class="process-scroll__pips" data-scroll-pips>
+              <span class="process-scroll__pip is-active" data-pip="1"></span>
+              <span class="process-scroll__pip" data-pip="2"></span>
+              <span class="process-scroll__pip" data-pip="3"></span>
+              <span class="process-scroll__pip" data-pip="4"></span>
+            </div>
+
+            <div class="process-scroll__numeral" data-scroll-numeral>
+              <span class="is-active" data-num="1">01</span>
+              <span data-num="2">02</span>
+              <span data-num="3">03</span>
+              <span data-num="4">04</span>
+            </div>
+
             <div class="process-scroll__images" data-scroll-images>
               <div class="process-scroll__image is-active" data-step="1">
                 <div class="ph ph--dark"><div class="ph__inner"><p class="ph__tag">Real photo · step 1</p><p class="ph__note">Customer on the phone / WhatsApp screenshot</p></div></div>
@@ -1011,6 +1088,16 @@
               </div>
               <div class="process-scroll__image" data-step="4">
                 <div class="ph ph--dark"><div class="ph__inner"><p class="ph__tag">Real photo · step 4</p><p class="ph__note">Rod being fitted / drapes hanging in a finished room</p></div></div>
+              </div>
+            </div>
+
+            <div class="process-scroll__caption">
+              <div class="process-scroll__caption-chip" data-scroll-caption>
+                <span class="process-scroll__caption-chip-sizer">Cut, stitched, mounted and squared by our own team.</span>
+                <span class="is-active" data-cap="1">Photo, phone or WhatsApp — one shortlist.</span>
+                <span data-cap="2">In-home measurement, no obligation.</span>
+                <span data-cap="3">Five choices, not four thousand.</span>
+                <span data-cap="4">Cut, stitched, mounted and squared by our own team.</span>
               </div>
             </div>
           </div>
