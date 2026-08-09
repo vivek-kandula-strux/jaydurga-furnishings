@@ -136,89 +136,8 @@
     setInterval(advance, INTERVAL_MS);
   })();
 
-  /* ─── VANISHING PLACEHOLDER · ghost input in enquiry form ──
-     Uses a single reschedulable timer instead of setInterval so
-     focus/blur can cleanly cancel + restart without overlaps. */
-  (function ghostPlaceholder() {
-    const wrap = document.querySelector('[data-ghost-input]');
-    if (!wrap) return;
-    const hint = wrap.querySelector('[data-ghost-hint]');
-    const textarea = wrap.querySelector('textarea');
-    if (!hint || !textarea) return;
-
-    if (REDUCED) return;
-
-    const HINTS = [
-      "Living room curtains for a 3BHK in Kondapur...",
-      "Need to recover two sofas — grey linen if possible...",
-      "Blackout curtains for the bedroom — motorised if possible...",
-      "Full home measurement — I'm not sure where to start."
-    ];
-    const CYCLE_MS = 3200;
-
-    let i = 0;
-    let timer = null;      // pending setTimeout id
-    let entering = null;   // active entry tween
-    let exiting = null;    // active exit tween
-
-    function killTweens() {
-      if (entering) { entering.kill(); entering = null; }
-      if (exiting)  { exiting.kill();  exiting  = null; }
-    }
-
-    function isBusy() {
-      return document.activeElement === textarea || !!textarea.value;
-    }
-
-    function show(text) {
-      killTweens();
-      hint.textContent = text;
-      entering = gsap.fromTo(hint,
-        { opacity: 0, y: 8, filter: 'blur(4px)' },
-        { opacity: 0.55, y: 0, filter: 'blur(0px)', duration: 0.55, ease: 'power2.out' });
-      exiting = gsap.to(hint, {
-        opacity: 0, y: -8, filter: 'blur(4px)',
-        duration: 0.45, ease: 'power2.in',
-        delay: CYCLE_MS / 1000 - 0.6
-      });
-    }
-
-    function tick() {
-      if (isBusy()) return;
-      show(HINTS[i]);
-      i = (i + 1) % HINTS.length;
-    }
-
-    function schedule() {
-      cancel();
-      timer = setTimeout(function loop() {
-        tick();
-        timer = setTimeout(loop, CYCLE_MS);
-      }, 0);
-    }
-
-    function cancel() {
-      if (timer) { clearTimeout(timer); timer = null; }
-      killTweens();
-      gsap.set(hint, { opacity: 0 });
-    }
-
-    // Initial fire.
-    schedule();
-
-    textarea.addEventListener('focus', () => {
-      cancel();
-      wrap.classList.add('is-focused');
-    });
-    textarea.addEventListener('blur', () => {
-      wrap.classList.remove('is-focused');
-      if (!textarea.value) schedule();
-    });
-    textarea.addEventListener('input', () => {
-      wrap.classList.toggle('has-value', !!textarea.value);
-      if (textarea.value) cancel();
-    });
-  })();
+  /* Ghost-input placeholder animation removed — the unified enquiry form
+     (js/enquiry-form.js) uses static placeholders across all pages. */
 
   /* ─── BENTO · focus-dim on hover ──────────────────── */
   (function bentoFocus() {
@@ -344,65 +263,8 @@
     });
   })();
 
-  /* ─── ENQUIRY FORM · Apps Script POST + success checkmark ── */
-  (function enquiryForm() {
-    const GAS_ENDPOINT_URL = 'GAS_ENDPOINT_URL';
-
-    const form = document.getElementById('enquire-form');
-    if (!form) return;
-    const status = form.querySelector('[data-form-status]');
-    const submit = form.querySelector('.enquire__submit');
-    const label  = submit && submit.querySelector('.enquire__submit-label');
-
-    function setStatus(msg, kind) {
-      if (!status) return;
-      status.textContent = msg;
-      status.classList.remove('is-error', 'is-success');
-      if (kind) status.classList.add('is-' + kind);
-    }
-
-    if (GAS_ENDPOINT_URL === 'GAS_ENDPOINT_URL') {
-      const banner = document.createElement('p');
-      banner.className = 'enquire__banner';
-      banner.textContent = "This form isn't connected yet — please WhatsApp or call us and we'll pick up the same day.";
-      form.insertBefore(banner, form.firstChild);
-      submit.disabled = true;
-      if (label) label.textContent = 'Please WhatsApp us instead';
-      // Belt-and-braces: block the browser-default POST if disabled state is bypassed.
-      form.addEventListener('submit', function (e) { e.preventDefault(); });
-      return;
-    }
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      if (form._gotcha && form._gotcha.value) { showSuccess(); return; }
-      if (!form.checkValidity()) {
-        setStatus("Please fill in your name, phone and what you're looking for.", 'error');
-        form.reportValidity();
-        return;
-      }
-      const data = new FormData(form);
-      data.append('submittedAt', new Date().toISOString());
-      data.append('pageUrl', location.href);
-      submit.disabled = true;
-      setStatus('Sending...');
-      fetch(GAS_ENDPOINT_URL, { method: 'POST', body: data })
-        .then((res) => { if (!res.ok) throw new Error('bad'); return res.text(); })
-        .then(() => { showSuccess(); form.reset(); })
-        .catch(() => { setStatus('Something went wrong. Please WhatsApp or call us instead.', 'error'); })
-        .finally(() => { submit.disabled = false; });
-    });
-
-    function showSuccess() {
-      submit.classList.add('is-success');
-      if (label) label.textContent = "Sent — we'll reply today";
-      setStatus('', 'success');
-      setTimeout(() => {
-        submit.classList.remove('is-success');
-        if (label) label.textContent = 'Send enquiry';
-      }, 6000);
-    }
-  })();
+  /* Enquiry form submission moved to js/enquiry-form.js
+     (single source of truth for the unified form across all pages). */
 
   /* ═══════════════════════════════════════════════════════════
      TIER 2 · magnetic buttons · scroll-progress · custom cursor

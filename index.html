@@ -10,7 +10,7 @@
   <!-- 150 chars, single-sentence pitch -->
   <meta name="description" content="Curtains, blinds, sofa fabrics, mattresses, carpets, bedding and bath — measured, stitched and installed by one team. Ameerpet, Hyderabad." />
 
-  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+  <link rel="icon" type="image/png" href="assets/jaydurga-logo.png" />
   <link rel="canonical" href="https://jaydurga.in/" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -63,7 +63,7 @@
     }
 
     /* ═════════════════════════════════════════
-       PLACEHOLDER TILES (imagery + testimonials)
+       PLACEHOLDER TILES (imagery)
        ═════════════════════════════════════════ */
     .ph {
       position: relative;
@@ -87,6 +87,17 @@
         #1A130E;
       color: #FBF6EA;
     }
+    .ph img,
+    .ph picture,
+    .ph picture > img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
     .ph__inner {
       padding: 14px 18px;
       background: rgba(252,250,244,.92);
@@ -94,6 +105,8 @@
       max-width: 82%;
       text-align: center;
       box-shadow: 0 8px 24px -14px rgba(23,19,16,.25);
+      position: relative;
+      z-index: 2;
     }
     .ph--dark .ph__inner {
       background: rgba(15,11,8,.7);
@@ -131,11 +144,11 @@
     }
     .hero__copy { padding: 8px 4px 4px 8px; display: flex; flex-direction: column; min-width: 0; }
     .hero__title {
-      font-size: clamp(42px, 5.2vw, 82px);
-      line-height: 0.99;
-      letter-spacing: -0.035em;
+      font-size: clamp(40px, 4.4vw, 66px);
+      line-height: 1.02;
+      letter-spacing: -0.03em;
       font-weight: 700;
-      margin: 0 0 24px;
+      margin: 0 0 22px;
       color: var(--ink);
     }
     .hero__lede { font-size: 16px; color: var(--ink-soft); max-width: 44ch; margin: 0 0 32px; line-height: 1.55; }
@@ -360,168 +373,7 @@
       line-height: 1.4;
     }
 
-    /* ═════════════════════════════════════════
-       ENQUIRE · form-primary layout
-       ═════════════════════════════════════════ */
-    .enquire {
-      background: var(--dark);
-      color: #FBF6EA;
-      border-radius: var(--radius-lg);
-      padding: clamp(36px, 4.5vw, 64px);
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-      gap: clamp(28px, 4vw, 60px);
-      background-image: radial-gradient(120% 60% at 0% 0%, rgba(169,82,44,.16) 0%, rgba(169,82,44,0) 55%);
-    }
-    .enquire__intro h2 {
-      font-size: clamp(28px, 3.2vw, 44px);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.04;
-      margin: 0 0 18px;
-      color: #FBF6EA;
-      max-width: 16ch;
-    }
-    .enquire__intro p {
-      color: rgba(251,246,234,.75);
-      font-size: 15.5px;
-      line-height: 1.6;
-      margin: 0 0 22px;
-      max-width: 40ch;
-    }
-    .enquire__intro strong { color: #FBF6EA; font-weight: 600; }
-    .enquire__ways {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 24px;
-    }
-    .enquire__way {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 16px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: var(--radius-sm);
-      color: #FBF6EA;
-      font-size: 14px;
-      font-weight: 600;
-      transition: background .2s ease, border-color .2s ease, transform .2s ease;
-    }
-    .enquire__way:hover {
-      background: rgba(255,255,255,.09);
-      border-color: rgba(255,255,255,.24);
-      transform: translateY(-2px);
-    }
-    .enquire__way-ic {
-      width: 36px; height: 36px;
-      border-radius: 10px;
-      background: rgba(255,255,255,.09);
-      display: grid;
-      place-items: center;
-      color: #FBF6EA;
-      flex-shrink: 0;
-    }
-    .enquire__way-ic svg { width: 18px; height: 18px; }
-    .enquire__way small {
-      display: block;
-      font-size: 11.5px;
-      font-weight: 500;
-      color: rgba(251,246,234,.6);
-      margin-top: 2px;
-      letter-spacing: normal;
-      text-transform: none;
-    }
-
-    .enquire__form {
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: var(--radius);
-      padding: clamp(24px, 2.6vw, 34px);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .enquire__form label {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: normal;
-      text-transform: none;
-      color: rgba(251,246,234,.85);
-      margin-bottom: 2px;
-      display: block;
-    }
-    .enquire__form input,
-    .enquire__form select,
-    .enquire__form textarea {
-      background: rgba(0,0,0,.3);
-      border: 1px solid rgba(255,255,255,.16);
-      border-radius: var(--radius-sm);
-      padding: 12px 14px;
-      font-size: 14.5px;
-      color: #FBF6EA;
-      font-family: inherit;
-      width: 100%;
-      transition: border-color .2s ease, background .2s ease;
-    }
-    .enquire__form input::placeholder,
-    .enquire__form textarea::placeholder { color: rgba(251,246,234,.55); }
-    .enquire__form input:focus,
-    .enquire__form select:focus,
-    .enquire__form textarea:focus {
-      outline: none;
-      border-color: rgba(251,246,234,.6);
-      background: rgba(0,0,0,.4);
-    }
-    .enquire__form textarea { resize: vertical; min-height: 96px; }
-    .enquire__row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .enquire__submit {
-      background: #FBF6EA;
-      color: var(--ink);
-      padding: 14px 22px;
-      border-radius: var(--pill);
-      font-size: 14px;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      transition: transform .2s ease, background .2s ease;
-      cursor: pointer;
-    }
-    .enquire__submit:hover:not(:disabled) { background: #fff; transform: translateY(-1px); }
-    .enquire__submit:disabled { opacity: .55; cursor: not-allowed; transform: none; }
-    .enquire__status {
-      font-size: 13px;
-      color: rgba(251,246,234,.75);
-      min-height: 20px;
-      margin: 4px 0 0;
-    }
-    .enquire__status.is-error   { color: #ffb894; }
-    .enquire__status.is-success { color: #a8e0b8; }
-
-    /* Inactive-endpoint banner shown when the form isn't wired yet */
-    .enquire__banner {
-      background: rgba(255, 184, 148, .12);
-      border: 1px solid rgba(255, 184, 148, .3);
-      border-radius: var(--radius-sm);
-      padding: 12px 14px;
-      font-size: 13px;
-      color: #ffd6bd;
-      margin: 0 0 4px;
-      line-height: 1.5;
-    }
-
-    /* Honeypot — off-screen (bots look for display:none and skip it) */
-    .honeypot {
-      position: absolute !important;
-      left: -9999px !important;
-      top: -9999px !important;
-      width: 1px !important;
-      height: 1px !important;
-      opacity: 0 !important;
-    }
+    /* ENQUIRE styles moved to css/wireframe.css (shared across pages) */
 
     /* ═════════════════════════════════════════
        PROMISES · 4-part trust strip
@@ -627,44 +479,6 @@
     }
 
     /* ═════════════════════════════════════════
-       CRAFT · image + copy (stats removed)
-       ═════════════════════════════════════════ */
-    .craft {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-      gap: clamp(24px, 3vw, 48px);
-      align-items: stretch;
-    }
-    .craft__img {
-      position: relative;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      aspect-ratio: 5 / 6;
-      background: #1A130E;
-    }
-    .craft__body {
-      padding: 8px 4px 12px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .craft__title {
-      font-size: clamp(28px, 3vw, 44px);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.02;
-      margin: 0 0 20px;
-      max-width: 16ch;
-    }
-    .craft__lede {
-      font-size: 15.5px;
-      color: var(--ink-soft);
-      line-height: 1.65;
-      margin: 0 0 16px;
-      max-width: 44ch;
-    }
-
-    /* ═════════════════════════════════════════
        BRANDS · pill row
        ═════════════════════════════════════════ */
     .brands {
@@ -702,29 +516,6 @@
       background: var(--rust);
       opacity: .72;
     }
-
-    /* ═════════════════════════════════════════
-       VOICES · placeholder testimonials
-       ═════════════════════════════════════════ */
-    .voices__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 16px; }
-    .voice-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      padding: clamp(22px, 2.2vw, 30px);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 20px;
-      min-height: 200px;
-    }
-    .voice-card--feature {
-      background: var(--dark);
-      color: #FBF6EA;
-      border-color: transparent;
-      background-image: radial-gradient(120% 80% at 100% 0%, rgba(169,82,44,.14) 0%, rgba(169,82,44,0) 60%);
-    }
-    .voice-card .ph { border-radius: var(--radius-sm); min-height: 140px; }
 
     /* ═════════════════════════════════════════
        SECTION HEAD (split)
@@ -766,10 +557,6 @@
     .fab__btn:hover { transform: translateY(-2px) scale(1.03); background: #000; }
     .fab__btn--wa   { background: #25D366; color: #fff; }
     .fab__btn--wa:hover   { background: #1EBE5D; }
-    .fab__btn--book { background: var(--rust); color: #fff; }
-    .fab__btn--book:hover { background: #92451f; }
-    .fab__btn--dir  { background: var(--shell); color: var(--ink); border: 1px solid var(--line); }
-    .fab__btn--dir:hover  { background: #fff; }
     .fab__label {
       position: absolute;
       right: calc(100% + 12px);
@@ -789,18 +576,18 @@
     .fab__btn:hover .fab__label { opacity: 1; }
     .fab__caption { display: none; }
 
-    /* Mobile FAB — bottom pill with labels */
+    /* Mobile FAB — compact bottom pill with two actions */
     @media (max-width: 720px) {
       .fab {
         flex-direction: row;
-        left: 12px;
+        left: auto;
         right: 12px;
         bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-        padding: 8px 10px 6px;
+        padding: 8px 14px 6px;
         background: rgba(15,11,8,.94);
         border-radius: var(--radius);
         box-shadow: 0 12px 32px -8px rgba(0,0,0,.5);
-        justify-content: space-around;
+        gap: 18px;
         -webkit-backdrop-filter: blur(10px);
         backdrop-filter: blur(10px);
         align-items: flex-start;
@@ -810,14 +597,13 @@
         box-shadow: none;
         margin: 0 auto;
       }
-      .fab__btn--dir { border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.08); color: #FBF6EA; }
       .fab__label { display: none; }
       .fab__group {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 4px;
-        min-width: 56px;
+        min-width: 52px;
         color: #FBF6EA;
       }
       .fab__caption {
@@ -846,20 +632,15 @@
       .process__steps { grid-template-columns: repeat(2, 1fr); gap: 24px 0; }
       .process__step:nth-child(3) { border-left: 0; padding-left: 0; padding-top: 24px; border-top: 1px solid var(--divider); }
       .process__step:nth-child(4) { padding-top: 24px; border-top: 1px solid var(--divider); }
-      .craft { grid-template-columns: 1fr; }
-      .craft__img { aspect-ratio: 4/3; }
       .brands { grid-template-columns: 1fr; }
-      .voices__grid { grid-template-columns: 1fr 1fr; }
-      .voice-card--feature { grid-column: span 2; }
-      .enquire { grid-template-columns: 1fr; }
       .windows { grid-template-columns: 1fr; }
-      .windows__img { aspect-ratio: 16 / 9; }
+      .windows__img { aspect-ratio: 4 / 3; }
       .section-head--split { grid-template-columns: 1fr; gap: 14px; align-items: start; }
     }
     @media (max-width: 720px) {
       .hero { grid-template-columns: 1fr; margin-top: 24px; }
       .hero__stage { aspect-ratio: 1.15 / 1; }
-      .hero__title { font-size: clamp(38px, 9vw, 54px); }
+      .hero__title { font-size: clamp(34px, 8vw, 48px); }
       .hero__stage-btn { width: 38px; height: 38px; }
       .hero__stage-btn--prev { left: 10px; }
       .hero__stage-btn--next { right: 10px; }
@@ -872,10 +653,6 @@
       .process { padding: 26px 20px; }
       .process__steps { grid-template-columns: 1fr; gap: 0; }
       .process__step + .process__step { border-left: 0; padding-left: 0; padding-top: 22px; margin-top: 22px; border-top: 1px solid var(--divider); }
-      .voices__grid { grid-template-columns: 1fr; }
-      .voice-card--feature { grid-column: span 1; }
-      .enquire { padding: 28px 22px; }
-      .enquire__row { grid-template-columns: 1fr; }
       body { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
     }
   </style>
@@ -892,24 +669,12 @@
            ═════════════════════════════════════════ -->
       <header class="nav">
         <a href="index.html" class="brand" aria-label="Jay Durga Furnishings · Home">
-          <span class="brand__mark" aria-hidden="true">
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
-              <path d="M5 20v-3a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v3" stroke-linecap="round"/>
-              <path d="M7 20v4M25 20v4" stroke-linecap="round"/>
-              <path d="M9 14v-3a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3" stroke-linecap="round"/>
-            </svg>
-          </span>
-          <span class="brand__wordmark">
-            <span class="brand__name">JAY DURGA</span>
-            <!-- REVIEW · verify "Since 1984" + "Ameerpet" tagline is accurate -->
-            <span class="brand__tag">Since 1984 · Ameerpet</span>
-          </span>
+          <img src="assets/jaydurga-logo.png" alt="Jaydurga Furnishings Extn. — Since 1984" class="brand__logo"/>
         </a>
 
         <nav class="nav__menu" id="primary-nav" aria-label="Primary">
           <a href="index.html" class="is-active">Home</a>
           <a href="collections.html">Collections</a>
-          <a href="gallery.html">Gallery</a>
           <a href="about.html">About</a>
           <a href="contact.html">Contact</a>
         </nav>
@@ -971,28 +736,19 @@
           <div class="hero__stage-track" data-stage-track>
             <div class="hero__stage-slide" role="group" aria-roledescription="slide" aria-label="1 of 3">
               <div class="ph ph--dark">
-                <div class="ph__inner">
-                  <p class="ph__tag">Real photo · slot 1</p>
-                  <p class="ph__note">Full-drop curtain in a Jay Durga customer home — hero image</p>
-                </div>
+                <img src="assets/images/lifestyle/curtains-hero-brocade.jpg" alt="Warm brocade curtains framing a tall window with afternoon sunlight spilling across an antique carpet" loading="eager"/>
               </div>
               <p class="hero__stage-cap">Full-drop drapes, cut for the window.</p>
             </div>
             <div class="hero__stage-slide" role="group" aria-roledescription="slide" aria-label="2 of 3">
               <div class="ph ph--dark">
-                <div class="ph__inner">
-                  <p class="ph__tag">Real photo · slot 2</p>
-                  <p class="ph__note">Sheer + blackout layered installation — close-up</p>
-                </div>
+                <img src="assets/images/lifestyle/gallery-curtain-sheer-plant.jpg" alt="A warm tan sheer curtain catching soft plant shadow in afternoon light" loading="lazy"/>
               </div>
               <p class="hero__stage-cap">Sheers behind blackouts, layered together.</p>
             </div>
             <div class="hero__stage-slide" role="group" aria-roledescription="slide" aria-label="3 of 3">
               <div class="ph ph--dark">
-                <div class="ph__inner">
-                  <p class="ph__tag">Real photo · slot 3</p>
-                  <p class="ph__note">Curtain fabric wall — showroom shot</p>
-                </div>
+                <img src="assets/images/lifestyle/gallery-fabric-bolts.jpg" alt="Warm-wood cubby shelves stacked with folded printed fabrics — the fabric wall" loading="lazy"/>
               </div>
               <p class="hero__stage-cap">The fabric wall — pick from what you can touch.</p>
             </div>
@@ -1055,10 +811,7 @@
         </div>
         <figure class="windows__img">
           <div class="ph ph--dark">
-            <div class="ph__inner">
-              <p class="ph__tag">Real photo · window hero</p>
-              <p class="ph__note">Wide shot of a completed curtain installation — show pleats, drop and window styling clearly</p>
-            </div>
+            <img src="assets/images/lifestyle/gallery-curtain-cabin.jpg" alt="A living room with white sheer curtains at two tall windows, warm summer light and a tan armchair" loading="lazy"/>
           </div>
         </figure>
       </section>
@@ -1085,10 +838,7 @@
           <a href="collections.html" class="cat" aria-label="Sofa Fabrics &amp; Cushioning">
             <div class="cat__media">
               <div class="ph">
-                <div class="ph__inner">
-                  <p class="ph__tag">Real photo · category 02</p>
-                  <p class="ph__note">Sofa fabric roll wall or a recovered sofa — showroom shot</p>
-                </div>
+                <img src="assets/images/lifestyle/gallery-sofa-teal-velvet.jpg" alt="A carved-wood settee upholstered in muted teal velvet against a draped cream backdrop" loading="lazy"/>
               </div>
             </div>
             <div class="cat__text">
@@ -1100,10 +850,7 @@
           <a href="collections.html" class="cat" aria-label="Mattresses">
             <div class="cat__media">
               <div class="ph">
-                <div class="ph__inner">
-                  <p class="ph__tag">Real photo · category 03</p>
-                  <p class="ph__note">Mattress stack in showroom — Sleepwell / Kurlon / Duroflex signage visible</p>
-                </div>
+                <img src="assets/images/lifestyle/mattress-quilted-detail.jpg" alt="Close-up of a quilted mattress top-cover showing a tufted diamond pattern" loading="lazy"/>
               </div>
             </div>
             <div class="cat__text">
@@ -1115,10 +862,7 @@
           <a href="collections.html" class="cat" aria-label="Carpets &amp; Rugs">
             <div class="cat__media">
               <div class="ph">
-                <div class="ph__inner">
-                  <p class="ph__tag">Real photo · category 04</p>
-                  <p class="ph__note">Carpet / rug display — hand-knotted or dhurrie</p>
-                </div>
+                <img src="assets/images/lifestyle/gallery-carpet-kilim.jpg" alt="Rust and blue kilim rug on wood floor with a grey linen sofa and snake plant" loading="lazy"/>
               </div>
             </div>
             <div class="cat__text">
@@ -1130,10 +874,7 @@
           <a href="collections.html" class="cat" aria-label="Bedding">
             <div class="cat__media">
               <div class="ph">
-                <div class="ph__inner">
-                  <p class="ph__tag">Real photo · category 05</p>
-                  <p class="ph__note">Bedding stack — sheet sets, quilts, pillows, comforters</p>
-                </div>
+                <img src="assets/images/products/bedding-folded-stack.webp" alt="Folded stack of cotton bedsheets and pillowcases on a shelf, natural daylight" loading="lazy"/>
               </div>
             </div>
             <div class="cat__text">
@@ -1145,10 +886,7 @@
           <a href="collections.html" class="cat" aria-label="Bath">
             <div class="cat__media">
               <div class="ph">
-                <div class="ph__inner">
-                  <p class="ph__tag">Real photo · category 06</p>
-                  <p class="ph__note">Bath section — towel stack, bath mats, shower curtains</p>
-                </div>
+                <img src="assets/images/products/bath-towel-cognac.webp" alt="Folded cotton towels on a rustic wooden bench beside a tub, warm daylight" loading="lazy"/>
               </div>
             </div>
             <div class="cat__text">
@@ -1160,10 +898,7 @@
           <a href="collections.html" class="cat" aria-label="Décor &amp; Accessories">
             <div class="cat__media">
               <div class="ph">
-                <div class="ph__inner">
-                  <p class="ph__tag">Real photo · category 07</p>
-                  <p class="ph__note">Décor &amp; accessories — cushions, throws, table linen, small pieces</p>
-                </div>
+                <img src="assets/images/lifestyle/gallery-napkins-folded.jpg" alt="Stack of oat and grey linen napkins with lace-trim edge — table linen and accessories" loading="lazy"/>
               </div>
             </div>
             <div class="cat__text">
@@ -1175,96 +910,8 @@
         </div>
       </section>
 
-      <!-- ═════════════════════════════════════════
-           ENQUIRE · moved up · form-primary
-           ═════════════════════════════════════════ -->
-      <section class="enquire stack" id="enquire" aria-label="Enquire">
-        <div class="enquire__intro">
-          <p class="eyebrow eyebrow--light">Enquire</p>
-          <h2>Tell us the window, the room, or the whole home.</h2>
-          <p>
-            Fill this in and we'll reply <strong>within the same working day</strong>.
-            Or reach us directly — three ways, one team.
-          </p>
-          <div class="enquire__ways">
-            <!-- REVIEW · confirm landline vs mobile for the call button -->
-            <a class="enquire__way" href="tel:+914023730142">
-              <span class="enquire__way-ic" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                  <path d="M4 5c0 8 7 15 15 15l2-3-4-2-2 2c-3-1-6-4-7-7l2-2-2-4-4 1Z" stroke-linejoin="round"/>
-                </svg>
-              </span>
-              <div>Call us<small>+91 40 2373 0142</small></div>
-            </a>
-            <a class="enquire__way" href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I'd%20like%20to%20send%20a%20photo%20of%20my%20space%20and%20get%20a%20quick%20quote." target="_blank" rel="noopener">
-              <span class="enquire__way-ic" aria-hidden="true">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path fill="currentColor" d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm5.5 12.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.9-.5-1.9-1-2.6-1.9-.7-.9-1.2-1.9-1.5-2.7-.1-.3 0-.5.1-.6.1-.1.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2.1-.4 0-.6-.1-.2-.7-1.6-.9-2.1-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.6.1-.8.4-.3.4-1.1 1.1-1.1 2.6 0 1.6 1.2 3.1 1.4 3.3.2.2 2.4 3.6 5.7 5.1.8.3 1.4.5 1.9.6.8.2 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.6-.4Z"/>
-                </svg>
-              </span>
-              <div>WhatsApp us<small>Send a photo · quick reply</small></div>
-            </a>
-            <!-- REVIEW · replace href with the exact Google Maps directions URL for the showroom -->
-            <a class="enquire__way" href="https://maps.google.com/?q=Jay+Durga+Furnishings+Ameerpet+Hyderabad" target="_blank" rel="noopener">
-              <span class="enquire__way-ic" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                  <path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/>
-                  <circle cx="12" cy="10" r="2.4"/>
-                </svg>
-              </span>
-              <div>Get directions<small>Ameerpet Main Road · Metro-side</small></div>
-            </a>
-          </div>
-        </div>
-
-        <form class="enquire__form" id="enquire-form" novalidate>
-          <div>
-            <label for="f-name">Your name</label>
-            <input id="f-name" name="name" type="text" required autocomplete="name" placeholder="Full name" />
-          </div>
-          <div class="enquire__row">
-            <div>
-              <label for="f-phone">Phone</label>
-              <input id="f-phone" name="phone" type="tel" required autocomplete="tel" placeholder="10-digit mobile" pattern="[0-9+\s\-()]{7,}" />
-            </div>
-            <div>
-              <label for="f-area">Area</label>
-              <input id="f-area" name="area" type="text" placeholder="e.g. Kondapur" />
-            </div>
-          </div>
-          <div>
-            <label for="f-interest">I'm looking for</label>
-            <select id="f-interest" name="interest" required>
-              <option value="">Please choose</option>
-              <option>Curtains &amp; Windows</option>
-              <option>Sofa Fabrics &amp; Cushioning</option>
-              <option>Mattresses</option>
-              <option>Carpets &amp; Rugs</option>
-              <option>Bedding</option>
-              <option>Bath</option>
-              <option>Décor &amp; Accessories</option>
-              <option>Complete home consultation</option>
-              <option>Not sure yet</option>
-            </select>
-          </div>
-          <div>
-            <label for="f-notes">Anything else? (optional)</label>
-            <textarea id="f-notes" name="notes" placeholder="Room, window count, preferred visit time..."></textarea>
-          </div>
-          <input type="hidden" name="source" value="homepage" />
-          <div class="honeypot" aria-hidden="true">
-            <label for="f-website">Do not fill</label>
-            <input id="f-website" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
-          </div>
-          <button class="enquire__submit" type="submit">
-            Send enquiry
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="14" height="14" aria-hidden="true">
-              <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-          <p class="enquire__status" role="status" aria-live="polite" data-form-status></p>
-        </form>
-      </section>
+      <!-- Unified enquiry form · rendered by js/enquiry-form.js -->
+      <div data-enquiry-form id="enquire" data-source="homepage"></div>
 
       <!-- ═════════════════════════════════════════
            PROMISES · 4-part trust strip
@@ -1361,36 +1008,6 @@
       </section>
 
       <!-- ═════════════════════════════════════════
-           CRAFT · image + copy (stats removed pending verification)
-           ═════════════════════════════════════════ -->
-      <section class="craft stack" aria-label="Behind the curtain">
-        <figure class="craft__img">
-          <div class="ph ph--dark">
-            <div class="ph__inner">
-              <p class="ph__tag">Real photo · craft</p>
-              <p class="ph__note">Tailor at work in the Jay Durga stitching room — 4th floor</p>
-            </div>
-          </div>
-        </figure>
-        <div class="craft__body">
-          <p class="eyebrow">Why it hangs straight</p>
-          <h2 class="craft__title">Nothing is farmed out.</h2>
-          <p class="craft__lede">
-            The measure, the cut, the stitch, the mount and the alteration all
-            happen under one roof. When you call, you don't get transferred.
-          </p>
-          <p class="craft__lede">
-            Every curtain, blind and cushion cover leaves through the same door
-            it entered — reviewed by the same person from first shortlist to
-            final install.
-          </p>
-          <!-- REMOVED · stats block ("4,000 fabrics · 12 tailors · 1 master cutter · 5–7 days")
-               was pulled because every figure was unverified. Add back once the client
-               confirms exact numbers. -->
-        </div>
-      </section>
-
-      <!-- ═════════════════════════════════════════
            BRANDS · the names we stock
            REVIEW · confirm which brands Jay Durga is actively authorised for
            ═════════════════════════════════════════ -->
@@ -1413,51 +1030,6 @@
         </div>
       </section>
 
-      <!-- ═════════════════════════════════════════
-           VOICES · placeholder cards
-           Real quotes will replace these once the client supplies
-           three named, authorised testimonials.
-           ═════════════════════════════════════════ -->
-      <section class="voices stack" aria-label="Customer voices">
-        <header class="section-head--split">
-          <div>
-            <p class="eyebrow">What our families say</p>
-            <h2 class="display display--md">Three notes from the last year.</h2>
-          </div>
-          <p class="lede">
-            Real, authorised customer notes will live here. Placeholder cards
-            below show the layout — client to supply three quotes with name,
-            neighbourhood and permission to publish.
-          </p>
-        </header>
-        <div class="voices__grid">
-          <figure class="voice-card voice-card--feature">
-            <div class="ph ph--dark">
-              <div class="ph__inner">
-                <p class="ph__tag">Real testimonial · feature quote</p>
-                <p class="ph__note">Longer quote (2–3 sentences) with customer name, neighbourhood and year — with written permission to publish.</p>
-              </div>
-            </div>
-          </figure>
-          <figure class="voice-card">
-            <div class="ph">
-              <div class="ph__inner">
-                <p class="ph__tag">Real testimonial · card 2</p>
-                <p class="ph__note">Short quote (1–2 sentences) + name + area + year.</p>
-              </div>
-            </div>
-          </figure>
-          <figure class="voice-card">
-            <div class="ph">
-              <div class="ph__inner">
-                <p class="ph__tag">Real testimonial · card 3</p>
-                <p class="ph__note">Short quote (1–2 sentences) + name + area + year.</p>
-              </div>
-            </div>
-          </figure>
-        </div>
-      </section>
-
       <!-- REMOVED · prices strip (Curtains ₹450/sq.ft, Blinds ₹250, etc.)
            was pulled because every price was unverified. Add back once
            the client confirms current rates, or leave off in favour of
@@ -1467,8 +1039,9 @@
       <footer class="site-footer">
         <div class="site-footer__grid">
           <div class="site-footer__brand">
-            <!-- REVIEW · verify brand, address block, hours -->
-            <p><strong>Jay Durga Furnishings.</strong> Since 1984.</p>
+            <!-- REVIEW · verify address block and hours -->
+            <img src="assets/jaydurga-logo.png" alt="Jaydurga Furnishings Extn." class="site-footer__logo"/>
+            <p>Since 1984.</p>
             <p>4th Floor, Mandhana Towers<br/>Ameerpet Main Road<br/>Hyderabad 500 016, Telangana</p>
             <p>
               <a href="tel:+914023730142">+91 40 2373 0142</a><br/>
@@ -1493,7 +1066,6 @@
             <h4>House</h4>
             <ul>
               <li><a href="about.html">About us</a></li>
-              <li><a href="gallery.html">Gallery</a></li>
               <li><a href="contact.html">Visit · Contact</a></li>
             </ul>
           </div>
@@ -1523,30 +1095,10 @@
   </main>
 
   <!-- ═════════════════════════════════════════
-       FAB · Call · WhatsApp · Book · Directions
-       Mobile: bottom pill with word labels. Desktop: right rail with hover labels.
+       FAB · WhatsApp + Call only
+       Mobile: bottom pill with captions. Desktop: right rail with hover labels.
        ═════════════════════════════════════════ -->
   <div class="fab" role="complementary" aria-label="Quick actions">
-    <div class="fab__group">
-      <a class="fab__btn fab__btn--dir" href="https://maps.google.com/?q=Jay+Durga+Furnishings+Ameerpet+Hyderabad" target="_blank" rel="noopener" aria-label="Get directions">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/>
-          <circle cx="12" cy="10" r="2.4"/>
-        </svg>
-        <span class="fab__label">Directions</span>
-      </a>
-      <span class="fab__caption">Map</span>
-    </div>
-    <div class="fab__group">
-      <a class="fab__btn fab__btn--book" href="#enquire" aria-label="Book free measurement">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <rect x="4" y="5" width="16" height="15" rx="2"/>
-          <path d="M8 3v4M16 3v4M4 10h16" stroke-linecap="round"/>
-        </svg>
-        <span class="fab__label">Book measurement</span>
-      </a>
-      <span class="fab__caption">Book</span>
-    </div>
     <div class="fab__group">
       <a class="fab__btn fab__btn--wa" href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I%20have%20an%20enquiry%20(floating%20button)." target="_blank" rel="noopener" aria-label="WhatsApp us">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -1622,76 +1174,9 @@
       });
     })();
 
-    // ─── Enquiry form → Google Apps Script ──
-    // See GOOGLE-SHEETS-FORM-SETUP.md for the .gs script + deployment steps.
-    (function () {
-      // TODO · Replace with the deployed Apps Script Web App URL.
-      var GAS_ENDPOINT_URL = 'GAS_ENDPOINT_URL';
-
-      var form = document.getElementById('enquire-form');
-      if (!form) return;
-      var status = form.querySelector('[data-form-status]');
-      var submit = form.querySelector('.enquire__submit');
-
-      function setStatus(msg, kind) {
-        status.textContent = msg;
-        status.classList.remove('is-error', 'is-success');
-        if (kind) status.classList.add('is-' + kind);
-      }
-
-      // If the endpoint hasn't been wired yet, show a visible banner up front
-      // and disable submit — so the form never accepts a lead into the void.
-      if (GAS_ENDPOINT_URL === 'GAS_ENDPOINT_URL') {
-        var banner = document.createElement('p');
-        banner.className = 'enquire__banner';
-        banner.innerHTML = 'This form isn’t connected yet — please WhatsApp or call us and we’ll pick up the same day.';
-        form.insertBefore(banner, form.firstChild);
-        submit.disabled = true;
-        submit.textContent = 'Please WhatsApp us instead';
-        return;
-      }
-
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        // Honeypot — silently succeed
-        if (form._gotcha && form._gotcha.value) {
-          setStatus('Thanks — we\'ll be in touch.', 'success');
-          form.reset();
-          return;
-        }
-
-        if (!form.checkValidity()) {
-          setStatus('Please fill in your name, phone and what you\'re looking for.', 'error');
-          form.reportValidity();
-          return;
-        }
-
-        var data = new FormData(form);
-        data.append('submittedAt', new Date().toISOString());
-        data.append('pageUrl', location.href);
-
-        submit.disabled = true;
-        setStatus('Sending...');
-
-        fetch(GAS_ENDPOINT_URL, { method: 'POST', body: data })
-          .then(function (res) {
-            if (!res.ok) throw new Error('Bad response');
-            return res.text();
-          })
-          .then(function () {
-            setStatus('Thanks — we\'ll reply within the same working day.', 'success');
-            form.reset();
-          })
-          .catch(function () {
-            setStatus('Something went wrong. Please WhatsApp or call us instead.', 'error');
-          })
-          .finally(function () {
-            submit.disabled = false;
-          });
-      });
-    })();
+    // Enquiry form submission handled by js/enquiry-form.js (unified across pages)
   </script>
 
+  <script src="js/enquiry-form.js" defer></script>
 </body>
 </html>

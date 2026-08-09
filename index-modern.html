@@ -8,7 +8,7 @@
   <title>Jay Durga Furnishings — modern preview · Curtains, windows &amp; complete home furnishings</title>
   <meta name="description" content="Curtains, blinds, sofa fabrics, mattresses, carpets, bedding and bath — measured, stitched and installed by one team. Ameerpet, Hyderabad." />
 
-  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+  <link rel="icon" type="image/png" href="assets/jaydurga-logo.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -194,50 +194,7 @@
       opacity: .55; filter: blur(1px) saturate(.85); transform: scale(.99);
     }
 
-    /* ENQUIRE */
-    .enquire { background: var(--dark); color: #FBF6EA; border-radius: var(--radius-lg); padding: clamp(36px, 4.5vw, 64px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(28px, 4vw, 60px); background-image: radial-gradient(120% 60% at 0% 0%, rgba(169,82,44,.16) 0%, rgba(169,82,44,0) 55%); }
-    .enquire__intro h2 { font-size: clamp(28px, 3.2vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.04; margin: 0 0 18px; color: #FBF6EA; max-width: 16ch; }
-    .enquire__intro p { color: rgba(251,246,234,.75); font-size: 15.5px; line-height: 1.6; margin: 0 0 22px; max-width: 40ch; }
-    .enquire__intro strong { color: #FBF6EA; font-weight: 600; }
-    .enquire__ways { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
-    .enquire__way { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius-sm); color: #FBF6EA; font-size: 14px; font-weight: 600; transition: background .2s ease, border-color .2s ease, transform .2s ease; }
-    .enquire__way:hover { background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.24); transform: translateY(-2px); }
-    .enquire__way-ic { width: 36px; height: 36px; border-radius: 10px; background: rgba(255,255,255,.09); display: grid; place-items: center; color: #FBF6EA; flex-shrink: 0; }
-    .enquire__way-ic svg { width: 18px; height: 18px; }
-    .enquire__way small { display: block; font-size: 11.5px; font-weight: 500; color: rgba(251,246,234,.6); margin-top: 2px; }
-
-    .enquire__form { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius); padding: clamp(24px, 2.6vw, 34px); display: flex; flex-direction: column; gap: 16px; }
-    .enquire__form label { font-size: 13px; font-weight: 600; color: rgba(251,246,234,.85); margin-bottom: 2px; display: block; }
-    .enquire__form input, .enquire__form select, .enquire__form textarea { background: rgba(0,0,0,.3); border: 1px solid rgba(255,255,255,.16); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 14.5px; color: #FBF6EA; font-family: inherit; width: 100%; transition: border-color .2s ease, background .2s ease; }
-    .enquire__form input::placeholder, .enquire__form textarea::placeholder { color: rgba(251,246,234,.55); }
-    .enquire__form input:focus, .enquire__form select:focus, .enquire__form textarea:focus { outline: none; border-color: rgba(251,246,234,.6); background: rgba(0,0,0,.4); }
-    .enquire__form textarea { resize: vertical; min-height: 96px; }
-    .enquire__row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-    /* Ghost input · vanishing placeholder */
-    .ghost-input { position: relative; }
-    .ghost-input textarea { position: relative; z-index: 2; background: rgba(0,0,0,.3); }
-    .ghost-input__hint { position: absolute; top: 12px; left: 14px; right: 14px; z-index: 3; pointer-events: none; font-size: 14.5px; color: rgba(251,246,234,.55); line-height: 1.5; opacity: 0; }
-    .ghost-input.has-value .ghost-input__hint,
-    .ghost-input.is-focused .ghost-input__hint { display: none; }
-
-    /* Submit + success morph */
-    .enquire__submit { background: #FBF6EA; color: var(--ink); padding: 14px 22px; border-radius: var(--pill); font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: transform .2s ease, background .2s ease, color .3s ease; cursor: pointer; position: relative; }
-    .enquire__submit:hover:not(:disabled) { background: #fff; transform: translateY(-1px); }
-    .enquire__submit:disabled { opacity: .55; cursor: not-allowed; transform: none; }
-    .enquire__submit.is-success { background: #a8e0b8; color: #0f4d2e; }
-    .enquire__submit .check-svg { width: 18px; height: 18px; display: none; }
-    .enquire__submit.is-success .check-svg { display: inline-block; }
-    .enquire__submit.is-success .send-svg { display: none; }
-    .check-svg path { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 24; stroke-dashoffset: 24; }
-    .enquire__submit.is-success .check-svg path { animation: checkDraw .55s .05s ease-out forwards; }
-    @keyframes checkDraw { to { stroke-dashoffset: 0; } }
-
-    .enquire__status { font-size: 13px; color: rgba(251,246,234,.75); min-height: 20px; margin: 4px 0 0; }
-    .enquire__status.is-error { color: #ffb894; }
-    .enquire__status.is-success { color: #a8e0b8; }
-    .enquire__banner { background: rgba(255, 184, 148, .12); border: 1px solid rgba(255, 184, 148, .3); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 13px; color: #ffd6bd; margin: 0 0 4px; line-height: 1.5; }
-    .honeypot { position: absolute !important; left: -9999px !important; top: -9999px !important; width: 1px !important; height: 1px !important; opacity: 0 !important; }
+    /* ENQUIRE styles moved to css/wireframe.css (shared across pages) */
 
     /* PROMISES */
     .promises { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; background: var(--panel); border-radius: var(--radius-lg); padding: 26px clamp(20px, 2.6vw, 32px); }
@@ -393,7 +350,6 @@
       .brands-marquee__note { text-align: left; }
       .voices__grid { grid-template-columns: 1fr 1fr; }
       .voice-card--feature { grid-column: span 2; }
-      .enquire { grid-template-columns: 1fr; }
       .section-head--split { grid-template-columns: 1fr; gap: 14px; align-items: start; }
       .process-scroll__grid { grid-template-columns: 1fr; }
       .process-scroll__sticky { position: relative; top: 0; height: 52vh; margin-bottom: 28px; order: -1; }
@@ -421,8 +377,6 @@
       .promise:first-child { border-top: 0 !important; padding-top: 4px; }
       .voices__grid { grid-template-columns: 1fr; }
       .voice-card--feature { grid-column: span 1; }
-      .enquire { padding: 28px 22px; }
-      .enquire__row { grid-template-columns: 1fr; }
       body { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
     }
 
@@ -657,24 +611,13 @@
       <!-- HEADER -->
       <header class="nav">
         <a href="index.html" class="brand" aria-label="Jay Durga Furnishings · Home">
-          <span class="brand__mark" aria-hidden="true">
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
-              <path d="M5 20v-3a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3v3" stroke-linecap="round"/>
-              <path d="M7 20v4M25 20v4" stroke-linecap="round"/>
-              <path d="M9 14v-3a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3" stroke-linecap="round"/>
-            </svg>
-          </span>
-          <span class="brand__wordmark">
-            <span class="brand__name">JAY DURGA</span>
-            <span class="brand__tag">Modern preview · Since 1984</span>
-          </span>
+          <img src="assets/jaydurga-logo.png" alt="Jaydurga Furnishings Extn. — Since 1984" class="brand__logo"/>
         </a>
 
         <nav class="nav__menu" id="primary-nav" aria-label="Primary">
           <a href="index.html">Home</a>
           <a href="index-modern.html" class="is-active">Modern</a>
           <a href="collections.html">Collections</a>
-          <a href="gallery.html">Gallery</a>
           <a href="about.html">About</a>
           <a href="contact.html">Contact</a>
         </nav>
@@ -908,88 +851,8 @@
         </div>
       </section>
 
-      <!-- ENQUIRE -->
-      <section class="enquire stack blur-fade" id="enquire" aria-label="Enquire">
-        <div class="enquire__intro">
-          <p class="eyebrow eyebrow--light">Enquire</p>
-          <h2>Tell us the window, the room, or the whole home.</h2>
-          <p>Fill this in and we'll reply <strong>within the same working day</strong>. Or reach us directly — three ways, one team.</p>
-          <div class="enquire__ways">
-            <a class="enquire__way" href="tel:+914023730142">
-              <span class="enquire__way-ic" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5c0 8 7 15 15 15l2-3-4-2-2 2c-3-1-6-4-7-7l2-2-2-4-4 1Z" stroke-linejoin="round"/></svg>
-              </span>
-              <div>Call us<small>+91 40 2373 0142</small></div>
-            </a>
-            <a class="enquire__way" href="https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I'd%20like%20to%20send%20a%20photo." target="_blank" rel="noopener">
-              <span class="enquire__way-ic" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm5.5 12.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.9-.5-1.9-1-2.6-1.9-.7-.9-1.2-1.9-1.5-2.7-.1-.3 0-.5.1-.6.1-.1.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2.1-.4 0-.6-.1-.2-.7-1.6-.9-2.1-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.6.1-.8.4-.3.4-1.1 1.1-1.1 2.6 0 1.6 1.2 3.1 1.4 3.3.2.2 2.4 3.6 5.7 5.1.8.3 1.4.5 1.9.6.8.2 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.6-.4Z"/></svg>
-              </span>
-              <div>WhatsApp us<small>Send a photo · quick reply</small></div>
-            </a>
-            <a class="enquire__way" href="https://maps.google.com/?q=Jay+Durga+Furnishings+Ameerpet+Hyderabad" target="_blank" rel="noopener">
-              <span class="enquire__way-ic" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4"/></svg>
-              </span>
-              <div>Get directions<small>Ameerpet Main Road · Metro-side</small></div>
-            </a>
-          </div>
-        </div>
-
-        <form class="enquire__form" id="enquire-form" novalidate>
-          <div>
-            <label for="f-name">Your name</label>
-            <input id="f-name" name="name" type="text" required autocomplete="name" placeholder="Full name" />
-          </div>
-          <div class="enquire__row">
-            <div>
-              <label for="f-phone">Phone</label>
-              <input id="f-phone" name="phone" type="tel" required autocomplete="tel" placeholder="10-digit mobile" pattern="[0-9+\s\-()]{7,}" />
-            </div>
-            <div>
-              <label for="f-area">Area</label>
-              <input id="f-area" name="area" type="text" placeholder="e.g. Kondapur" />
-            </div>
-          </div>
-          <div>
-            <label for="f-interest">I'm looking for</label>
-            <select id="f-interest" name="interest" required>
-              <option value="">Please choose</option>
-              <option>Curtains &amp; Windows</option>
-              <option>Sofa Fabrics &amp; Cushioning</option>
-              <option>Mattresses</option>
-              <option>Carpets &amp; Rugs</option>
-              <option>Bedding</option>
-              <option>Bath</option>
-              <option>Décor &amp; Accessories</option>
-              <option>Complete home consultation</option>
-              <option>Not sure yet</option>
-            </select>
-          </div>
-          <div>
-            <label for="f-notes">Anything else? (optional)</label>
-            <div class="ghost-input" data-ghost-input>
-              <textarea id="f-notes" name="notes" aria-describedby="f-notes-hint"></textarea>
-              <span class="ghost-input__hint" id="f-notes-hint" data-ghost-hint aria-hidden="true"></span>
-            </div>
-          </div>
-          <input type="hidden" name="source" value="homepage-modern" />
-          <div class="honeypot" aria-hidden="true">
-            <label for="f-website">Do not fill</label>
-            <input id="f-website" name="_gotcha" type="text" tabindex="-1" autocomplete="off" />
-          </div>
-          <button class="enquire__submit" type="submit">
-            <span class="enquire__submit-label">Send enquiry</span>
-            <svg class="send-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="14" height="14" aria-hidden="true">
-              <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <svg class="check-svg" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M5 12l5 5 9-11"/>
-            </svg>
-          </button>
-          <p class="enquire__status" role="status" aria-live="polite" data-form-status></p>
-        </form>
-      </section>
+      <!-- Unified enquiry form · rendered by js/enquiry-form.js -->
+      <div class="blur-fade" data-enquiry-form id="enquire" data-source="homepage-modern"></div>
 
       <!-- PROMISES -->
       <section class="promises stack blur-fade" aria-label="What we promise">
@@ -1246,7 +1109,8 @@
       <footer class="site-footer">
         <div class="site-footer__grid">
           <div class="site-footer__brand">
-            <p><strong>Jay Durga Furnishings.</strong> Since 1984.</p>
+            <img src="assets/jaydurga-logo.png" alt="Jaydurga Furnishings Extn." class="site-footer__logo"/>
+            <p>Since 1984.</p>
             <p>4th Floor, Mandhana Towers<br/>Ameerpet Main Road<br/>Hyderabad 500 016, Telangana</p>
             <p><a href="tel:+914023730142">+91 40 2373 0142</a><br/><a href="mailto:hello@jaydurga.in">hello@jaydurga.in</a></p>
             <em>Open 10:30 — 20:30 · Seven days</em>
@@ -1267,7 +1131,6 @@
             <h4>House</h4>
             <ul>
               <li><a href="about.html">About us</a></li>
-              <li><a href="gallery.html">Gallery</a></li>
               <li><a href="contact.html">Visit · Contact</a></li>
               <li><a href="index.html">Original version</a></li>
             </ul>
@@ -1369,5 +1232,8 @@
 
   <!-- Motion layer -->
   <script defer src="js/motion.js"></script>
+
+  <!-- Unified enquiry form (single source of truth across all pages) -->
+  <script src="js/enquiry-form.js" defer></script>
 </body>
 </html>
