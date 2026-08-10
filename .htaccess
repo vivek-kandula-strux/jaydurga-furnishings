@@ -9,6 +9,9 @@ Options -Indexes
 # ── Default charset ───────────────────────────────────────
 AddDefaultCharset UTF-8
 
+# ── Directory index ───────────────────────────────────────
+DirectoryIndex index.html
+
 # ── HTTPS redirect (disabled for testing — re-enable after confirming HTTP works) ──
 # RewriteEngine On
 # RewriteCond %{HTTPS} off
