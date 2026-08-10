@@ -152,15 +152,31 @@
       if (kind) status.classList.add('is-' + kind);
     }
 
-    // If the endpoint isn't wired, show a visible banner so no lead
-    // is silently accepted into the void.
-    if (GAS_ENDPOINT_URL === 'GAS_ENDPOINT_URL') {
-      var banner = document.createElement('p');
-      banner.className = 'enquire__banner';
-      banner.innerHTML = 'This form isn’t connected yet — please WhatsApp or call us and we’ll pick up the same day.';
-      form.insertBefore(banner, form.firstChild);
-      submit.disabled = true;
-      submit.textContent = 'Please WhatsApp us instead';
+    // If the endpoint isn’t wired, submit via WhatsApp with form data pre-filled.
+    if (GAS_ENDPOINT_URL === ‘GAS_ENDPOINT_URL’) {
+      form.addEventListener(‘submit’, function (e) {
+        e.preventDefault();
+        var honey = form.querySelector(‘input[name="_gotcha"]’);
+        if (honey && honey.value) return;
+        if (!form.checkValidity()) {
+          setStatus(‘Please fill in your name, phone and what you\’re looking for.’, ‘error’);
+          form.reportValidity();
+          return;
+        }
+        var name     = (form.querySelector(‘[name="name"]’).value     || ‘’).trim();
+        var phone    = (form.querySelector(‘[name="phone"]’).value    || ‘’).trim();
+        var area     = (form.querySelector(‘[name="area"]’).value     || ‘’).trim();
+        var interest = (form.querySelector(‘[name="interest"]’).value || ‘’).trim();
+        var notes    = (form.querySelector(‘[name="notes"]’).value    || ‘’).trim();
+        var msg = ‘Hi Jay Durga — I\’d like to enquire about: ‘ + (interest || ‘furnishings’) + ‘.’
+          + (name    ? ‘\nName: ‘  + name    : ‘’)
+          + (phone   ? ‘\nPhone: ‘ + phone   : ‘’)
+          + (area    ? ‘\nArea: ‘  + area    : ‘’)
+          + (notes   ? ‘\nNotes: ‘ + notes   : ‘’);
+        window.open(WHATSAPP_URL.split(‘?’)[0] + ‘?text=’ + encodeURIComponent(msg), ‘_blank’, ‘noopener’);
+        setStatus(‘Opening WhatsApp with your enquiry pre-filled — just hit send.’, ‘success’);
+        form.reset();
+      });
       return;
     }
 
