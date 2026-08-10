@@ -5,4 +5,4 @@ Disallow: /.git/
 Disallow: /.claude/
 Disallow: /index-modern.html
 
-Sitemap: https://jdfurnishingsextention.com/sitemap.xml
+Sitemap: https://jdfurnishingsextension.com/sitemap.xml

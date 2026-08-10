@@ -1,5 +1,5 @@
 # ============================================================
-# Jay Durga Furnishings · jdfurnishingsextention.com
+# Jay Durga Furnishings · jdfurnishingsextension.com
 # Apache / cPanel configuration
 # ============================================================
 
@@ -29,8 +29,8 @@ RewriteRule ^([^.]+)$ $1.html [L]
 # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 # ── www → non-www ─────────────────────────────────────────
-# RewriteCond %{HTTP_HOST} ^www\.jdfurnishingsextention\.com [NC]
-# RewriteRule ^ https://jdfurnishingsextention.com%{REQUEST_URI} [R=301,L]
+# RewriteCond %{HTTP_HOST} ^www\.jdfurnishingsextension\.com [NC]
+# RewriteRule ^ https://jdfurnishingsextension.com%{REQUEST_URI} [R=301,L]
 
 # ── Block access to internal / source files ──────────────
 <FilesMatch "\.(md|txt|json|log|sh|bat|git|env)$">
