@@ -1,0 +1,113 @@
+# ============================================================
+# Jay Durga Furnishings · jdfurnishingsextension.com
+# Apache / cPanel configuration
+# ============================================================
+
+# ── Directory listing off ──────────────────────────────────
+Options -Indexes
+
+# ── Default charset ───────────────────────────────────────
+AddDefaultCharset UTF-8
+
+# ── HTTPS redirect ────────────────────────────────────────
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# ── www → non-www ─────────────────────────────────────────
+RewriteCond %{HTTP_HOST} ^www\.jdfurnishingsextension\.com [NC]
+RewriteRule ^ https://jdfurnishingsextension.com%{REQUEST_URI} [R=301,L]
+
+# ── Block access to internal / source files ──────────────
+<FilesMatch "\.(md|txt|json|log|sh|bat|git|env)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Block dev/internal directories
+RedirectMatch 403 /\.git
+RedirectMatch 403 /\.claude
+RedirectMatch 403 /_docs
+
+# Block development preview page from production
+# (Comment this out if index-modern.html should be public)
+# RedirectMatch 403 /index-modern\.html
+
+# ── Custom error pages ───────────────────────────────────
+ErrorDocument 404 /404.html
+ErrorDocument 403 /404.html
+
+# ── Gzip / deflate compression ───────────────────────────
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css
+    AddOutputFilterByType DEFLATE text/javascript application/javascript
+    AddOutputFilterByType DEFLATE application/json application/xml
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE font/woff font/woff2
+</IfModule>
+
+# ── Browser caching ──────────────────────────────────────
+<IfModule mod_expires.c>
+    ExpiresActive On
+
+    # HTML — short cache (content changes)
+    ExpiresByType text/html                 "access plus 1 hour"
+
+    # CSS & JS — longer cache (versioned via filename)
+    ExpiresByType text/css                  "access plus 1 month"
+    ExpiresByType application/javascript    "access plus 1 month"
+    ExpiresByType text/javascript           "access plus 1 month"
+
+    # Images
+    ExpiresByType image/jpeg                "access plus 6 months"
+    ExpiresByType image/png                 "access plus 6 months"
+    ExpiresByType image/webp                "access plus 6 months"
+    ExpiresByType image/svg+xml             "access plus 6 months"
+    ExpiresByType image/x-icon              "access plus 1 year"
+    ExpiresByType image/gif                 "access plus 6 months"
+
+    # Fonts
+    ExpiresByType font/woff                 "access plus 1 year"
+    ExpiresByType font/woff2                "access plus 1 year"
+    ExpiresByType application/font-woff     "access plus 1 year"
+</IfModule>
+
+# ── Security headers ─────────────────────────────────────
+<IfModule mod_headers.c>
+    # Prevent clickjacking
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # Prevent MIME sniffing
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Referrer policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # XSS protection (legacy browsers)
+    Header always set X-XSS-Protection "1; mode=block"
+
+    # Permissions policy — restrict unused APIs
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+    # Remove server signature
+    Header unset Server
+    Header unset X-Powered-By
+
+    # HSTS — enable after confirming SSL works correctly
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+</IfModule>
+
+# ── MIME types ───────────────────────────────────────────
+<IfModule mod_mime.c>
+    AddType image/webp                      .webp
+    AddType image/svg+xml                   .svg
+    AddType font/woff                       .woff
+    AddType font/woff2                      .woff2
+    AddType application/javascript          .js
+    AddType text/css                        .css
+</IfModule>
+
+# ── Keep-alive ───────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header set Connection keep-alive
+</IfModule>

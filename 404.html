@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#EEE9DC" />
+
+  <title>Page not found — Jay Durga Furnishings</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="icon" type="image/png" href="assets/jaydurga-logo.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+
+  <link rel="stylesheet" href="css/wireframe.css" />
+
+  <style>
+    body { display: flex; flex-direction: column; min-height: 100vh; }
+    .error-page {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+    }
+    .error-code {
+      font-size: clamp(80px, 20vw, 160px);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--line);
+      letter-spacing: -4px;
+      margin: 0 0 8px;
+    }
+    .error-title {
+      font-size: clamp(20px, 4vw, 28px);
+      font-weight: 700;
+      color: var(--ink-1);
+      margin: 0 0 16px;
+    }
+    .error-body {
+      font-size: 16px;
+      color: var(--ink-3);
+      max-width: 400px;
+      margin: 0 0 40px;
+      line-height: 1.6;
+    }
+    .error-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header" role="banner">
+    <div class="container">
+      <nav class="nav" aria-label="Main navigation">
+        <a href="/" class="nav__brand" aria-label="Jay Durga Furnishings home">
+          <img src="assets/jaydurga-logo.png" alt="Jay Durga Furnishings" width="120" height="40" />
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="error-page" role="main">
+    <p class="error-code" aria-hidden="true">404</p>
+    <h1 class="error-title">Page not found</h1>
+    <p class="error-body">
+      This page doesn't exist or may have moved. Head back to the homepage or browse our collections.
+    </p>
+    <div class="error-links">
+      <a href="/" class="btn btn--primary">Back to home</a>
+      <a href="/collections.html" class="btn btn--ghost">View collections</a>
+      <a href="/contact.html" class="btn btn--ghost">Contact us</a>
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <p style="text-align:center;color:var(--ink-4);font-size:14px;padding:24px 0;">
+        &copy; 2026 Jay Durga Furnishings · Ameerpet, Hyderabad
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
