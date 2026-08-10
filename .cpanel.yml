@@ -1,6 +1,6 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=$HOME/public_html/jdfurnishingsextension.com
+    - export DEPLOYPATH=$HOME/jdfurnishingsextention.com
     - /bin/mkdir -p $DEPLOYPATH
     - /usr/bin/rsync -av --delete --exclude='.git' --exclude='.cpanel.yml' --exclude='.gitignore' --exclude='_docs' . $DEPLOYPATH/
