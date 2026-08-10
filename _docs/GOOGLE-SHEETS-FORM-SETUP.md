@@ -1,21 +1,23 @@
 # Enquiry form → Google Sheet (Apps Script) — 10-minute setup
 
-The homepage enquiry form currently POSTs to a placeholder called `GAS_ENDPOINT_URL`. Follow the six steps below to deploy the receiving script and wire in the real URL. Every enquiry then lands in your Google Sheet **and** pings your email.
+The enquiry form appears on every page (Home, Contact, Collections, Gallery, About) and currently POSTs to a placeholder called `GAS_ENDPOINT_URL` in `js/enquiry-form.js`. Follow the six steps below to deploy the receiving script and wire in the real URL. Every enquiry then lands in your Google Sheet **and** pings your email.
 
 ---
 
-## Step 1 — Create the Sheet
+## Step 1 — Prepare your existing Sheet
 
-1. Go to <https://sheets.new> (signed into the account that should own the leads).
-2. Rename the file to **Jay Durga · Enquiries**.
-3. Rename the first tab (`Sheet1`) to **Leads**.
-4. In row 1, paste these headers exactly, left-to-right, one per column:
+Your leads sheet is already created:
+- **Sheet:** [Jay Durga Website Leads](https://docs.google.com/spreadsheets/d/1rSFf5tbfMOjMi3LEEdCh4fQQEBk_w90e4QMMsjI6oO0/edit?usp=sharing)
+- **Tab name:** `Website Leads`
+
+1. Open the sheet and make sure the tab is named exactly **Website Leads**.
+2. In row 1 of that tab, paste these headers exactly, left-to-right, one per column:
 
    ```
    Timestamp | Name | Phone | Interest | Area | Notes | Source | Page URL
    ```
 
-5. Freeze row 1: *View → Freeze → 1 row*.
+3. Freeze row 1: *View → Freeze → 1 row*.
 
 ---
 
@@ -35,7 +37,7 @@ Copy the whole block below into the editor and save (`Ctrl+S`). Give the project
 // sheet, and emails a notification.
 
 // The two constants below are the only things you may need to edit.
-const SHEET_NAME       = 'Leads';
+const SHEET_NAME       = 'Website Leads';
 const NOTIFY_EMAIL     = 'CHANGE_ME@example.com';   // where new leads should be emailed
 const NOTIFY_FROM_NAME = 'Jay Durga · Website';
 
@@ -127,7 +129,7 @@ Edit `NOTIFY_EMAIL` at the top to the address that should receive new-lead email
 
 ## Step 5 — Paste the URL into the site
 
-Open `index.html` in your editor and find the line (near the bottom, inside `<script>`):
+Open `js/enquiry-form.js` in your editor and find the line near the top:
 
 ```js
 var GAS_ENDPOINT_URL = 'GAS_ENDPOINT_URL';
@@ -135,17 +137,17 @@ var GAS_ENDPOINT_URL = 'GAS_ENDPOINT_URL';
 
 Replace the second `'GAS_ENDPOINT_URL'` with the URL you copied. Save.
 
-That's it — the form is live.
+That's it — the form is live on every page that includes `<div data-enquiry-form></div>`.
 
 ---
 
 ## Step 6 — Test end-to-end
 
-1. Open the homepage in your browser.
+1. Open any page in your browser (e.g. the Contact page).
 2. Scroll to the **Enquire** section, fill in a real (fake-name) test lead, submit.
 3. Confirm three things:
    - The form shows the green **"Thanks — we'll reply within the same working day"** message.
-   - A new row appears in the **Leads** tab of the Sheet.
+   - A new row appears in the **Website Leads** tab of the Sheet.
    - An email lands in the `NOTIFY_EMAIL` inbox.
 4. Delete the test row from the Sheet.
 
@@ -158,7 +160,7 @@ If you change the script (add a field, change the email address, etc.), you must
 - *Deploy → Manage deployments → pencil icon next to the active deploy → Version: New version → Deploy.*
 - The URL **stays the same**, so nothing needs to change on the website.
 
-If you accidentally create a fresh deployment instead (new URL), paste the new URL into `index.html` again.
+If you accidentally create a fresh deployment instead (new URL), paste the new URL into `js/enquiry-form.js` again.
 
 ---
 
@@ -173,4 +175,20 @@ If you accidentally create a fresh deployment instead (new URL), paste the new U
 
 ---
 
-Once this endpoint is live and tested, we'll wire the same form to the Contact page during the next pass. The Sheet becomes your single lead inbox for the site.
+## Final Google Sheet headers
+
+After Step 1, row 1 of the **Website Leads** tab should look exactly like this (left-to-right):
+
+```
+Timestamp | Name | Phone | Interest | Area | Notes | Source | Page URL
+```
+
+Every form submit writes one row with:
+- **Timestamp** — ISO date/time the form was submitted
+- **Name** — the visitor's name
+- **Phone** — the visitor's phone number
+- **Interest** — the selected interest (Curtains, Mattresses, etc.)
+- **Area** — the visitor's area/locality
+- **Notes** — any additional message
+- **Source** — which page the enquiry came from (e.g. `contact`, `collections`, `homepage-modern`)
+- **Page URL** — the full browser URL at the time of submission

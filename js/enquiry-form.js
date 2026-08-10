@@ -24,9 +24,9 @@
   var DEFAULT_TITLE = 'Tell us the window, the room, or the whole home.';
   var DEFAULT_LEDE  = 'Fill this in and we\'ll reply <strong>within the same working day</strong>. Or reach us directly — three ways, one team.';
 
-  var PHONE_TEL     = '+914023730142';
-  var PHONE_LABEL   = '+91 40 2373 0142';
-  var WHATSAPP_URL  = 'https://wa.me/91WA_MOBILE_TBD?text=Hi%20Jay%20Durga%20%E2%80%94%20I\'d%20like%20to%20send%20a%20photo%20of%20my%20space%20and%20get%20a%20quick%20quote.';
+  var PHONE_TEL     = '+917337332652';
+  var PHONE_LABEL   = '+91 733 733 2652';
+  var WHATSAPP_URL  = 'https://wa.me/917337332652?text=Hi%20Jay%20Durga%20%E2%80%94%20I\'d%20like%20to%20send%20a%20photo%20of%20my%20space%20and%20get%20a%20quick%20quote.';
   var MAPS_URL      = 'https://maps.google.com/?q=Jay+Durga+Furnishings+Ameerpet+Hyderabad';
 
   var INTERESTS = [
@@ -152,29 +152,29 @@
       if (kind) status.classList.add('is-' + kind);
     }
 
-    // If the endpoint isn’t wired, submit via WhatsApp with form data pre-filled.
-    if (GAS_ENDPOINT_URL === ‘GAS_ENDPOINT_URL’) {
-      form.addEventListener(‘submit’, function (e) {
+    // If the endpoint isn't wired, submit via WhatsApp with form data pre-filled.
+    if (GAS_ENDPOINT_URL === 'GAS_ENDPOINT_URL') {
+      form.addEventListener('submit', function (e) {
         e.preventDefault();
-        var honey = form.querySelector(‘input[name="_gotcha"]’);
+        var honey = form.querySelector('input[name="_gotcha"]');
         if (honey && honey.value) return;
         if (!form.checkValidity()) {
-          setStatus(‘Please fill in your name, phone and what you\’re looking for.’, ‘error’);
+          setStatus('Please fill in your name, phone and what you\'re looking for.', 'error');
           form.reportValidity();
           return;
         }
-        var name     = (form.querySelector(‘[name="name"]’).value     || ‘’).trim();
-        var phone    = (form.querySelector(‘[name="phone"]’).value    || ‘’).trim();
-        var area     = (form.querySelector(‘[name="area"]’).value     || ‘’).trim();
-        var interest = (form.querySelector(‘[name="interest"]’).value || ‘’).trim();
-        var notes    = (form.querySelector(‘[name="notes"]’).value    || ‘’).trim();
-        var msg = ‘Hi Jay Durga — I\’d like to enquire about: ‘ + (interest || ‘furnishings’) + ‘.’
-          + (name    ? ‘\nName: ‘  + name    : ‘’)
-          + (phone   ? ‘\nPhone: ‘ + phone   : ‘’)
-          + (area    ? ‘\nArea: ‘  + area    : ‘’)
-          + (notes   ? ‘\nNotes: ‘ + notes   : ‘’);
-        window.open(WHATSAPP_URL.split(‘?’)[0] + ‘?text=’ + encodeURIComponent(msg), ‘_blank’, ‘noopener’);
-        setStatus(‘Opening WhatsApp with your enquiry pre-filled — just hit send.’, ‘success’);
+        var name     = (form.querySelector('[name="name"]').value     || '').trim();
+        var phone    = (form.querySelector('[name="phone"]').value    || '').trim();
+        var area     = (form.querySelector('[name="area"]').value     || '').trim();
+        var interest = (form.querySelector('[name="interest"]').value || '').trim();
+        var notes    = (form.querySelector('[name="notes"]').value    || '').trim();
+        var msg = 'Hi Jay Durga — I\'d like to enquire about: ' + (interest || 'furnishings') + '.'
+          + (name    ? '\nName: '  + name    : '')
+          + (phone   ? '\nPhone: ' + phone   : '')
+          + (area    ? '\nArea: '  + area    : '')
+          + (notes   ? '\nNotes: ' + notes   : '');
+        window.open(WHATSAPP_URL.split('?')[0] + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+        setStatus('Opening WhatsApp with your enquiry pre-filled — just hit send.', 'success');
         form.reset();
       });
       return;
