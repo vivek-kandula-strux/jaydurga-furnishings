@@ -1,4 +1,4 @@
 ---
 deployment:
   tasks:
-    - /usr/bin/rsync -av --exclude='.git' --exclude='.cpanel.yml' --exclude='.gitignore' --exclude='_docs' --exclude='.well-known' --exclude='cgi-bin' . /home/struxdig/jdfurnishingsextention.com/
+    - rsync -a --exclude=.git --exclude=.cpanel.yml --exclude=.gitignore --exclude=_docs --exclude=.well-known --exclude=cgi-bin . /home/struxdig/jdfurnishingsextention.com/
