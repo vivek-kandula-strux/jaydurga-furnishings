@@ -1,6 +1,4 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=$HOME/jdfurnishingsextention.com
-    - /bin/mkdir -p $DEPLOYPATH
-    - /usr/bin/rsync -av --delete --exclude='.git' --exclude='.cpanel.yml' --exclude='.gitignore' --exclude='_docs' . $DEPLOYPATH/
+    - /usr/bin/rsync -av --exclude='.git' --exclude='.cpanel.yml' --exclude='.gitignore' --exclude='_docs' --exclude='.well-known' --exclude='cgi-bin' . /home/struxdig/jdfurnishingsextention.com/
