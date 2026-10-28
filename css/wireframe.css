@@ -375,6 +375,7 @@ body {
   margin: 0 0 16px;
 }
 .site-footer ul { display: flex; flex-direction: column; gap: 10px; }
+.site-footer__grid h4 + ul + h4 { margin-top: 24px; }
 .site-footer ul a {
   font-size: 14px;
   color: var(--ink-soft);

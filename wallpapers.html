@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#EEE9DC" />
+
+  <title>Wallpapers Hyderabad | Jaydurga Extn.</title>
+  <meta name="description" content="Wallpapers in Hyderabad — Asian Paints Nilaya, Marshalls and imported prints, textured and kids' room ranges. Free site survey, professional installation by our own team. Book yours." />
+
+  <link rel="icon" type="image/png" href="assets/favicon-64.png" />
+  <link rel="canonical" href="https://jdfurnishingsextension.com/wallpapers" />
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="Jaydurga Furnishings Extn."/>
+  <meta property="og:title" content="Wallpapers Hyderabad | Jaydurga Extn."/>
+  <meta property="og:description" content="Wallpapers in Hyderabad — Asian Paints Nilaya, Marshalls and imported prints, textured and kids' room ranges. Free site survey, professional installation by our own team. Book yours."/>
+  <meta property="og:url" content="https://jdfurnishingsextension.com/wallpapers"/>
+  <meta property="og:image" content="https://jdfurnishingsextension.com/assets/images/lifestyle/wallpaper-hero-floral.webp"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+
+  <link rel="stylesheet" href="css/wireframe.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://jdfurnishingsextension.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Collections", "item": "https://jdfurnishingsextension.com/collections" },
+      { "@type": "ListItem", "position": 3, "name": "Wallpapers", "item": "https://jdfurnishingsextension.com/wallpapers" }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the site survey really free?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. We visit your home, measure the walls, look at the light and the damp, and tell you what the job needs — before you spend anything. The consultation is free too." }
+      },
+      {
+        "@type": "Question",
+        "name": "Who hangs the wallpaper?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Our own team, not a contractor. Naresh has been hanging paper for us since 2003. Bubble-free — and if it is not, we hang it again, no argument." }
+      },
+      {
+        "@type": "Question",
+        "name": "Which brands do you stock?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Asian Paints Nilaya and Marshalls (India and UK) on the floor, with imported prints from Italy and Germany available by special order. Textured, embossed and kids' room ranges included." }
+      },
+      {
+        "@type": "Question",
+        "name": "What if something goes wrong after installation?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Warranty and after-sales support run through the shop — if something is wrong with the paper or the hanging, you call us, not a call centre." }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    /* Split · image + copy (mirrors about.html founder card) */
+    .split {
+      margin-top: 40px;
+      background: var(--shell);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+    }
+    .split--reverse { grid-template-columns: 1.3fr 1fr; }
+    .split--reverse .split__media { order: 2; }
+    .split--reverse .split__copy { order: 1; }
+    .split__media { margin: 0; overflow: hidden; min-height: 420px; position: relative; }
+    .split__media img { width: 100%; height: 100%; object-fit: cover; }
+    .split__media figcaption {
+      position: absolute;
+      bottom: 20px; left: 20px;
+      background: rgba(15,11,8,.72);
+      color: #FBF6EA;
+      padding: 8px 14px;
+      border-radius: var(--pill);
+      font-size: 12px;
+      backdrop-filter: blur(8px);
+    }
+    .split__copy {
+      padding: clamp(28px, 3.6vw, 56px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 18px;
+    }
+    .split__copy h2 { margin: 0; }
+    .split__copy p { margin: 0; font-size: 15.5px; color: var(--ink-soft); line-height: 1.65; max-width: 48ch; }
+
+    /* Spec checklist (mirrors collections feature lists) */
+    .spec-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 20px;
+      padding: 20px 0;
+      margin: 0;
+      list-style: none;
+      border-top: 1px solid var(--divider);
+      border-bottom: 1px solid var(--divider);
+    }
+    .spec-list li { font-size: 13.5px; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+    .spec-list li::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--rust); flex-shrink: 0; }
+
+    /* Process steps */
+    .steps { margin: 24px 0 0; padding: 0; list-style: none; counter-reset: step; display: flex; flex-direction: column; }
+    .steps li { counter-increment: step; display: flex; gap: 18px; padding: 18px 0; border-top: 1px solid var(--divider); }
+    .steps li:first-child { border-top: 0; }
+    .steps li::before {
+      content: counter(step, decimal-leading-zero);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--rust);
+      letter-spacing: .1em;
+      padding-top: 3px;
+      flex-shrink: 0;
+    }
+    .steps strong { display: block; font-size: 15px; color: var(--ink); margin-bottom: 4px; }
+    .steps p { margin: 0; font-size: 14.5px; color: var(--ink-soft); line-height: 1.6; max-width: 52ch; }
+
+    /* Two-up gallery */
+    .duo { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .duo figure { margin: 0; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line); }
+    .duo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* FAQ */
+    .faq details { border-top: 1px solid var(--divider); padding: 18px 0; }
+    .faq details:last-child { border-bottom: 1px solid var(--divider); }
+    .faq summary { cursor: pointer; font-size: 16px; font-weight: 700; color: var(--ink); }
+    .faq details p { margin: 12px 0 0; font-size: 15px; color: var(--ink-soft); line-height: 1.65; max-width: 60ch; }
+
+    /* Related links */
+    .related { margin-top: 40px; font-size: 15px; color: var(--ink-soft); line-height: 1.7; max-width: 64ch; }
+    .related a { text-decoration: underline; }
+
+    @media (max-width: 900px) {
+      .split, .split--reverse { grid-template-columns: 1fr; }
+      .split--reverse .split__media { order: 0; }
+      .split__media { min-height: 320px; aspect-ratio: 4/3; }
+      .duo { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="shell">
+
+    <!-- HEADER -->
+    <header class="nav">
+      <a href="/" class="brand" aria-label="Jaydurga Furnishings Extn. · Home">
+        <picture>
+          <source type="image/webp" srcset="assets/jaydurga-logo.webp"/>
+          <img src="assets/jaydurga-logo.png" width="240" height="240" alt="Jaydurga Furnishings Extn. — Since 1984" class="brand__logo"/>
+        </picture>
+      </a>
+
+      <nav class="nav__menu" id="primary-nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/collections" class="is-active">Collections</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+      </nav>
+
+      <div class="nav__tools">
+        <a href="https://wa.me/917337332652?text=Hi%20Jaydurga%20Furnishings%20Extn.%20%E2%80%94%20I%20have%20an%20enquiry%20(from%20your%20website%20header)." class="btn btn--light" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+            <path fill="currentColor" d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm5.5 12.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.9-.5-1.9-1-2.6-1.9-.7-.9-1.2-1.9-1.5-2.7-.1-.3 0-.5.1-.6.1-.1.3-.4.5-.6.2-.2.2-.3.3-.5.1-.2.1-.4 0-.6-.1-.2-.7-1.6-.9-2.1-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.6.1-.8.4-.3.4-1.1 1.1-1.1 2.6 0 1.6 1.2 3.1 1.4 3.3.2.2 2.4 3.6 5.7 5.1.8.3 1.4.5 1.9.6.8.2 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.6-.4Z"/>
+          </svg>
+          WhatsApp
+        </a>
+        <a href="tel:+917337332652" class="btn btn--dark">Call Us</a>
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="page-hero__inner">
+        <div>
+          <p class="eyebrow">Wallpapers · Nilaya · Marshalls · Imported</p>
+          <h1 class="page-hero__title">Wallpapers in Hyderabad, hung by the people who sold them.</h1>
+        </div>
+        <div>
+          <p class="page-hero__lede">
+            Change one wall, and the whole room reads new. Asian Paints Nilaya
+            and Marshalls on the floor, imported prints from Italy and Germany
+            by special order — with a free site survey and professional
+            installation by our own team.
+          </p>
+          <dl class="page-hero__meta">
+            <div><dt>Site survey</dt><strong>Free, at your home</strong></div>
+            <div><dt>Installation</dt><strong>By our own team</strong></div>
+          </dl>
+          <div class="page-hero__ctas" style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;">
+            <a href="https://wa.me/917337332652?text=Hi%20Jaydurga%20Furnishings%20Extn.%20%E2%80%94%20I'd%20like%20to%20enquire%20about%20wallpapers." class="btn btn--dark" target="_blank" rel="noopener">WhatsApp us</a>
+            <a href="tel:+917337332652" class="btn btn--light">Call · +91 733 733 2652</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTRO · one wall split -->
+    <section class="split">
+      <figure class="split__media">
+        <picture>
+          <source type="image/webp" srcset="assets/images/lifestyle/wallpaper-hero-floral-480.webp 480w, assets/images/lifestyle/wallpaper-hero-floral-800.webp 800w, assets/images/lifestyle/wallpaper-hero-floral.webp 1000w" sizes="(max-width: 900px) 100vw, 45vw"/>
+          <img src="assets/images/lifestyle/wallpaper-hero-floral.jpg" width="1600" height="2215" alt="Terracotta and mustard floral wallpaper behind a warm-wood sideboard, teal lamp and green velvet bench" loading="eager" fetchpriority="high"/>
+        </picture>
+        <figcaption>Floral paper · living room</figcaption>
+      </figure>
+      <div class="split__copy">
+        <p class="eyebrow">One wall</p>
+        <h2 class="display display--md">A different room, without the civil work.</h2>
+        <p>
+          Wallpaper is the smallest civil work you can do to a house, and the
+          one that returns the most. No breaking, no plaster dust, no week of
+          painters — one wall of paper and the room reads new.
+        </p>
+        <p>
+          We keep Asian Paints Nilaya and Marshalls — India and UK — on the
+          floor in Ameerpet, and bring in imported prints from Italy and
+          Germany by special order. Textured and embossed papers, kids' room
+          ranges, and the quiet solids that make a bedroom feel finished.
+        </p>
+        <ul class="spec-list">
+          <li>Asian Paints Nilaya</li>
+          <li>Marshalls — India &amp; UK</li>
+          <li>Imported — Italy, Germany</li>
+          <li>Textured &amp; embossed</li>
+          <li>Kids' room ranges</li>
+          <li>Free site survey &amp; install</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="split split--reverse">
+      <figure class="split__media">
+        <picture>
+          <source type="image/webp" srcset="assets/images/lifestyle/gallery-wallpaper-sprig-480.webp 480w, assets/images/lifestyle/gallery-wallpaper-sprig-800.webp 800w, assets/images/lifestyle/gallery-wallpaper-sprig.webp 1000w" sizes="(max-width: 900px) 100vw, 45vw"/>
+          <img src="assets/images/lifestyle/gallery-wallpaper-sprig.jpg" width="1600" height="2400" alt="Delicate sprig-patterned wallpaper behind a bedside table with a lamp and books" loading="lazy"/>
+        </picture>
+        <figcaption>Sprig pattern · bedroom</figcaption>
+      </figure>
+      <div class="split__copy">
+        <p class="eyebrow">The process</p>
+        <h2 class="display display--md">How a wallpaper job runs.</h2>
+        <ol class="steps">
+          <li>
+            <div>
+              <strong>Site survey</strong>
+              <p>We visit your home, measure the walls, and check the surface and the light. The visit and the consultation are free.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <strong>Choose the paper</strong>
+              <p>Sit with the catalogues at the shop — Nilaya, Marshalls, or the imported books for special order. Bring a photo of the room; it helps.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <strong>Surface prep</strong>
+              <p>The wall is checked and prepared so the paste holds and the seams sit flat.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <strong>Installation</strong>
+              <p>Hung by our own team — Naresh has been hanging paper for us since 2003. Bubble-free, seams aligned, edges clean.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <strong>The promise</strong>
+              <p>If it is not bubble-free, we hang it again. No argument.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- RANGES -->
+    <section class="split">
+      <figure class="split__media">
+        <picture>
+          <source type="image/webp" srcset="assets/images/lifestyle/gallery-wallpaper-headboard-480.webp 480w, assets/images/lifestyle/gallery-wallpaper-headboard-800.webp 800w, assets/images/lifestyle/gallery-wallpaper-headboard.webp 1000w" sizes="(max-width: 900px) 100vw, 45vw"/>
+          <img src="assets/images/lifestyle/gallery-wallpaper-headboard.jpg" width="1600" height="1200" alt="Patterned wallpaper as a feature wall behind an upholstered headboard and bedside lamps" loading="lazy"/>
+        </picture>
+        <figcaption>Feature wall · headboard</figcaption>
+      </figure>
+      <div class="split__copy">
+        <p class="eyebrow">Ranges</p>
+        <h2 class="display display--md">From one feature wall to the whole house.</h2>
+        <p>
+          Most customers start with one wall — behind the bed, behind the TV,
+          the first thing you see from the door. Textured and embossed papers
+          add depth that paint cannot, and the kids' room ranges are built to
+          be wiped down and lived with.
+        </p>
+        <p>
+          Wallpaper also pairs naturally with the rest of the room. The same
+          visit that measures your walls can measure your windows for
+          <a href="/curtains" style="text-decoration:underline;">curtains</a> —
+          one team, one appointment. The full range is on the
+          <a href="/collections" style="text-decoration:underline;">collections page</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- GALLERY · two-up -->
+    <section class="duo" aria-label="Wallpapered rooms">
+      <figure>
+        <picture>
+          <source type="image/webp" srcset="assets/images/lifestyle/gallery-wallpaper-gold-480.webp 480w, assets/images/lifestyle/gallery-wallpaper-gold-800.webp 800w, assets/images/lifestyle/gallery-wallpaper-gold.webp 1200w" sizes="(max-width: 720px) 100vw, 50vw"/>
+          <img src="assets/images/lifestyle/gallery-wallpaper-gold.jpg" width="1600" height="1067" alt="Gold-toned wallpaper adding warmth to a styled corner of a room" loading="lazy"/>
+        </picture>
+      </figure>
+      <figure>
+        <picture>
+          <source type="image/webp" srcset="assets/images/lifestyle/gallery-dining-formal-480.webp 480w, assets/images/lifestyle/gallery-dining-formal-800.webp 800w, assets/images/lifestyle/gallery-dining-formal.webp 1000w" sizes="(max-width: 720px) 100vw, 50vw"/>
+          <img src="assets/images/lifestyle/gallery-dining-formal.jpg" width="1600" height="1600" alt="Formal dining room with wallpapered walls, a set table and warm lighting" loading="lazy"/>
+        </picture>
+      </figure>
+    </section>
+
+    <!-- PRICE -->
+    <section class="split" style="grid-template-columns:1fr;">
+      <div class="split__copy">
+        <p class="eyebrow">Price</p>
+        <h2 class="display display--md">What it costs.</h2>
+        <p><strong>TODO-CLIENT: price range</strong></p>
+        <p>
+          What we can tell you now: the quote depends on the paper you choose
+          and the size and condition of the walls. The site survey and
+          measurement are free, and you get a firm price before any work
+          starts. For a broader sense of what things cost across the shop, see
+          the <a href="/price-guide" style="text-decoration:underline;">price guide</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section faq" aria-label="Frequently asked questions">
+      <header class="section-head">
+        <p class="eyebrow">Questions</p>
+        <h2 class="display display--md">Asked across the counter, answered here.</h2>
+      </header>
+      <details>
+        <summary>Is the site survey really free?</summary>
+        <p>Yes. We visit your home, measure the walls, look at the light and the damp, and tell you what the job needs — before you spend anything. The consultation is free too.</p>
+      </details>
+      <details>
+        <summary>Who hangs the wallpaper?</summary>
+        <p>Our own team, not a contractor. Naresh has been hanging paper for us since 2003. Bubble-free — and if it is not, we hang it again, no argument.</p>
+      </details>
+      <details>
+        <summary>Which brands do you stock?</summary>
+        <p>Asian Paints Nilaya and Marshalls (India and UK) on the floor, with imported prints from Italy and Germany available by special order. Textured, embossed and kids' room ranges included.</p>
+      </details>
+      <details>
+        <summary>What if something goes wrong after installation?</summary>
+        <p>Warranty and after-sales support run through the shop — if something is wrong with the paper or the hanging, you call us, not a call centre.</p>
+      </details>
+    </section>
+
+    <!-- RELATED -->
+    <p class="related">
+      A wallpapered wall usually starts a conversation about the rest of the
+      room — <a href="/curtains">curtains</a> for the windows beside it, or a
+      look at the <a href="/price-guide">price guide</a> before you plan the
+      whole thing. The full range is on the
+      <a href="/collections">collections page</a>, and to book the free site
+      survey, <a href="/contact">contact the shop</a>.
+    </p>
+
+    <!-- Unified enquiry form · rendered by js/enquiry-form.js -->
+    <div data-enquiry-form id="enquire" data-source="wallpapers"></div>
+
+    <!-- BOTTOM CTA -->
+    <section class="visit-cta">
+      <div>
+        <p class="eyebrow eyebrow--light">Ready when you are</p>
+        <h2 class="display display--md">Book the free site survey.</h2>
+        <p>Send a photo of the wall on WhatsApp, or call and we'll come measure it — the survey is free.</p>
+      </div>
+      <div class="visit-cta__actions">
+        <a href="https://wa.me/917337332652?text=Hi%20Jaydurga%20Furnishings%20Extn.%20%E2%80%94%20I'd%20like%20to%20enquire%20about%20wallpapers." class="btn btn--light" target="_blank" rel="noopener">WhatsApp us</a>
+        <a href="tel:+917337332652" class="btn btn--ghost">Call · +91 733 733 2652</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="site-footer__grid">
+        <div class="site-footer__brand">
+          <picture>
+          <source type="image/webp" srcset="assets/jaydurga-logo.webp"/>
+          <img src="assets/jaydurga-logo.png" width="240" height="240" alt="Jaydurga Furnishings Extn." class="site-footer__logo" loading="lazy"/>
+        </picture>
+          <p>Since 1984.</p>
+          <p>4th Floor, Mandhana Towers<br/>Ameerpet Main Road<br/>Hyderabad 500 016, Telangana</p>
+          <p><a href="tel:+917337332652">+91 733 733 2652</a><br/><a href="mailto:hello@jaydurga.in">hello@jaydurga.in</a></p>
+          <em>Mon–Sat 10:30 — 20:30 · Sun 11:00 — 19:30 · TODO-CLIENT: confirm opening hours</em>
+        </div>
+        <div>
+          <h4>Collections</h4>
+          <ul>
+            <li><a href="/curtains">Curtains</a></li>
+            <li><a href="/carpets">Carpets</a></li>
+            <li><a href="/mattresses">Mattresses</a></li>
+            <li><a href="/blinds">Blinds</a></li>
+            <li><a href="/wallpapers">Wallpapers</a></li>
+            <li><a href="/sofa-repair-reupholstery">Upholstery</a></li>
+            <li><a href="/bedding-and-table-linen">Bedding</a></li>
+            <li><a href="/bedding-and-table-linen">Table linen</a></li>
+          </ul>
+          <h4>Guides</h4>
+          <ul>
+            <li><a href="/price-guide">Price guide</a></li>
+            <li><a href="/how-to-measure-windows-for-curtains">How to measure for curtains</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>House</h4>
+          <ul>
+            <li><a href="/about">About us</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/contact">Visit · Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Service</h4>
+          <ul>
+            <li><a href="/contact">Free measurement</a></li>
+            <li><a href="/contact">In-house tailoring</a></li>
+            <li><a href="/contact">Re-upholstery</a></li>
+            <li><a href="/contact">Interior consultation</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__rail">
+        <small>© <span data-year>2026</span> Jaydurga Furnishings Extn. · Ameerpet, Hyderabad</small>
+        <ul>
+          <li><a href="https://www.instagram.com/jaydurgaextn/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://wa.me/917337332652?text=Hi%20Jaydurga%20Furnishings%20Extn.%20%E2%80%94%20I%20have%20an%20enquiry." target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="/privacy">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="site-footer__credit">
+        <small>Built & Maintained by <a href="https://www.struxdigital.com" target="_blank" rel="noopener">Strux Digital</a></small>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
+
+    // Mobile nav toggle
+    (function () {
+      var toggle = document.querySelector('.nav-toggle');
+      var menu = document.getElementById('primary-nav');
+      if (!toggle || !menu) return;
+      toggle.addEventListener('click', function () {
+        var open = menu.classList.toggle('is-open');
+        toggle.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      });
+      document.addEventListener('click', function (e) {
+        if (!toggle.contains(e.target) && !menu.contains(e.target) && menu.classList.contains('is-open')) {
+          menu.classList.remove('is-open');
+          toggle.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.setAttribute('aria-label', 'Open menu');
+        }
+      });
+    })();
+  </script>
+
+  <script src="js/enquiry-form.js" defer></script>
+</body>
+</html>
