@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   Jay Durga Furnishings · motion layer
+   Jaydurga Furnishings Extn. · motion layer
    GSAP + ScrollTrigger + Lenis · 21st.dev-inspired patterns
    ─────────────────────────────────────────────────────────
    Every effect respects prefers-reduced-motion. If GSAP or

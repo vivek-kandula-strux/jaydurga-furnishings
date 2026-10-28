@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   JAY DURGA · Unified enquiry form
+   JAYDURGA FURNISHINGS EXTN. · Unified enquiry form
    ---------------------------------------------------------------
    Drop <div data-enquiry-form id="enquire"></div> on any page and
    this script renders the same form there.
@@ -26,7 +26,7 @@
 
   var PHONE_TEL     = '+917337332652';
   var PHONE_LABEL   = '+91 733 733 2652';
-  var WHATSAPP_URL  = 'https://wa.me/917337332652?text=Hi%20Jay%20Durga%20%E2%80%94%20I\'d%20like%20to%20send%20a%20photo%20of%20my%20space%20and%20get%20a%20quick%20quote.';
+  var WHATSAPP_URL  = 'https://wa.me/917337332652?text=Hi%20Jaydurga%20Furnishings%20Extn.%20%E2%80%94%20I\'d%20like%20to%20send%20a%20photo%20of%20my%20space%20and%20get%20a%20quick%20quote.';
   var MAPS_URL      = 'https://maps.google.com/?q=Jay+Durga+Furnishings+Ameerpet+Hyderabad';
 
   var INTERESTS = [
@@ -132,6 +132,7 @@
       '    Send enquiry',
       '    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" width="14" height="14" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
       '  </button>',
+      '  <p style="font-size:13px;opacity:.8;margin:12px 0 0;">By sending this form you agree to our <a href="/privacy" style="color:inherit;text-decoration:underline;">privacy policy</a>.</p>',
       '  <p class="enquire__status" role="status" aria-live="polite" data-form-status></p>',
       '</form>'
     ].join('\n');
@@ -168,7 +169,7 @@
         var area     = (form.querySelector('[name="area"]').value     || '').trim();
         var interest = (form.querySelector('[name="interest"]').value || '').trim();
         var notes    = (form.querySelector('[name="notes"]').value    || '').trim();
-        var msg = 'Hi Jay Durga — I\'d like to enquire about: ' + (interest || 'furnishings') + '.'
+        var msg = 'Hi Jaydurga Furnishings Extn. — I\'d like to enquire about: ' + (interest || 'furnishings') + '.'
           + (name    ? '\nName: '  + name    : '')
           + (phone   ? '\nPhone: ' + phone   : '')
           + (area    ? '\nArea: '  + area    : '')
