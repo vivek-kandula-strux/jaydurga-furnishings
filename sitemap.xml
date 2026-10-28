@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Rebuild note: when a page is added, copy a <url> block, set its <loc> to https://jdfurnishingsextension.com/<page-path> and <lastmod> to the publish date (YYYY-MM-DD). 9 product pages will be added in Phase 3. -->
+<!-- Rebuild note: when a page is added, copy a <url> block, set its <loc> to https://jdfurnishingsextension.com/<page-path> and <lastmod> to the publish date (YYYY-MM-DD). -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
