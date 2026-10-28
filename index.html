@@ -5,23 +5,52 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#EEE9DC" />
 
-  <title>Jaydurga Furnishings Extn. — Curtains, windows &amp; complete home furnishings · Ameerpet, Hyderabad</title>
-  <meta name="description" content="Curtains, blinds, sofa fabrics, mattresses, carpets, bedding and bath — measured, stitched and installed by one team. Ameerpet, Hyderabad." />
+  <title>Curtains, Blinds &amp; Furnishings in Ameerpet | Jaydurga Extn.</title>
+  <meta name="description" content="Curtains, blinds, sofa fabrics, mattresses, carpets and bedding, measured, stitched and installed by one team in Ameerpet, Hyderabad. Book a free measurement." />
 
   <link rel="icon" type="image/png" href="assets/favicon-64.png" />
   <link rel="canonical" href="https://jdfurnishingsextension.com/" />
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="Jaydurga Furnishings Extn."/>
-  <meta property="og:title" content="Jaydurga Furnishings Extn. — Curtains, windows & complete home furnishings · Ameerpet, Hyderabad"/>
-  <meta property="og:description" content="Curtains, blinds, sofa fabrics, mattresses, carpets, bedding and bath — measured, stitched and installed by one team. Ameerpet, Hyderabad."/>
+  <meta property="og:title" content="Curtains, Blinds & Furnishings in Ameerpet | Jaydurga Extn."/>
+  <meta property="og:description" content="Curtains, blinds, sofa fabrics, mattresses, carpets and bedding, measured, stitched and installed by one team in Ameerpet, Hyderabad. Book a free measurement."/>
   <meta property="og:url" content="https://jdfurnishingsextension.com/"/>
   <meta property="og:image" content="https://jdfurnishingsextension.com/assets/images/lifestyle/curtains-hero-brocade.webp"/>
+
+  <link rel="preload" as="image" type="image/webp" imagesrcset="assets/images/lifestyle/curtains-hero-brocade-480.webp 480w, assets/images/lifestyle/curtains-hero-brocade-800.webp 800w, assets/images/lifestyle/curtains-hero-brocade.webp 1600w" imagesizes="(max-width: 720px) 100vw, 55vw" fetchpriority="high" />
+  <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2" crossorigin />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
 
   <link rel="stylesheet" href="css/wireframe.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HomeGoodsStore",
+    "name": "Jaydurga Furnishings Extn.",
+    "url": "https://jdfurnishingsextension.com/",
+    "telephone": "+91 733 733 2652",
+    "email": "hello@jaydurga.in",
+    "logo": "https://jdfurnishingsextension.com/assets/jaydurga-logo.png",
+    "image": "https://jdfurnishingsextension.com/assets/images/lifestyle/curtains-hero-brocade.webp",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "4th Floor, Mandhana Towers, Ameerpet Main Road",
+      "addressLocality": "Hyderabad",
+      "addressRegion": "Telangana",
+      "postalCode": "500016",
+      "addressCountry": "IN"
+    },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "10:30", "closes": "20:30" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "11:00", "closes": "19:30" }
+    ],
+    "sameAs": ["https://www.instagram.com/jaydurgaextn/"]
+  }
+  </script>
 
   <style>
     /* ═════════════════════════════════════════
@@ -659,6 +688,30 @@
       .process__step + .process__step { border-left: 0; padding-left: 0; padding-top: 22px; margin-top: 22px; border-top: 1px solid var(--divider); }
       body { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
     }
+
+    /* REVIEWS · quote cards (placeholders pending client quotes) */
+    .reviews__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .review { display: flex; flex-direction: column; gap: 14px; margin: 0; }
+    .review__quote { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--ink); }
+    .review__name {
+      margin-top: auto;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+    .reviews__cta { margin-top: 28px; }
+    @media (max-width: 1024px) {
+      .reviews__grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 720px) {
+      .reviews__grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -707,8 +760,11 @@
         <div class="hero__copy">
           <p class="eyebrow">Ameerpet · Home-furnishings house</p>
           <h1 class="hero__title">
-            <span class="mark">Curtains</span>, windows and<br/>everything soft in&nbsp;your&nbsp;home.
+            <span class="mark">Curtains</span>, blinds and home<br/>furnishings in Ameerpet,&nbsp;Hyderabad.
           </h1>
+          <p class="hero__lede" style="margin-bottom:16px;">
+            Curtains, windows and everything soft in&nbsp;your&nbsp;home.
+          </p>
           <p class="hero__lede">
             Windows are where we started, and where we're still the strongest.
             After that: sofa fabrics, mattresses, carpets, bedding, bath and décor —
@@ -847,7 +903,7 @@
           </p>
         </header>
         <div class="cats">
-          <a href="/collections" class="cat" aria-label="Sofa Fabrics &amp; Cushioning">
+          <a href="/sofa-repair-reupholstery" class="cat" aria-label="Sofa Fabrics &amp; Cushioning">
             <div class="cat__media">
               <div class="ph">
                 <picture>
@@ -862,7 +918,7 @@
               <p class="cat__sub">Give a tired sofa a second life — new fabric, fresh cushion fills.</p>
             </div>
           </a>
-          <a href="/collections" class="cat" aria-label="Mattresses">
+          <a href="/mattresses" class="cat" aria-label="Mattresses">
             <div class="cat__media">
               <div class="ph">
                 <picture>
@@ -877,7 +933,7 @@
               <p class="cat__sub">Sleep back on your side. Trusted brands, home delivery, set-up done.</p>
             </div>
           </a>
-          <a href="/collections" class="cat" aria-label="Carpets &amp; Rugs">
+          <a href="/carpets" class="cat" aria-label="Carpets &amp; Rugs">
             <div class="cat__media">
               <div class="ph">
                 <picture>
@@ -892,7 +948,7 @@
               <p class="cat__sub">Warmer floors. Hand-knotted rugs, dhurries, runners and machine-made.</p>
             </div>
           </a>
-          <a href="/collections" class="cat" aria-label="Bedding">
+          <a href="/bedding-and-table-linen" class="cat" aria-label="Bedding">
             <div class="cat__media">
               <div class="ph">
                 <picture>
@@ -937,6 +993,53 @@
               <p class="cat__sub">Cushions, throws and table linen — the finishing pieces.</p>
             </div>
           </a>
+        </div>
+      </section>
+
+      <!-- ═════════════════════════════════════════
+           REVIEWS · customer quotes (placeholders pending client)
+           ═════════════════════════════════════════ -->
+      <section class="section reviews" aria-label="Customer reviews">
+        <header class="section-head">
+          <p class="eyebrow">Word of mouth</p>
+          <h2 class="display display--md">What customers say</h2>
+        </header>
+        <div class="reviews__grid">
+          <figure class="panel panel--card review">
+            <blockquote class="review__quote">TODO-CLIENT: customer quote</blockquote>
+            <figcaption class="review__name">TODO-CLIENT: customer name</figcaption>
+          </figure>
+          <figure class="panel panel--card review">
+            <blockquote class="review__quote">TODO-CLIENT: customer quote</blockquote>
+            <figcaption class="review__name">TODO-CLIENT: customer name</figcaption>
+          </figure>
+          <figure class="panel panel--card review">
+            <blockquote class="review__quote">TODO-CLIENT: customer quote</blockquote>
+            <figcaption class="review__name">TODO-CLIENT: customer name</figcaption>
+          </figure>
+          <figure class="panel panel--card review">
+            <blockquote class="review__quote">TODO-CLIENT: customer quote</blockquote>
+            <figcaption class="review__name">TODO-CLIENT: customer name</figcaption>
+          </figure>
+          <figure class="panel panel--card review">
+            <blockquote class="review__quote">TODO-CLIENT: customer quote</blockquote>
+            <figcaption class="review__name">TODO-CLIENT: customer name</figcaption>
+          </figure>
+          <figure class="panel panel--card review">
+            <blockquote class="review__quote">TODO-CLIENT: customer quote</blockquote>
+            <figcaption class="review__name">TODO-CLIENT: customer name</figcaption>
+          </figure>
+          <figure class="panel panel--card review">
+            <blockquote class="review__quote">TODO-CLIENT: customer quote</blockquote>
+            <figcaption class="review__name">TODO-CLIENT: customer name</figcaption>
+          </figure>
+          <figure class="panel panel--card review">
+            <blockquote class="review__quote">TODO-CLIENT: customer quote</blockquote>
+            <figcaption class="review__name">TODO-CLIENT: customer name</figcaption>
+          </figure>
+        </div>
+        <div class="reviews__cta">
+          <a href="TODO-CLIENT: Google review link" class="btn btn--dark" rel="noopener">Read our Google reviews</a>
         </div>
       </section>
 
@@ -1076,14 +1179,14 @@
           <div>
             <h4>Collections</h4>
             <ul>
-              <li><a href="/collections#curtains">Curtains &amp; Windows</a></li>
-              <li><a href="/collections#carpets">Carpets &amp; Rugs</a></li>
-              <li><a href="/collections#mattresses">Mattresses</a></li>
-              <li><a href="/collections#blinds">Blinds</a></li>
-              <li><a href="/collections#wallpapers">Wallpapers</a></li>
-              <li><a href="/collections#upholstery">Upholstery</a></li>
-              <li><a href="/collections#bedding">Bedding</a></li>
-              <li><a href="/collections#table-linen">Table Linen</a></li>
+              <li><a href="/curtains">Curtains &amp; Windows</a></li>
+              <li><a href="/carpets">Carpets &amp; Rugs</a></li>
+              <li><a href="/mattresses">Mattresses</a></li>
+              <li><a href="/blinds">Blinds</a></li>
+              <li><a href="/wallpapers">Wallpapers</a></li>
+              <li><a href="/sofa-repair-reupholstery">Upholstery</a></li>
+              <li><a href="/bedding-and-table-linen">Bedding</a></li>
+              <li><a href="/bedding-and-table-linen">Table Linen</a></li>
             </ul>
           </div>
           <div>
