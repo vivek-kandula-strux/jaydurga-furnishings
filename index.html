@@ -25,7 +25,7 @@
   <meta property="og:url" content="https://jdfurnishingsextension.com/"/>
   <meta property="og:image" content="https://jdfurnishingsextension.com/assets/images/lifestyle/curtains-hero-brocade.webp"/>
 
-  <link rel="preload" as="image" type="image/webp" imagesrcset="assets/images/lifestyle/curtains-hero-brocade-480.webp 480w, assets/images/lifestyle/curtains-hero-brocade-800.webp 800w, assets/images/lifestyle/curtains-hero-brocade.webp 1600w" imagesizes="(max-width: 720px) 100vw, 55vw" fetchpriority="high" />
+  <link rel="preload" as="image" type="image/webp" imagesrcset="assets/images/lifestyle/curtains-hero-brocade-480.webp 480w, assets/images/lifestyle/curtains-hero-brocade-800.webp 800w, assets/images/lifestyle/curtains-hero-brocade-1200.webp 1200w, assets/images/lifestyle/curtains-hero-brocade.webp 1600w" imagesizes="(max-width: 720px) 100vw, 55vw" fetchpriority="high" />
   <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2" crossorigin />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -37,7 +37,8 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "HomeGoodsStore",
+    "@type": ["LocalBusiness", "HomeGoodsStore"],
+    "@id": "https://jdfurnishingsextension.com/",
     "name": "Jaydurga Furnishings Extn.",
     "url": "https://jdfurnishingsextension.com/",
     "telephone": "+91 733 733 2652",
@@ -52,11 +53,22 @@
       "postalCode": "500016",
       "addressCountry": "IN"
     },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "17.4375",
+      "longitude": "78.4482"
+    },
     "openingHoursSpecification": [
       { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "10:30", "closes": "20:30" },
       { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "11:00", "closes": "19:30" }
     ],
-    "sameAs": ["https://www.instagram.com/jaydurgaextn/"]
+    "priceRange": "$$",
+    "areaServed": { "@type": "City", "name": "Hyderabad" },
+    "hasMap": "https://www.google.com/maps/place/?q=Jay+Durga+Furnishings+Extn.&kgmid=/g/11ss9m2s3d",
+    "sameAs": [
+      "https://www.instagram.com/jaydurgaextn/",
+      "https://www.google.com/maps/place/?q=Jay+Durga+Furnishings+Extn.&kgmid=/g/11ss9m2s3d"
+    ]
   }
   </script>
 
@@ -694,8 +706,25 @@
       .process { padding: 26px 20px; }
       .process__steps { grid-template-columns: 1fr; gap: 0; }
       .process__step + .process__step { border-left: 0; padding-left: 0; padding-top: 22px; margin-top: 22px; border-top: 1px solid var(--divider); }
+      .find-us { grid-template-columns: 1fr; gap: 24px; align-items: start; }
       body { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
     }
+
+    /* FIND US · showroom wayfinding */
+    .find-us {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: clamp(28px, 3.4vw, 48px);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: clamp(24px, 4vw, 60px);
+      align-items: center;
+    }
+    .find-us__body { display: flex; flex-direction: column; gap: 12px; }
+    .find-us__body p { margin: 0; font-size: 15px; color: var(--ink-soft); line-height: 1.65; max-width: 52ch; }
+    .find-us__body strong { color: var(--ink); }
+    .find-us__actions { display: flex; gap: 12px; flex-wrap: wrap; }
 
     /* REVIEWS · quote cards (placeholders pending client quotes) */
     .reviews__grid {
@@ -809,8 +838,8 @@
             <div class="hero__stage-slide" role="group" aria-roledescription="slide" aria-label="1 of 3">
               <div class="ph ph--dark">
                 <picture>
-          <source type="image/webp" srcset="assets/images/lifestyle/curtains-hero-brocade-480.webp 480w, assets/images/lifestyle/curtains-hero-brocade-800.webp 800w, assets/images/lifestyle/curtains-hero-brocade.webp 1600w" sizes="(max-width: 720px) 100vw, 55vw"/>
-          <img src="assets/images/lifestyle/curtains-hero-brocade.jpg" width="1600" height="2400" alt="Warm brocade curtains framing a tall window with afternoon sunlight spilling across an antique carpet" loading="eager" fetchpriority="high"/>
+          <source type="image/webp" srcset="assets/images/lifestyle/curtains-hero-brocade-480.webp 480w, assets/images/lifestyle/curtains-hero-brocade-800.webp 800w, assets/images/lifestyle/curtains-hero-brocade-1200.webp 1200w, assets/images/lifestyle/curtains-hero-brocade.webp 1600w" sizes="(max-width: 720px) 100vw, 55vw"/>
+          <img src="assets/images/lifestyle/curtains-hero-brocade.jpg" width="1600" height="2400" alt="Warm brocade curtains framing a tall window with afternoon sunlight spilling across an antique carpet" loading="eager" fetchpriority="high" decoding="sync"/>
         </picture>
               </div>
               <p class="hero__stage-cap">Full-drop drapes, cut for the window.</p>
@@ -1050,7 +1079,7 @@
           </figure>
         </div>
         <div class="reviews__cta">
-          <a href="TODO-CLIENT: Google review link" class="btn btn--dark" rel="noopener">Read our Google reviews</a>
+          <a href="https://www.google.com/maps/place/?q=Jay+Durga+Furnishings+Extn.&kgmid=/g/11ss9m2s3d" class="btn btn--dark" target="_blank" rel="noopener">Read our Google reviews</a>
         </div>
       </section>
 
@@ -1147,6 +1176,25 @@
             <p class="process__desc">Cut, stitched, hung and squared by our team. Any drop off by a finger — we come back.</p>
           </li>
         </ol>
+      </section>
+
+      <!-- ═════════════════════════════════════════
+           FIND US · showroom wayfinding
+           ═════════════════════════════════════════ -->
+      <section class="find-us stack" aria-label="How to find the showroom">
+        <div class="find-us__body">
+          <p class="eyebrow">Find us</p>
+          <h2 class="display display--md">Two minutes from Ameerpet Metro.</h2>
+          <p>
+            <strong>4th floor, lift from the entrance, beside Karachi Bakery,</strong>
+            two minutes from Ameerpet Metro. We are on the fourth floor of Mandhana
+            Towers — right as you step out of the lift.
+          </p>
+        </div>
+        <div class="find-us__actions">
+          <a href="/contact" class="btn btn--dark">Plan your visit</a>
+          <a href="https://www.google.com/maps/place/?q=Jay+Durga+Furnishings+Extn.&kgmid=/g/11ss9m2s3d" class="btn btn--light" target="_blank" rel="noopener">Open in Maps</a>
+        </div>
       </section>
 
       <!-- ═════════════════════════════════════════

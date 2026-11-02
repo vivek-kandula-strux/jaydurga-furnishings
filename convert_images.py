@@ -9,7 +9,7 @@ LOGO = "assets/jaydurga-logo.png"
 # target: (max_width, max_bytes)
 def target_for(path):
     if path.replace("\\", "/") in HERO:
-        return 1600, 200 * 1024
+        return 1600, 150 * 1024
     return 1200, 120 * 1024
 
 def save_webp(im, out, max_w, max_bytes):
@@ -25,7 +25,8 @@ def save_webp(im, out, max_w, max_bytes):
 results = []
 for root, dirs, files in os.walk("assets/images"):
     for f in sorted(files):
-        if not f.lower().endswith((".jpg", ".jpeg", ".png", ".webp")):
+        # Only process source originals; skip the .webp copies this script writes.
+        if not f.lower().endswith((".jpg", ".jpeg", ".png")):
             continue
         src = os.path.join(root, f).replace("\\", "/")
         base = os.path.splitext(src)[0]
@@ -35,7 +36,8 @@ for root, dirs, files in os.walk("assets/images"):
             q, size = save_webp(im, base + ".webp", max_w, max_bytes)
             results.append((src, base + ".webp", im.width, q, size, max_bytes // 1024))
             # responsive variants for images shown at more than one size
-            for w in (480, 800):
+            widths = (480, 800, 1200) if src.replace("\\", "/") in HERO else (480, 800)
+            for w in widths:
                 if w < im.width:
                     h = round(im.height * w / im.width)
                     v = im.resize((w, h), Image.LANCZOS)
