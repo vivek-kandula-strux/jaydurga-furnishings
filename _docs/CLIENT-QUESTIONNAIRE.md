@@ -35,7 +35,7 @@ These are the small facts that appear in the header, footer, promo bar, and cont
 7. **Mobile / WhatsApp number** (for the WhatsApp button)
    → Your answer:
 
-8. **Primary email address** (currently "hello@jaydurga.in")
+8. **Primary email address** (currently "jaydurgafurnishingextn6@gmail.com")
    → Your answer:
 
 9. **Working hours — Monday to Saturday**
